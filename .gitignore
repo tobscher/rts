@@ -4,11 +4,14 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 
-main.xcodeproj/
-main.build/
+mana.xcodeproj/
+mana.build/
 CMakeScripts/
 
 bin/*
 build/*
 docs/*
 lib/*
+
+.ycm_extra_conf.py
+.ycm_extra_conf.pyc
