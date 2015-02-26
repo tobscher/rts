@@ -1,4 +1,4 @@
-# Tobias Haar. Copyright (C) 2014. MIT-License.
+# Tobias Haar. Copyright (C) 2015. MIT-License.
 
 #
 # Project Properties

@@ -17,6 +17,7 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action, 
 }
 
 static void render(GLFWwindow *window) {
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 int main(void) {
@@ -54,6 +55,8 @@ int main(void) {
 
   // Ensure we can capture the escape key being pressed below
   glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+
+  glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 
   while(!glfwWindowShouldClose(window)) {
     // Draw nothing, see you in tutorial 2 !

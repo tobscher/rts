@@ -1,0 +1,14 @@
+SET (project_BIN ${PROJECT_NAME}-editor)
+
+SET(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+SET(CMAKE_AUTOMOC ON)
+SET(CMAKE_AUTOUIC ON)
+FIND_PACKAGE(Qt5Widgets)
+
+ADD_EXECUTABLE(
+  ${project_BIN}
+  main.cpp
+  mainwindow.cpp
+)
+TARGET_LINK_LIBRARIES(${project_BIN} Qt5::Widgets)
