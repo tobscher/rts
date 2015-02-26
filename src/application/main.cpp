@@ -7,6 +7,8 @@
 #include <glm/glm.hpp>
 using namespace glm;
 
+#include <engine/graphics.h>
+
 void error_callback(int error, const char* description) {
   fputs(description, stderr);
 }
@@ -14,10 +16,6 @@ void error_callback(int error, const char* description) {
 static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
   if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
     glfwSetWindowShouldClose(window, GL_TRUE);
-}
-
-static void render(GLFWwindow *window) {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 int main(void) {
@@ -60,7 +58,7 @@ int main(void) {
 
   while(!glfwWindowShouldClose(window)) {
     // Draw nothing, see you in tutorial 2 !
-    render(window);
+    Render(window);
 
     // Swap buffers
     glfwSwapBuffers(window);
