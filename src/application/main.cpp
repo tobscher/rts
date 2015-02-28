@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
@@ -41,24 +40,15 @@ int main(void) {
     return -1;
   }
 
-  glfwMakeContextCurrent(window); // Initialize GLEW
-
+  glfwMakeContextCurrent(window);
   glfwSetKeyCallback(window, key_callback);
-
-  glewExperimental = true; // Needed in core profile
-  if (glewInit() != GLEW_OK) {
-    fprintf(stderr, "Failed to initialize GLEW\n");
-    return -1;
-  }
-
   // Ensure we can capture the escape key being pressed below
   glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-  glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+  Initialize();
 
   while(!glfwWindowShouldClose(window)) {
-    // Draw nothing, see you in tutorial 2 !
-    Render(window);
+    Render();
 
     // Swap buffers
     glfwSwapBuffers(window);

@@ -3,6 +3,8 @@
 
 #include <GLFW/glfw3.h>
 
-void Render(GLFWwindow* window);
+int Initialize();
+void Resize(int width, int height);
+void Render();
 
 #endif
