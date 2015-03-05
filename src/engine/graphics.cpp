@@ -9,7 +9,7 @@ int Initialize() {
     fprintf(stderr, "Failed to initialize GLEW\n");
     return -1;
   }
-  glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+  glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
 
   return 0;
 }
