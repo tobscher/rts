@@ -4,7 +4,7 @@
 #include <QKeyEvent>
 #include <QDebug>
 
-#include "engine/graphics.h"
+#include "dioptre/graphics.h"
 #include "glwidget.h"
 
 GLWidget::GLWidget(QWidget *parent)

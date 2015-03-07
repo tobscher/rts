@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include <GL/glew.h>
-#include "engine/graphics.h"
+#include "dioptre/graphics.h"
 
 int Initialize() {
   glewExperimental = true; // Needed in core profile
