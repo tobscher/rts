@@ -3,6 +3,8 @@
 
 #include <QOpenGLWidget>
 
+#include "dioptre/graphics/opengl/renderer.h"
+
 class GLWidget : public QOpenGLWidget
 {
     Q_OBJECT
@@ -16,6 +18,7 @@ protected:
     void resizeGL(int width, int height);
 
 private:
+  dioptre::graphics::opengl::Renderer* renderer_;
 };
 
 #endif // GLWIDGET_H

@@ -1,4 +1,4 @@
-#include <ostream>
+#include <iostream>
 #include <GLFW/glfw3.h>
 
 #include "dioptre/window/glfw/window.h"
@@ -6,6 +6,10 @@
 namespace dioptre {
 namespace window {
 namespace glfw {
+
+Window::Window()
+  : glfwWindow_(nullptr) {
+}
 
 int Window::create() {
   // Initialise GLFW

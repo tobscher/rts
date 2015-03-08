@@ -4,11 +4,11 @@
 #include <QKeyEvent>
 #include <QDebug>
 
-#include "dioptre/graphics.h"
 #include "glwidget.h"
 
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
+    , renderer_(new dioptre::graphics::opengl::Renderer(nullptr))
 {
 }
 
@@ -18,15 +18,15 @@ GLWidget::~GLWidget()
 
 void GLWidget::initializeGL()
 {
-  Initialize();
+  renderer_->Initialize();
 }
 
 void GLWidget::resizeGL(int width, int height)
 {
-  Resize(width, height);
+  renderer_->Resize(width, height);
 }
 
 void GLWidget::paintGL()
 {
-  Render();
+  renderer_->Render();
 }

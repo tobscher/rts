@@ -11,6 +11,8 @@ namespace glfw {
 
 class Window : public dioptre::window::WindowInterface {
 public:
+  Window();
+
   int create();
   void destroy();
   bool shouldClose();

@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #include "dioptre/window/glfw/window.h"
-#include "dioptre/graphics.h"
+#include "dioptre/graphics/opengl/renderer.h"
 
 /* void error_callback(int error, const char* description) { */
 /*   fputs(description, stderr); */
@@ -14,18 +14,17 @@
 /* } */
 
 int main(void) {
-  dioptre::window::glfw::Window window;
-  window.create();
+  dioptre::window::glfw::Window* window(new dioptre::window::glfw::Window());
+  window->create();
+  dioptre::graphics::opengl::Renderer renderer(window);
 
-  Initialize();
+  renderer.Initialize();
 
-  while(!window.shouldClose()) {
-    Render();
-
-    window.swapBuffers();
+  while(!window->shouldClose()) {
+    renderer.Render();
+    window->swapBuffers();
   }
 
-  window.destroy();
-
+  window->destroy();
   exit(EXIT_SUCCESS);
 }
