@@ -1,8 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "dioptre/window/glfw/window.h"
-#include "dioptre/graphics/opengl/renderer.h"
+#include "dioptre/application.h"
 
 /* void error_callback(int error, const char* description) { */
 /*   fputs(description, stderr); */
@@ -14,17 +10,8 @@
 /* } */
 
 int main(void) {
-  dioptre::window::glfw::Window* window(new dioptre::window::glfw::Window());
-  window->create();
-  dioptre::graphics::opengl::Renderer renderer(window);
+  dioptre::Application *application = new dioptre::Application();
+  application->run();
 
-  renderer.Initialize();
-
-  while(!window->shouldClose()) {
-    renderer.Render();
-    window->swapBuffers();
-  }
-
-  window->destroy();
-  exit(EXIT_SUCCESS);
+  return 0;
 }
