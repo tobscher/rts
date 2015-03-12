@@ -10,7 +10,7 @@ before_install:
   - git submodule update --init --recursive
   - sudo apt-add-repository -y ppa:ubuntu-sdk-team/ppa
   - sudo apt-get update -qq
-  - sudo apt-get install -y xorg-dev libglu1-mesa-dev libboost-all-dev libunittest++-dev qtdeclarative5-dev
+  - sudo apt-get install -y xorg-dev libglu1-mesa-dev libboost-all-dev libunittest++-dev
 
 script:
   - ./configure
