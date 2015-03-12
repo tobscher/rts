@@ -4,8 +4,8 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 
-mana.xcodeproj/
-mana.build/
+rts.xcodeproj/
+rts.build/
 CMakeScripts/
 
 bin/*
