@@ -7,3 +7,6 @@
 [submodule "thirdparty/glm"]
 	path = thirdparty/glm
 	url = git@github.com:g-truc/glm.git
+[submodule "thirdparty/unittest-cpp"]
+	path = thirdparty/unittest-cpp
+	url = git@github.com:tobscher/unittest-cpp.git
