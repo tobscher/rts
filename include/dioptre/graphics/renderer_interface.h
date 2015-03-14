@@ -1,6 +1,7 @@
 #ifndef DIOPTRE_GRAPHICS_RENDERER_INTERFACE_
 #define DIOPTRE_GRAPHICS_RENDERER_INTERFACE_
 
+
 namespace dioptre {
 namespace graphics {
 

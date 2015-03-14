@@ -1,9 +1,10 @@
 #ifndef GLWIDGET_H
 #define GLWIDGET_H
 
-#include <QOpenGLWidget>
-
+#include "dioptre/graphics/opengl.h"
 #include "dioptre/graphics/opengl/renderer.h"
+
+#include <QOpenGLWidget>
 
 class GLWidget : public QOpenGLWidget
 {

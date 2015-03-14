@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include <QGLFormat>
+#include <QSurfaceFormat>
 
 int main(int argc, char *argv[])
 {
@@ -8,12 +8,12 @@ int main(int argc, char *argv[])
 
     // Specify an OpenGL 3.3 format using the Core profile.
     // That is, no old-school fixed pipeline functionality
-    QGLFormat glFormat;
+    QSurfaceFormat glFormat;
     glFormat.setVersion( 3, 3 );
-    glFormat.setProfile( QGLFormat::CoreProfile ); // Requires >=Qt-4.8.0
-    glFormat.setSampleBuffers( true );
+    glFormat.setProfile(QSurfaceFormat::OpenGLContextProfile::CoreProfile);
+    /* glFormat.setSampleBuffers( true ); */
 
-    QGLFormat::setDefaultFormat(glFormat);
+    QSurfaceFormat::setDefaultFormat(glFormat);
 
     MainWindow w;
     w.show();
