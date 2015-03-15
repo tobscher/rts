@@ -24,7 +24,7 @@ public:
   /**
    * Should indicate whether the windows should be closed.
    */
-  virtual bool shouldClose() = 0;
+  virtual int shouldClose() = 0;
 
   /**
    * Should swap back and front buffer for rendering.

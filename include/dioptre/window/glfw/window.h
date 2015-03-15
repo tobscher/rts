@@ -19,7 +19,7 @@ public:
 
   int create();
   void destroy();
-  bool shouldClose();
+  int shouldClose();
   void swapBuffers();
 
 private:
