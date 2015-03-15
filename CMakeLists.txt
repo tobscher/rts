@@ -44,7 +44,7 @@ INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
 LINK_DIRECTORIES(${MAINFOLDER}/lib)
 
 # Find pkg-config
-FIND_PACKAGE(PkgConfig REQUIRED)
+FIND_PACKAGE(PkgConfig)
 
 #
 # Locate Project Prerequisites
