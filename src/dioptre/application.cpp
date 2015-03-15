@@ -1,20 +1,14 @@
 #include <iostream>
 
-#include <boost/filesystem.hpp>
-
+#include "dioptre/filesystem/path_lookup.h"
 #include "dioptre/application.h"
 #include "dioptre/graphics/opengl/renderer.h"
 #include "dioptre/window/glfw/window.h"
 
 namespace dioptre {
 
-boost::filesystem::path g_lookupPath;
-
 Application::Application(int argc, char *argv[]) {
-  auto f = argv[0];
-  auto absolute = boost::filesystem::absolute(f);
-
-  g_lookupPath = absolute.remove_leaf();
+  dioptre::filesystem::PathLookup::instance().registerFromArgs(argv);
 }
 
 bool Application::isRunning() {

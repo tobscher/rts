@@ -2,21 +2,25 @@
 #include <QApplication>
 #include <QSurfaceFormat>
 
+#include "dioptre/filesystem/path_lookup.h"
+
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+  dioptre::filesystem::PathLookup::instance().registerFromArgs(argv);
 
-    // Specify an OpenGL 3.3 format using the Core profile.
-    // That is, no old-school fixed pipeline functionality
-    QSurfaceFormat glFormat;
-    glFormat.setVersion( 3, 3 );
-    glFormat.setProfile(QSurfaceFormat::OpenGLContextProfile::CoreProfile);
-    /* glFormat.setSampleBuffers( true ); */
+  QApplication a(argc, argv);
 
-    QSurfaceFormat::setDefaultFormat(glFormat);
+  // Specify an OpenGL 3.3 format using the Core profile.
+  // That is, no old-school fixed pipeline functionality
+  QSurfaceFormat glFormat;
+  glFormat.setVersion( 3, 3 );
+  glFormat.setProfile(QSurfaceFormat::OpenGLContextProfile::CoreProfile);
+  /* glFormat.setSampleBuffers( true ); */
 
-    MainWindow w;
-    w.show();
+  QSurfaceFormat::setDefaultFormat(glFormat);
 
-    return a.exec();
+  MainWindow w;
+  w.show();
+
+  return a.exec();
 }
