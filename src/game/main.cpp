@@ -9,8 +9,8 @@
 /*     glfwSetWindowShouldClose(window, GL_TRUE); */
 /* } */
 
-int main(void) {
-  dioptre::Application *application = new dioptre::Application();
+int main(int argc, char *argv[]) {
+  dioptre::Application *application = new dioptre::Application(argc, argv);
   application->run();
 
   return 0;

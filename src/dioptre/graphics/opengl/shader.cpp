@@ -3,10 +3,15 @@
 #include <fstream>
 #include <vector>
 
+#include <boost/filesystem.hpp>
+
 #include "dioptre/graphics/opengl.h"
 #include "dioptre/graphics/opengl/shader.h"
 
 namespace dioptre {
+
+extern boost::filesystem::path g_lookupPath;
+
 namespace graphics {
 namespace opengl {
 
@@ -16,9 +21,15 @@ GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
+  boost::filesystem::path vertexPath(dioptre::g_lookupPath);
+  vertexPath /= vertex_file_path;
+
+  boost::filesystem::path fragPath(dioptre::g_lookupPath);
+  fragPath /= fragment_file_path;
+
 	// Read the Vertex Shader code from the file
 	std::string VertexShaderCode;
-	std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
+	std::ifstream VertexShaderStream(vertexPath.string(), std::ios::in);
 	if(VertexShaderStream.is_open()){
 		std::string Line = "";
 		while(getline(VertexShaderStream, Line))
@@ -32,7 +43,7 @@ GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path
 
 	// Read the Fragment Shader code from the file
 	std::string FragmentShaderCode;
-	std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
+	std::ifstream FragmentShaderStream(fragPath.string(), std::ios::in);
 	if(FragmentShaderStream.is_open()){
 		std::string Line = "";
 		while(getline(FragmentShaderStream, Line))
@@ -48,7 +59,7 @@ GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path
 
 
 	// Compile Vertex Shader
-	printf("Compiling shader : %s\n", vertex_file_path);
+	printf("Compiling shader: %s\n", vertex_file_path);
 	char const * VertexSourcePointer = VertexShaderCode.c_str();
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer , NULL);
 	glCompileShader(VertexShaderID);

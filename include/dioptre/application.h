@@ -5,6 +5,7 @@ namespace dioptre {
 
 class Application {
 public:
+  Application(int argc, char *argv[]);
   bool isRunning();
   void run();
 
