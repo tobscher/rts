@@ -1,18 +1,38 @@
-#ifndef DIOPTRE_WINDOW_INTERFACE_WINDOW_H_
-#define DIOPTRE_WINDOW_INTERFACE_WINDOW_H_
+#ifndef DIOPTRE_WINDOW_WINDOW_INTERFACE_H_
+#define DIOPTRE_WINDOW_WINDOW_INTERFACE_H_
 
 namespace dioptre {
 namespace window {
 
+/**
+ * WindowInterface describes the creation and destruction
+ * of windows.
+ */
 class WindowInterface {
 public:
+
+  /**
+   * Should create the window for the current platform.
+   */
   virtual int create() = 0;
+
+  /**
+   * Should create the current window.
+   */
   virtual void destroy() = 0;
+
+  /**
+   * Should indicate whether the windows should be closed.
+   */
   virtual bool shouldClose() = 0;
+
+  /**
+   * Should swap back and front buffer for rendering.
+   */
   virtual void swapBuffers() = 0;
-}; // Window
+}; // WindowInterface
 
 } // window
 } // dioptre
 
-#endif // DIOPTRE_WINDOW_INTERFACE_WINDOW_H_
+#endif // DIOPTRE_WINDOW_WINDOW_INTERFACE_H_

@@ -1,5 +1,5 @@
-#ifndef DIOPTRE_GRAPHICS_OPENGL_RENDERER_
-#define DIOPTRE_GRAPHICS_OPENGL_RENDERER_
+#ifndef DIOPTRE_GRAPHICS_OPENGL_RENDERER_H_
+#define DIOPTRE_GRAPHICS_OPENGL_RENDERER_H_
 
 #include "dioptre/graphics/opengl.h"
 #include "dioptre/graphics/renderer_interface.h"
@@ -16,13 +16,31 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
+/**
+ * Class to render 3D graphics via OpenGL.
+ */
 class Renderer : public dioptre::graphics::RendererInterface {
 public:
   Renderer(dioptre::window::WindowInterface* window);
 
+  /**
+   * Initializes the OpenGL graphics context.
+   */
   int Initialize();
+
+  /**
+   * Handles window resizing, e.g. changing viewport.
+   */
   void Resize(int width, int height);
+
+  /**
+   * Renders the current scene graph to the screen.
+   */
   void Render();
+
+  /**
+   * Destroys the current 3D context.
+   */
   void Destroy();
 
 private:
@@ -30,10 +48,10 @@ private:
   GLuint vertexArrayId_;
   GLuint vertexBuffer_;
   GLuint programId_;
-};
+}; // Renderer
 
-}
-}
-}
+} // opengl
+} // graphics
+} // dioptre
 
-#endif
+#endif // DIOPTRE_GRAPHICS_OPENGL_RENDERER_H_

@@ -4,4 +4,4 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 
-#endif
+#endif // DIOPTRE_GRAPHICS_OPENGL_H_

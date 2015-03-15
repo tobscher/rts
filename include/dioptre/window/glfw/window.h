@@ -1,5 +1,5 @@
-#ifndef DIOPTRE_WINDOW_GLFW_WINDOW_
-#define DIOPTRE_WINDOW_GLFW_WINDOW_
+#ifndef DIOPTRE_WINDOW_GLFW_WINDOW_H_
+#define DIOPTRE_WINDOW_GLFW_WINDOW_H_
 
 #include <GLFW/glfw3.h>
 
@@ -9,6 +9,10 @@ namespace dioptre {
 namespace window {
 namespace glfw {
 
+/**
+ * Implementation of the WindowInterface that creates a window via
+ * GLFW.
+ */
 class Window : public dioptre::window::WindowInterface {
 public:
   Window();
@@ -20,10 +24,10 @@ public:
 
 private:
   GLFWwindow* glfwWindow_;
-};
+}; // Window
 
-}
-}
-}
+} // glfw
+} // window
+} // dioptre
 
-#endif
+#endif // DIOPTRE_WINDOW_GLFW_WINDOW_H_
