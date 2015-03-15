@@ -17,6 +17,10 @@ void PathLookup::registerFromArgs(char *argv[]) {
   paths.push_back(absolute.string());
 }
 
+void PathLookup::clear() {
+  paths.clear();
+}
+
 std::string PathLookup::find(std::string file) {
   if (paths.size() == 0) return file;
 

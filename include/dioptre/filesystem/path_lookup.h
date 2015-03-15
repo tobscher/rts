@@ -12,6 +12,7 @@ public:
   static PathLookup& instance();
 
   void registerFromArgs(char *argv[]);
+  void clear();
   std::string find(std::string file);
 
 protected:
