@@ -19,7 +19,9 @@ SET (APPLICATION_VENDOR_URL "github.com/tobscher")
 SET (APPLICATION_ID "${APPLICATION_VENDOR_ID}.${PROJECT_NAME}")
 
 # Activate C++ 11
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+IF(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+ENDIF()
 
 #
 # Debugging Options
