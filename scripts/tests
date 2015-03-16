@@ -2,5 +2,4 @@
 
 set -e
 
-# (cd build && make)
-(cd build && make test)
+make check
