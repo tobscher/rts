@@ -1,5 +1,5 @@
 FILE (GLOB_RECURSE test_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
-SET (test_LIBS glfw libglew_static ${Boost_LIBRARIES} UnitTest++ engine)
+SET (test_LIBS engine glfw ${GLFW_LIBRARIES} libglew_static ${Boost_LIBRARIES} UnitTest++)
 SET (test_BIN ${PROJECT_NAME}-unittests)
 
 ADD_EXECUTABLE(${test_BIN} ${test_SRCS})
