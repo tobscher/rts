@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "dioptre/graphics/opengl.h"
-#include "dioptre/graphics/opengl/shader.h"
 #include "dioptre/graphics/opengl/renderer.h"
+#include "shader.h"
 
 namespace dioptre {
 namespace graphics {
