@@ -12,9 +12,6 @@ if [[ $CI == "true" && $DRONE == "true" ]]; then
   sudo apt-get install -y xorg-dev libglu1-mesa-dev libboost-all-dev libunittest++-dev
 fi
 
-echo "-- ./configure"
-./configure
-
 echo "-- make rts"
 make rts
 
