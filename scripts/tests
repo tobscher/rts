@@ -11,4 +11,5 @@ if [[ $CI == "true" && $DRONE == "true" ]]; then
 fi
 
 ./configure
+make rts
 make check
