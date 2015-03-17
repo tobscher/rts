@@ -1,4 +1,4 @@
-# rts [![Build Status](https://travis-ci.org/tobscher/rts.svg?branch=master)](https://travis-ci.org/tobscher/rts)
+# rts [![Build Status](https://drone.io/github.com/tobscher/rts/status.png)](https://drone.io/github.com/tobscher/rts/latest)
 
 An attempt to build a real-time strategy game.
 
