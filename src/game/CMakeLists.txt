@@ -1,5 +1,5 @@
 FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
-SET (project_LIBS engine glfw ${GLFW_LIBRARIES} libglew_static ${Boost_LIBRARIES} ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY} ${OPENGL_LIBRARIES})
+SET (project_LIBS engine glfw ${GLFW_LIBRARIES} libglew_static ${Boost_LIBRARIES})
 SET (project_BIN ${PROJECT_NAME})
 
 ADD_EXECUTABLE(
