@@ -10,6 +10,9 @@ if [[ $CI == "true" && $DRONE == "true" ]]; then
 
   echo "-- Installing dependencies..."
   sudo apt-get install -y xorg-dev libglu1-mesa-dev libboost-all-dev libunittest++-dev liblog4cxx10 liblog4cxx10-dev
+
+  echo "-- Setting PKG_CONFIG_PATH"
+  PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH
 fi
 
 echo "-- ./configure"
