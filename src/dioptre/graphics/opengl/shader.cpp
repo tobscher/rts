@@ -17,7 +17,6 @@ namespace opengl {
 
 Shader::Shader() :
   loaded_(false) {
-
 }
 
 /**
