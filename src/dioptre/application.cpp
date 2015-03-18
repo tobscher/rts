@@ -1,5 +1,6 @@
 #include <iostream>
 #include <exception>
+#include <stdexcept>
 
 #include "dioptre/filesystem/path_lookup.h"
 #include "dioptre/application.h"
