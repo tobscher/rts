@@ -24,7 +24,8 @@ int Renderer::Initialize() {
   glBindVertexArray(vertexArrayId_);
 
 	// Create and compile our GLSL program from the shaders
-	programId_ = dioptre::graphics::opengl::Shader::LoadShaders("simple.vert", "simple.frag");
+  dioptre::graphics::opengl::Shader shader;
+	programId_ = shader.loadShaders("simple.vert", "simple.frag");
 
   // Generate 1 buffer, put the resulting identifier in vertexBuffer
   glGenBuffers(1, &vertexBuffer_);

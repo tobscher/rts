@@ -15,12 +15,17 @@ namespace opengl {
  */
 class Shader {
 public:
-  static GLuint LoadShaders(std::string vertexFilePath, std::string fragmentFilePath);
+  Shader();
+  GLuint loadShaders(std::string vertexFilePath, std::string fragmentFilePath);
+  GLuint identifier();
 
 private:
-  static std::string readShaderContent(std::string file);
-  static bool compileShader(std::string shaderCode, GLuint& shaderId);
-  static GLuint linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId);
+  bool loaded_;
+  GLuint programId_;
+
+  std::string readShaderContent(std::string file);
+  bool compileShader(std::string shaderCode, GLuint& shaderId);
+  GLuint linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId);
 
   static log4cxx::LoggerPtr logger_;
 };
