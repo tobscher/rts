@@ -16,7 +16,7 @@ namespace opengl {
 class Shader {
 public:
   Shader();
-  GLuint loadShaders(std::string vertexFilePath, std::string fragmentFilePath);
+  GLuint loadFromFile(std::string vertexFilePath, std::string fragmentFilePath);
   GLuint identifier();
 
 private:

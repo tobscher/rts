@@ -1,7 +1,10 @@
 #include <iostream>
 
+#include "glm/glm.hpp"
+
 #include "dioptre/graphics/opengl.h"
 #include "dioptre/graphics/opengl/renderer.h"
+#include "dioptre/math/triangle.h"
 #include "shader.h"
 
 namespace dioptre {
@@ -25,7 +28,7 @@ int Renderer::Initialize() {
 
 	// Create and compile our GLSL program from the shaders
   dioptre::graphics::opengl::Shader shader;
-	programId_ = shader.loadShaders("simple.vert", "simple.frag");
+	programId_ = shader.loadFromFile("simple.vert", "simple.frag");
 
   // Generate 1 buffer, put the resulting identifier in vertexBuffer
   glGenBuffers(1, &vertexBuffer_);
@@ -33,8 +36,25 @@ int Renderer::Initialize() {
   // The following commands will talk about our 'vertexBuffer' buffer
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
 
+  // Extract this once scene is available
+  glm::vec3 a = {-1.0f, -1.0f, 0.0f};
+  glm::vec3 b = {1.0f, -1.0f, 0.0f};
+  glm::vec3 c = {0.0f, 1.0f, 0.0f};
+
+  dioptre::math::Triangle triangle(a, b, c);
+
+  auto data = triangle.data();
+  float bufferData[data.size() * 3];
+
+  int i = 0;
+  for (auto it = data.cbegin(); it != data.cend(); ++it) {
+    bufferData[i++] = it->x;
+    bufferData[i++] = it->y;
+    bufferData[i++] = it->z;
+  }
+
   // Give our vertices to OpenGL.
-  glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(bufferData), bufferData, GL_STATIC_DRAW);
 
   return 0;
 }

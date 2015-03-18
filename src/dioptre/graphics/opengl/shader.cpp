@@ -93,7 +93,7 @@ GLuint Shader::linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId) {
   return programId;
 }
 
-GLuint Shader::loadShaders(string vertexFilePath, string fragmentFilePath) {
+GLuint Shader::loadFromFile(string vertexFilePath, string fragmentFilePath) {
   if (loaded_) {
     return programId_;
   }
