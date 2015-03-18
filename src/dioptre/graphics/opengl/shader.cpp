@@ -1,11 +1,12 @@
 #include <string>
-#include <iostream>
 #include <fstream>
 #include <vector>
 
 #include "shader.h"
 #include "dioptre/filesystem/path_lookup.h"
 #include "dioptre/graphics/opengl.h"
+
+#include <log4cxx/logger.h>
 
 using std::string;
 
@@ -17,9 +18,10 @@ namespace opengl {
 /**
  * Reads the content of the given file.
  */
-std::string readShaderContent(string file) {
+std::string Shader::readShaderContent(string file) {
   string filePath = dioptre::filesystem::PathLookup::instance().find(file);
-  std::cout << "Loading shader: " << filePath << std::endl;
+
+  LOG4CXX_INFO(Shader::logger_, "Loading shader: " + filePath);
 
 	string shaderCode;
 	std::ifstream shaderStream(filePath.c_str(), std::ios::in);
@@ -38,8 +40,8 @@ std::string readShaderContent(string file) {
 /**
  * Compiles the given shader code
  */
-bool compileShader(string shaderCode, GLuint& shaderId) {
-  std::cout << "Compiling shader..." << std::endl;
+bool Shader::compileShader(string shaderCode, GLuint& shaderId) {
+  LOG4CXX_INFO(Shader::logger_, "Compiling shader");
 
   // compile
 	char const * shaderSourcePointer = shaderCode.c_str();
@@ -55,7 +57,7 @@ bool compileShader(string shaderCode, GLuint& shaderId) {
 		std::vector<char> shaderErrorMessage(infoLogLength + 1);
 		glGetShaderInfoLog(shaderId, infoLogLength, NULL, &shaderErrorMessage[0]);
 
-    std::cout << &shaderErrorMessage[0] << std::endl;
+    LOG4CXX_ERROR(Shader::logger_, &shaderErrorMessage[0]);
     return false;
 	}
 
@@ -65,8 +67,8 @@ bool compileShader(string shaderCode, GLuint& shaderId) {
 /**
  * Links the vertex shader and fragment shader.
  */
-GLuint linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId) {
-  std::cout << "Linking program..." << std::endl;
+GLuint Shader::linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId) {
+   LOG4CXX_INFO(Shader::logger_, "Linking program...");
 
 	GLuint programId = glCreateProgram();
 	glAttachShader(programId, vertexShaderId);
@@ -81,13 +83,13 @@ GLuint linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId) {
 	if (infoLogLength > 0) {
 		std::vector<char> programErrorMessage(infoLogLength + 1);
 		glGetProgramInfoLog(programId, infoLogLength, NULL, &programErrorMessage[0]);
-    std::cout << &programErrorMessage[0] << std::endl;
+    LOG4CXX_ERROR(Shader::logger_, &programErrorMessage[0]);
 	}
 
   return programId;
 }
 
-GLuint LoadShaders(string vertexFilePath, string fragmentFilePath) {
+GLuint Shader::LoadShaders(string vertexFilePath, string fragmentFilePath) {
 	// Create the shaders
 	GLuint vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
@@ -109,6 +111,8 @@ GLuint LoadShaders(string vertexFilePath, string fragmentFilePath) {
 
 	return programId;
 }
+
+log4cxx::LoggerPtr Shader::logger_ = log4cxx::Logger::getLogger("dioptre.shader");
 
 }
 }

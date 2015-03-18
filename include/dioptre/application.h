@@ -1,6 +1,8 @@
 #ifndef DIOPTRE_APPLICATION_H_
 #define DIOPTRE_APPLICATION_H_
 
+#include <log4cxx/logger.h>
+
 namespace dioptre {
 
 /**
@@ -22,6 +24,8 @@ public:
 
 private:
   bool isRunning_;
+  static Application* instance_;
+  static log4cxx::LoggerPtr logger_;
 }; // Application
 
 } // dioptre
