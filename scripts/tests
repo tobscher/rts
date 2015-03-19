@@ -3,23 +3,21 @@
 set -e
 
 if [[ $CI == "true" && $DRONE == "true" ]]; then
-  # Use sed to replace the SSH URL with the public URL, then initialize submodules
-  sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-  git submodule update --init --recursive
-  sudo apt-get update -qq
-
-  echo "-- Installing dependencies..."
-  sudo apt-get install -y xorg-dev libglu1-mesa-dev libboost-all-dev libunittest++-dev liblog4cxx10 liblog4cxx10-dev
-
-  echo "-- Setting PKG_CONFIG_PATH"
-  export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH
+  ./scripts/install-dependencies
 fi
+
+echo "-- System information"
+uname -a
+env
 
 echo "-- ./configure"
 ./configure
 
 echo "-- make rts"
 make rts
+
+echo "-- make rts-editor"
+make rts-editor
 
 echo "-- make check"
 make check
