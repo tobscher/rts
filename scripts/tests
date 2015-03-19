@@ -4,6 +4,12 @@ set -e
 
 if [[ $CI == "true" && $DRONE == "true" ]]; then
   ./scripts/install-dependencies
+
+  echo "-- Setting PKG_CONFIG_PATH"
+  export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig:/usr/local/lib/pkgconfig:/usr/local/share/pkgconfig:$PKG_CONFIG_PATH
+
+  echo "-- Adding Qt directory to cmake prefix path"
+  export CMAKE_PREFIX_PATH=/opt/qt54:$CMAKE_PREFIX_PATH
 fi
 
 echo "-- System information"
