@@ -2,13 +2,8 @@
 
 set -e
 
-# Use sed to replace the SSH URL with the public URL, then initialize submodules
-echo "-- Fetching submodules"
-sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-git submodule update --init --recursive > /dev/null
-sudo apt-get update -qq
-
 echo "-- Installing dependencies..."
+sudo apt-get update -qq
 sudo apt-get install -y xorg-dev libglu1-mesa-dev libboost-all-dev libunittest++-dev liblog4cxx10 liblog4cxx10-dev  > /dev/null
 
 echo "-- Installing Qt 5.4"
