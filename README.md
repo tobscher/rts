@@ -1,4 +1,4 @@
-# rts [![Build Status](https://drone.io/github.com/tobscher/rts/status.png)](https://drone.io/github.com/tobscher/rts/latest)
+# rts [![wercker status](https://app.wercker.com/status/f003d0db992b2d8b0f934fcc7b20cd3e/s "wercker status")](https://app.wercker.com/project/bykey/f003d0db992b2d8b0f934fcc7b20cd3e)
 
 An attempt to build a real-time strategy game.
 
