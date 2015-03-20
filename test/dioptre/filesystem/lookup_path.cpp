@@ -1,7 +1,7 @@
-#include <unittest++/UnitTest++.h>
+#include <gtest/gtest.h>
 #include "dioptre/filesystem/path_lookup.h"
 
-TEST(lookup_path_register_from_args) {
+TEST(LookupPath, RegisterFromArgs) {
   char path[] = {"/usr/local/bin/game"};
   char *argv[] = {path};
 
@@ -10,12 +10,12 @@ TEST(lookup_path_register_from_args) {
 
   lookup.registerFromArgs(argv);
 
-  CHECK_EQUAL(lookup.find("foo.frag"), "/usr/local/bin/foo.frag");
+  EXPECT_EQ(lookup.find("foo.frag"), "/usr/local/bin/foo.frag");
 }
 
-TEST(lookup_path_nothing_registered) {
+TEST(LookupPath, NothingRegistered) {
   auto lookup = dioptre::filesystem::PathLookup::instance();
   lookup.clear();
 
-  CHECK_EQUAL(lookup.find("foo.frag"), "foo.frag");
+  EXPECT_EQ(lookup.find("foo.frag"), "foo.frag");
 }

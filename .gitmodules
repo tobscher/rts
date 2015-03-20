@@ -10,3 +10,6 @@
 [submodule "thirdparty/unittest-cpp"]
 	path = thirdparty/unittest-cpp
 	url = git@github.com:tobscher/unittest-cpp.git
+[submodule "thirdparty/googletest"]
+	path = thirdparty/googletest
+	url = https://git.chromium.org/git/external/googletest.git

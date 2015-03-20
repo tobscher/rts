@@ -80,8 +80,11 @@ FIND_PACKAGE (Log4Cxx REQUIRED)
 INCLUDE_DIRECTORIES(${Log4Cxx_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Log4Cxx_LIBRARY_DIRS})
 
-SET(UTPP_BUILD_TESTS OFF CACHE BOOL "")
-ADD_SUBDIRECTORY(thirdparty/unittest-cpp)
+# SET(UTPP_BUILD_TESTS OFF CACHE BOOL "")
+# ADD_SUBDIRECTORY(thirdparty/unittest-cpp)
+
+# googletest
+add_subdirectory(thirdparty/googletest)
 
 #
 # Configure Files
