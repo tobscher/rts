@@ -47,5 +47,6 @@ TEST(Locator, ProvideNull) {
   dioptre::Locator::provide(dioptre::Module::M_GRAPHICS, mockGraphics);
   dioptre::Locator::provide(dioptre::Module::M_GRAPHICS, nullptr);
 
+  // Setting it to nullptr does revert back to default
   EXPECT_EQ(dioptre::Locator::getInstance<GraphicsInterface>(dioptre::Module::M_GRAPHICS), nullGraphics);
 }
