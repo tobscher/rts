@@ -13,7 +13,7 @@ This project requires:
   * [GLFW](http://www.glfw.org/) ~> 3.0
   * [GLEW](http://glew.sourceforge.net/) ~> 1.11
   * Log4Cxx v0.10.0+
-  * UnitTest++ (a.k.a. unittest-cpp)
+  * googletest
 
 ## Building
 
