@@ -6,32 +6,27 @@
 #include "graphics/graphics_interface.h"
 #include "graphics/null/graphics.h"
 
+#include "dioptre/module.h"
+
 namespace dioptre {
 
 class Locator
 {
 public:
-  static void initialize() {
-    windowService_ = &nullWindowService_;
-    graphicsService_ = &nullGraphicsService_;
-  }
+  static void initialize();
+  static void provide(Module::ModuleType type, Module *instance);
 
-  static dioptre::window::WindowInterface& getWindow() {
-    return *windowService_;
-  }
-
-  static dioptre::graphics::GraphicsInterface& getGraphics() {
-    return *graphicsService_;
+  template <typename T>
+  static T* getInstance(Module::ModuleType type) {
+    return (T*)instances_[type];
   }
 
 private:
-  // window
-  static dioptre::window::WindowInterface* windowService_;
   static dioptre::window::null::Window nullWindowService_;
-
-  // graphics
-  static dioptre::graphics::GraphicsInterface* graphicsService_;
   static dioptre::graphics::null::Graphics nullGraphicsService_;
+
+  static Module *defaults_[Module::M_MAX_ENUM];
+  static Module *instances_[Module::M_MAX_ENUM];
 }; // Locator
 
 } // dioptre

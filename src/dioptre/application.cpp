@@ -3,8 +3,11 @@
 #include <stdexcept>
 
 #include "dioptre/application.h"
+#include "dioptre/locator.h"
 #include "dioptre/filesystem/path_lookup.h"
+#include "dioptre/graphics/graphics_interface.h"
 #include "dioptre/graphics/opengl/graphics.h"
+#include "dioptre/window/window_interface.h"
 #include "dioptre/window/glfw/window.h"
 
 #include <log4cxx/consoleappender.h>
@@ -23,6 +26,11 @@ Application::Application(int argc, char *argv[]) {
   // Register current path of executable as shader lookup path
   dioptre::filesystem::PathLookup::instance().registerFromArgs(argv);
 
+  // Initialize services
+  dioptre::Locator::initialize();
+  dioptre::Locator::provide(Module::M_WINDOW, new dioptre::window::glfw::Window());
+  dioptre::Locator::provide(Module::M_GRAPHICS, new dioptre::graphics::opengl::Graphics());
+
   // Configure the logging mechanism
   log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
   rootlogger->addAppender(new log4cxx::ConsoleAppender(new log4cxx::PatternLayout("%d [%-5p] %c - %m%n")));
@@ -35,17 +43,17 @@ bool Application::isRunning() {
 void Application::run() {
   isRunning_ = true;
 
-  dioptre::window::glfw::Window* window = new dioptre::window::glfw::Window();
+  dioptre::window::WindowInterface* window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
   window->create();
-  dioptre::graphics::opengl::Graphics renderer(window);
-  renderer.Initialize();
+  dioptre::graphics::GraphicsInterface* graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
+  graphics->Initialize();
 
   while(!window->shouldClose()) {
-    renderer.Render();
+    graphics->Render();
     window->swapBuffers();
   }
 
-  renderer.Destroy();
+  graphics->Destroy();
   window->destroy();
 
   isRunning_ = false;

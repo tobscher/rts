@@ -6,12 +6,14 @@
 
 #include "glwidget.h"
 
+#include "dioptre/locator.h"
+#include "dioptre/module.h"
 #include "dioptre/window/null/window.h"
 
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
-    , renderer_(new dioptre::graphics::opengl::Graphics(new dioptre::window::null::Window()))
 {
+  renderer_ = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
 }
 
 GLWidget::~GLWidget()

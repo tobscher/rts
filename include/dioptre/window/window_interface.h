@@ -1,6 +1,8 @@
 #ifndef DIOPTRE_WINDOW_WINDOW_INTERFACE_H_
 #define DIOPTRE_WINDOW_WINDOW_INTERFACE_H_
 
+#include "dioptre/module.h"
+
 namespace dioptre {
 namespace window {
 
@@ -8,7 +10,7 @@ namespace window {
  * WindowInterface describes the creation and destruction
  * of windows.
  */
-class WindowInterface {
+class WindowInterface : public Module {
 public:
   virtual ~WindowInterface() { }
 

@@ -11,10 +11,6 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
-Graphics::Graphics(dioptre::window::WindowInterface* window)
-  : window_(window) {
-}
-
 int Graphics::Initialize() {
   glewExperimental = true; // Needed in core profile
   if (glewInit() != GLEW_OK) {

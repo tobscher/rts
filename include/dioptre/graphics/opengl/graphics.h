@@ -14,8 +14,6 @@ namespace opengl {
  */
 class Graphics : public dioptre::graphics::GraphicsInterface {
 public:
-  Graphics(dioptre::window::WindowInterface* window);
-
   /**
    * Initializes the OpenGL graphics context.
    */
@@ -37,11 +35,10 @@ public:
   void Destroy();
 
 private:
-  dioptre::window::WindowInterface* window_;
   GLuint vertexArrayId_;
   GLuint vertexBuffer_;
   GLuint programId_;
-}; // Renderer
+}; // Graphics
 
 } // opengl
 } // graphics

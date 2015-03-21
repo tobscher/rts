@@ -1,13 +1,15 @@
 #ifndef DIOPTRE_GRAPHICS_GRAPHICS_INTERFACE_H_
 #define DIOPTRE_GRAPHICS_GRAPHICS_INTERFACE_H_
 
+#include "dioptre/module.h"
+
 namespace dioptre {
 namespace graphics {
 
 /**
  * Interface that describes a graphics module.
  */
-class GraphicsInterface {
+class GraphicsInterface : public Module {
 public:
   virtual ~GraphicsInterface() {}
 
@@ -22,10 +24,15 @@ public:
   virtual void Resize(int width, int height) = 0;
 
   /**
-   * Should render screne graph.
+   * Should render scene graph.
    */
   virtual void Render() = 0;
-}; // RenderInterface
+
+  /**
+   * Should destroy the window.
+   */
+  virtual void Destroy() = 0;
+}; // GraphicsInterface
 
 } // graphics
 } // dioptre

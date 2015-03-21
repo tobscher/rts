@@ -13,10 +13,10 @@ public:
   void Resize(int width, int height) { }
   void Render() { }
   void Destroy() { }
-};
+}; // Graphics
 
-}
-}
-}
+} // null
+} // graphics
+} // dioptre
 
 #endif

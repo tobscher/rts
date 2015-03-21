@@ -19,7 +19,7 @@ protected:
     void resizeGL(int width, int height);
 
 private:
-  dioptre::graphics::opengl::Graphics* renderer_;
+  dioptre::graphics::GraphicsInterface* renderer_;
 };
 
 #endif // GLWIDGET_H
