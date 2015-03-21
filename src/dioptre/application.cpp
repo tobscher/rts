@@ -2,9 +2,9 @@
 #include <exception>
 #include <stdexcept>
 
-#include "dioptre/filesystem/path_lookup.h"
 #include "dioptre/application.h"
-#include "dioptre/graphics/opengl/renderer.h"
+#include "dioptre/filesystem/path_lookup.h"
+#include "dioptre/graphics/opengl/graphics.h"
 #include "dioptre/window/glfw/window.h"
 
 #include <log4cxx/consoleappender.h>
@@ -15,7 +15,7 @@ namespace dioptre {
 Application::Application(int argc, char *argv[]) {
   // Enforce singleton property
   if (instance_) {
-      throw std::runtime_error("Only one instance of Application allowed.");
+    throw std::runtime_error("Only one instance of Application allowed.");
   }
 
   instance_ = this;
@@ -37,7 +37,7 @@ void Application::run() {
 
   dioptre::window::glfw::Window* window = new dioptre::window::glfw::Window();
   window->create();
-  dioptre::graphics::opengl::Renderer renderer(window);
+  dioptre::graphics::opengl::Graphics renderer(window);
   renderer.Initialize();
 
   while(!window->shouldClose()) {

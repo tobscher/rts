@@ -1,8 +1,8 @@
-#ifndef DIOPTRE_GRAPHICS_OPENGL_RENDERER_H_
-#define DIOPTRE_GRAPHICS_OPENGL_RENDERER_H_
+#ifndef DIOPTRE_GRAPHICS_OPENGL_GRAPHICS_H_
+#define DIOPTRE_GRAPHICS_OPENGL_GRAPHICS_H_
 
 #include "dioptre/graphics/opengl.h"
-#include "dioptre/graphics/renderer_interface.h"
+#include "dioptre/graphics/graphics_interface.h"
 #include "dioptre/window/window_interface.h"
 
 namespace dioptre {
@@ -12,9 +12,9 @@ namespace opengl {
 /**
  * Class to render 3D graphics via OpenGL.
  */
-class Renderer : public dioptre::graphics::RendererInterface {
+class Graphics : public dioptre::graphics::GraphicsInterface {
 public:
-  Renderer(dioptre::window::WindowInterface* window);
+  Graphics(dioptre::window::WindowInterface* window);
 
   /**
    * Initializes the OpenGL graphics context.
@@ -47,4 +47,4 @@ private:
 } // graphics
 } // dioptre
 
-#endif // DIOPTRE_GRAPHICS_OPENGL_RENDERER_H_
+#endif // DIOPTRE_GRAPHICS_OPENGL_GRAPHICS_H_

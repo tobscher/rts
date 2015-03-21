@@ -1,14 +1,15 @@
-#ifndef DIOPTRE_GRAPHICS_RENDERER_INTERFACE_H_
-#define DIOPTRE_GRAPHICS_RENDERER_INTERFACE_H_
+#ifndef DIOPTRE_GRAPHICS_GRAPHICS_INTERFACE_H_
+#define DIOPTRE_GRAPHICS_GRAPHICS_INTERFACE_H_
 
 namespace dioptre {
 namespace graphics {
 
 /**
- * Interface that describes a renderer.
+ * Interface that describes a graphics module.
  */
-class RendererInterface {
+class GraphicsInterface {
 public:
+  virtual ~GraphicsInterface() {}
 
   /**
    * Should initialize graphics context.
@@ -29,4 +30,4 @@ public:
 } // graphics
 } // dioptre
 
-#endif // DIOPTRE_GRAPHICS_RENDERER_INTERFACE_H_
+#endif // DIOPTRE_GRAPHICS_GRAPHICS_INTERFACE_H_

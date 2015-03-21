@@ -10,6 +10,7 @@ namespace window {
  */
 class WindowInterface {
 public:
+  virtual ~WindowInterface() { }
 
   /**
    * Should create the window for the current platform.

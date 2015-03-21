@@ -6,9 +6,11 @@
 
 #include "glwidget.h"
 
+#include "dioptre/window/null/window.h"
+
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
-    , renderer_(new dioptre::graphics::opengl::Renderer(nullptr))
+    , renderer_(new dioptre::graphics::opengl::Graphics(new dioptre::window::null::Window()))
 {
 }
 

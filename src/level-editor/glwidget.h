@@ -2,7 +2,7 @@
 #define GLWIDGET_H
 
 #include "dioptre/graphics/opengl.h"
-#include "dioptre/graphics/opengl/renderer.h"
+#include "dioptre/graphics/opengl/graphics.h"
 
 #include <QOpenGLWidget>
 
@@ -19,7 +19,7 @@ protected:
     void resizeGL(int width, int height);
 
 private:
-  dioptre::graphics::opengl::Renderer* renderer_;
+  dioptre::graphics::opengl::Graphics* renderer_;
 };
 
 #endif // GLWIDGET_H

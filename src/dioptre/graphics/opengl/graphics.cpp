@@ -3,7 +3,7 @@
 #include "glm/glm.hpp"
 
 #include "dioptre/graphics/opengl.h"
-#include "dioptre/graphics/opengl/renderer.h"
+#include "dioptre/graphics/opengl/graphics.h"
 #include "dioptre/math/triangle.h"
 #include "shader.h"
 
@@ -11,11 +11,11 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
-Renderer::Renderer(dioptre::window::WindowInterface* window)
+Graphics::Graphics(dioptre::window::WindowInterface* window)
   : window_(window) {
 }
 
-int Renderer::Initialize() {
+int Graphics::Initialize() {
   glewExperimental = true; // Needed in core profile
   if (glewInit() != GLEW_OK) {
     fprintf(stderr, "Failed to initialize GLEW\n");
@@ -59,12 +59,12 @@ int Renderer::Initialize() {
   return 0;
 }
 
-void Renderer::Resize(int width, int height) {
+void Graphics::Resize(int width, int height) {
   // Set the viewport to window dimensions
   glViewport( 0, 0, width, height);
 }
 
-void Renderer::Render() {
+void Graphics::Render() {
   glClear(GL_COLOR_BUFFER_BIT);
 
   // Use our shader
@@ -87,7 +87,7 @@ void Renderer::Render() {
   glDisableVertexAttribArray(0);
 }
 
-void Renderer::Destroy() {
+void Graphics::Destroy() {
 	// Cleanup VBO
 	glDeleteBuffers(1, &vertexBuffer_);
 	glDeleteVertexArrays(1, &vertexArrayId_);
