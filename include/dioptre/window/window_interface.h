@@ -15,16 +15,6 @@ public:
   virtual ~WindowInterface() { }
 
   /**
-   * Should create the window for the current platform.
-   */
-  virtual int create() = 0;
-
-  /**
-   * Should create the current window.
-   */
-  virtual void destroy() = 0;
-
-  /**
    * Should indicate whether the windows should be closed.
    */
   virtual int shouldClose() = 0;

@@ -11,7 +11,7 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
-int Graphics::Initialize() {
+int Graphics::initialize() {
   glewExperimental = true; // Needed in core profile
   if (glewInit() != GLEW_OK) {
     fprintf(stderr, "Failed to initialize GLEW\n");
@@ -55,12 +55,12 @@ int Graphics::Initialize() {
   return 0;
 }
 
-void Graphics::Resize(int width, int height) {
+void Graphics::resize(int width, int height) {
   // Set the viewport to window dimensions
   glViewport( 0, 0, width, height);
 }
 
-void Graphics::Render() {
+void Graphics::render() {
   glClear(GL_COLOR_BUFFER_BIT);
 
   // Use our shader
@@ -83,7 +83,7 @@ void Graphics::Render() {
   glDisableVertexAttribArray(0);
 }
 
-void Graphics::Destroy() {
+void Graphics::destroy() {
 	// Cleanup VBO
 	glDeleteBuffers(1, &vertexBuffer_);
 	glDeleteVertexArrays(1, &vertexArrayId_);

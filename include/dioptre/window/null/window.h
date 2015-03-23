@@ -9,7 +9,7 @@ namespace null {
 
 class Window : public dioptre::window::WindowInterface {
 public:
-  int create() { return 0; }
+  int initialize() { return 0; }
   void destroy() { }
   int shouldClose() { return 0; }
   void swapBuffers() {  }

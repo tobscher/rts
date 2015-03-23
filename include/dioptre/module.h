@@ -10,6 +10,11 @@ public:
     M_GRAPHICS,
     M_MAX_ENUM
   };
+
+  virtual ~Module() {}
+
+  virtual int initialize() = 0;
+  virtual void destroy() = 0;
 };
 
 }

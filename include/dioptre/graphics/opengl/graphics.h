@@ -17,22 +17,22 @@ public:
   /**
    * Initializes the OpenGL graphics context.
    */
-  int Initialize();
+  int initialize();
 
   /**
    * Handles window resizing, e.g. changing viewport.
    */
-  void Resize(int width, int height);
+  void resize(int width, int height);
 
   /**
    * Renders the current scene graph to the screen.
    */
-  void Render();
+  void render();
 
   /**
    * Destroys the current 3D context.
    */
-  void Destroy();
+  void destroy();
 
 private:
   GLuint vertexArrayId_;

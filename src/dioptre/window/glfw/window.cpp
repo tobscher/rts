@@ -11,7 +11,7 @@ Window::Window()
   : glfwWindow_(nullptr) {
 }
 
-int Window::create() {
+int Window::initialize() {
   // Initialise GLFW
   if(!glfwInit()) {
     fprintf(stderr, "Failed to initialize GLFW\n");

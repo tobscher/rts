@@ -17,7 +17,7 @@ class Window : public dioptre::window::WindowInterface {
 public:
   Window();
 
-  int create();
+  int initialize();
   void destroy();
   int shouldClose();
   void swapBuffers();

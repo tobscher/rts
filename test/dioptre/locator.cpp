@@ -12,22 +12,22 @@ TEST(Locator, DefaultWindow) {
   dioptre::Locator::initialize();
   WindowInterface* window = dioptre::Locator::getInstance<WindowInterface>(dioptre::Module::M_WINDOW);
 
-  EXPECT_EQ(window->create(), 0);
+  EXPECT_EQ(window->initialize(), 0);
 }
 
 TEST(Locator, DefaultGraphics) {
   dioptre::Locator::initialize();
   GraphicsInterface* graphics = dioptre::Locator::getInstance<GraphicsInterface>(dioptre::Module::M_GRAPHICS);
 
-  EXPECT_EQ(graphics->Initialize(), 0);
+  EXPECT_EQ(graphics->initialize(), 0);
 }
 
 class MockGraphics : public GraphicsInterface {
 public:
-  int Initialize() { return 1337; }
-  void Resize(int width, int height) {  }
-  void Render() { }
-  void Destroy() { }
+  int initialize() { return 1337; }
+  void resize(int width, int height) {  }
+  void render() { }
+  void destroy() { }
 };
 
 TEST(Locator, Provide) {

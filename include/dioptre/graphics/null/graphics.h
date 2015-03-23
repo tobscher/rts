@@ -9,10 +9,10 @@ namespace null {
 
 class Graphics : public dioptre::graphics::GraphicsInterface {
 public:
-  int Initialize() { return 0; }
-  void Resize(int width, int height) { }
-  void Render() { }
-  void Destroy() { }
+  int initialize() { return 0; }
+  void resize(int width, int height) { }
+  void render() { }
+  void destroy() { }
 }; // Graphics
 
 } // null

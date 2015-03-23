@@ -44,16 +44,16 @@ void Application::run() {
   isRunning_ = true;
 
   dioptre::window::WindowInterface* window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
-  window->create();
+  window->initialize();
   dioptre::graphics::GraphicsInterface* graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
-  graphics->Initialize();
+  graphics->initialize();
 
   while(!window->shouldClose()) {
-    graphics->Render();
+    graphics->render();
     window->swapBuffers();
   }
 
-  graphics->Destroy();
+  graphics->destroy();
   window->destroy();
 
   isRunning_ = false;
