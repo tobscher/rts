@@ -22,15 +22,15 @@ GLWidget::~GLWidget()
 
 void GLWidget::initializeGL()
 {
-  renderer_->Initialize();
+  renderer_->initialize();
 }
 
 void GLWidget::resizeGL(int width, int height)
 {
-  renderer_->Resize(width, height);
+  renderer_->resize(width, height);
 }
 
 void GLWidget::paintGL()
 {
-  renderer_->Render();
+  renderer_->render();
 }
