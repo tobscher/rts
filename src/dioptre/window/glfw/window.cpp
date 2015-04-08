@@ -47,6 +47,10 @@ int Window::shouldClose() {
   return glfwWindowShouldClose(glfwWindow_);
 }
 
+void Window::setShouldClose(bool value) {
+  glfwSetWindowShouldClose(glfwWindow_, value);
+}
+
 void Window::swapBuffers() {
   glfwSwapBuffers(glfwWindow_);
   glfwPollEvents();

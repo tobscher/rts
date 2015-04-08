@@ -20,6 +20,7 @@ public:
   int initialize();
   void destroy();
   int shouldClose();
+  void setShouldClose(bool value);
   void swapBuffers();
 
   GLFWwindow* GetWindow();

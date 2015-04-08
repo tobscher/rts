@@ -11,9 +11,12 @@ class Window : public dioptre::window::WindowInterface {
 public:
   int initialize() { return 0; }
   void destroy() { }
-  int shouldClose() { return 0; }
+  int shouldClose() { return shouldClose_; }
+  void setShouldClose(bool state) { shouldClose_ = state; }
   void swapBuffers() {  }
 
+private:
+  bool shouldClose_ = false;
 }; // Window
 
 } // null

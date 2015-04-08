@@ -12,6 +12,8 @@
 #include "dioptre/keyboard/keyboard_interface.h"
 #include "dioptre/keyboard/glfw/keyboard.h"
 
+#include "keyboard/handlers/exit_game.h"
+
 #include <log4cxx/consoleappender.h>
 #include <log4cxx/patternlayout.h>
 
@@ -53,6 +55,9 @@ void Application::run() {
   window->initialize();
   graphics->initialize();
   keyboard->initialize();
+
+  dioptre::keyboard::handlers::ExitGame* exitGameHandler = new dioptre::keyboard::handlers::ExitGame();
+  keyboard->registerKeyHandler(exitGameHandler);
 
   while(!window->shouldClose()) {
     graphics->render();

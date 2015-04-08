@@ -20,6 +20,11 @@ public:
   virtual int shouldClose() = 0;
 
   /**
+   * Tells the window it should be closed.
+   */
+  virtual void setShouldClose(bool value) = 0;
+
+  /**
    * Should swap back and front buffer for rendering.
    */
   virtual void swapBuffers() = 0;
