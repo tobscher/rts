@@ -34,9 +34,6 @@ int Window::initialize() {
   }
 
   glfwMakeContextCurrent(glfwWindow_);
-  /* glfwSetKeyCallback(window, key_callback); */
-  // Ensure we can capture the escape key being pressed below
-  glfwSetInputMode(glfwWindow_, GLFW_STICKY_KEYS, GL_TRUE);
 
   return 0;
 }
@@ -53,6 +50,10 @@ int Window::shouldClose() {
 void Window::swapBuffers() {
   glfwSwapBuffers(glfwWindow_);
   glfwPollEvents();
+}
+
+GLFWwindow* Window::GetWindow() {
+  return glfwWindow_;
 }
 
 }

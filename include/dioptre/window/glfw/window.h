@@ -22,6 +22,8 @@ public:
   int shouldClose();
   void swapBuffers();
 
+  GLFWwindow* GetWindow();
+
 private:
   GLFWwindow* glfwWindow_;
 }; // Window
