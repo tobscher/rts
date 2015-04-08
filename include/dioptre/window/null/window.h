@@ -9,6 +9,8 @@ namespace null {
 
 class Window : public dioptre::window::WindowInterface {
 public:
+  Window() :
+    shouldClose_(false) { }
   int initialize() { return 0; }
   void destroy() { }
   int shouldClose() { return shouldClose_; }
@@ -16,7 +18,7 @@ public:
   void swapBuffers() {  }
 
 private:
-  bool shouldClose_ = false;
+  bool shouldClose_;
 }; // Window
 
 } // null
