@@ -7,7 +7,9 @@ namespace dioptre {
 namespace keyboard {
 namespace null {
 
-// Null keyboard input.
+/*
+ * Null keyboard input.
+ */
 class Keyboard : public dioptre::keyboard::KeyboardInterface {
 public:
   ~Keyboard() {}

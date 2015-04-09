@@ -11,13 +11,22 @@
 namespace dioptre {
 namespace keyboard {
 
-// Interface to handle keyboard input.
+/*
+ * Interface to handle keyboard input.
+ */
 class KeyboardInterface : public dioptre::Module {
 public:
 
   virtual ~KeyboardInterface() {}
 
+  /**
+   * Registers a handler which is notified when a particular key is pressed.
+   */
   void registerKeyHandler(KeyHandlerInterface* handler);
+
+  /**
+   * Tells the keyboard service that a button was pressed.
+   */
   void press(Key key);
 
 private:
