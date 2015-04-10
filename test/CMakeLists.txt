@@ -13,4 +13,4 @@ INCLUDE_DIRECTORIES(
   "${MAINFOLDER}/src"
 )
 
-ADD_CUSTOM_TARGET(check ALL "${MAINFOLDER}/bin/${test_BIN}" DEPENDS ${test_BIN} COMMENT "Executing unit tests..." VERBATIM SOURCES ${test_SRCS})
+ADD_CUSTOM_TARGET(check ALL ${test_BIN} DEPENDS ${test_BIN} COMMENT "Executing unit tests..." VERBATIM SOURCES ${test_SRCS})
