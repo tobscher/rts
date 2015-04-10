@@ -23,5 +23,5 @@ void KeyboardInterface::registerKeyHandler(KeyHandlerInterface* handler) {
   handlers.push_back(handler);
 }
 
-}
-}
+} // keyboard
+} // dioptre

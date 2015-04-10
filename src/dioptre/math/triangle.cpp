@@ -28,5 +28,5 @@ std::vector<glm::vec3> Triangle::data() {
   return data;
 }
 
-}
-}
+} // math
+} // dioptre

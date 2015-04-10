@@ -15,6 +15,6 @@ void ExitGame::update() {
   window->setShouldClose(true);
 }
 
-}
-}
-}
+} // handlers
+} // keyboard
+} // dioptre

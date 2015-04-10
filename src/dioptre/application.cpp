@@ -74,4 +74,4 @@ Application* Application::instance_ = 0;
 
 log4cxx::LoggerPtr Application::logger_ = log4cxx::Logger::getLogger("dioptre");
 
-}
+} // dioptre

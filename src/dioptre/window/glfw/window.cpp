@@ -60,6 +60,6 @@ GLFWwindow* Window::GetWindow() {
   return glfwWindow_;
 }
 
-}
-}
-}
+} // glfw
+} // window
+} // dioptre

@@ -90,6 +90,6 @@ void Graphics::destroy() {
 	glDeleteProgram(programId_);
 }
 
-}
-}
-}
+} // opengl
+} // graphics
+} // dioptre

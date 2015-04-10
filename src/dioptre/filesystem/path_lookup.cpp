@@ -30,5 +30,5 @@ std::string PathLookup::find(std::string file) {
   return base.string();
 }
 
-}
-}
+} // filesystem
+} // dioptre

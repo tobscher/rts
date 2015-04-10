@@ -29,4 +29,4 @@ void Locator::provide(Module::ModuleType type, Module *instance) {
   }
 }
 
-}
+} // dioptre

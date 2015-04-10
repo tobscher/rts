@@ -11,7 +11,6 @@
 using std::string;
 
 namespace dioptre {
-
 namespace graphics {
 namespace opengl {
 
@@ -128,6 +127,6 @@ GLuint Shader::identifier() {
 
 log4cxx::LoggerPtr Shader::logger_ = log4cxx::Logger::getLogger("dioptre.shader");
 
-}
-}
-}
+} // opengl
+} // graphics
+} // dioptre

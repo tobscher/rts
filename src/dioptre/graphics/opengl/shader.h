@@ -28,7 +28,7 @@ private:
   GLuint linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId);
 
   static log4cxx::LoggerPtr logger_;
-};
+}; // Shader
 
 } // opengl
 } // graphics
