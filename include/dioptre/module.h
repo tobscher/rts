@@ -8,6 +8,7 @@ public:
   enum ModuleType {
     M_WINDOW,
     M_GRAPHICS,
+    M_KEYBOARD,
     M_MAX_ENUM
   };
 

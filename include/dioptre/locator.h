@@ -5,6 +5,8 @@
 #include "window/null/window.h"
 #include "graphics/graphics_interface.h"
 #include "graphics/null/graphics.h"
+#include "keyboard/keyboard_interface.h"
+#include "keyboard/null/keyboard.h"
 
 #include "dioptre/module.h"
 
@@ -24,6 +26,7 @@ public:
 private:
   static dioptre::window::null::Window nullWindowService_;
   static dioptre::graphics::null::Graphics nullGraphicsService_;
+  static dioptre::keyboard::null::Keyboard nullKeyboardService_;
 
   static Module *defaults_[Module::M_MAX_ENUM];
   static Module *instances_[Module::M_MAX_ENUM];

@@ -9,6 +9,10 @@
 #include "dioptre/graphics/opengl/graphics.h"
 #include "dioptre/window/window_interface.h"
 #include "dioptre/window/glfw/window.h"
+#include "dioptre/keyboard/keyboard_interface.h"
+#include "dioptre/keyboard/glfw/keyboard.h"
+
+#include "keyboard/handlers/exit_game.h"
 
 #include <log4cxx/consoleappender.h>
 #include <log4cxx/patternlayout.h>
@@ -30,6 +34,7 @@ Application::Application(int argc, char *argv[]) {
   dioptre::Locator::initialize();
   dioptre::Locator::provide(Module::M_WINDOW, new dioptre::window::glfw::Window());
   dioptre::Locator::provide(Module::M_GRAPHICS, new dioptre::graphics::opengl::Graphics());
+  dioptre::Locator::provide(Module::M_KEYBOARD, new dioptre::keyboard::glfw::Keyboard());
 
   // Configure the logging mechanism
   log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
@@ -43,10 +48,16 @@ bool Application::isRunning() {
 void Application::run() {
   isRunning_ = true;
 
-  dioptre::window::WindowInterface* window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
+  auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
+  auto graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
+  auto keyboard = dioptre::Locator::getInstance<dioptre::keyboard::KeyboardInterface>(dioptre::Module::M_KEYBOARD);
+
   window->initialize();
-  dioptre::graphics::GraphicsInterface* graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
   graphics->initialize();
+  keyboard->initialize();
+
+  dioptre::keyboard::handlers::ExitGame* exitGameHandler = new dioptre::keyboard::handlers::ExitGame();
+  keyboard->registerKeyHandler(exitGameHandler);
 
   while(!window->shouldClose()) {
     graphics->render();

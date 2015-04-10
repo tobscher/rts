@@ -1,4 +1,4 @@
-box: wercker/default
+box: tobscher/tobscher-rts@0.2.0
 build:
   steps:
     - script:

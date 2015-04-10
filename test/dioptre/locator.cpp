@@ -4,9 +4,11 @@
 #include "dioptre/module.h"
 #include "dioptre/window/window_interface.h"
 #include "dioptre/graphics/graphics_interface.h"
+#include "dioptre/keyboard/keyboard_interface.h"
 
 using dioptre::window::WindowInterface;
 using dioptre::graphics::GraphicsInterface;
+using dioptre::keyboard::KeyboardInterface;
 
 TEST(Locator, DefaultWindow) {
   dioptre::Locator::initialize();
@@ -20,6 +22,13 @@ TEST(Locator, DefaultGraphics) {
   GraphicsInterface* graphics = dioptre::Locator::getInstance<GraphicsInterface>(dioptre::Module::M_GRAPHICS);
 
   EXPECT_EQ(graphics->initialize(), 0);
+}
+
+TEST(Locator, DefaultKeyboard) {
+  dioptre::Locator::initialize();
+  KeyboardInterface* keyboard = dioptre::Locator::getInstance<KeyboardInterface>(dioptre::Module::M_KEYBOARD);
+
+  EXPECT_EQ(keyboard->initialize(), 0);
 }
 
 class MockGraphics : public GraphicsInterface {
