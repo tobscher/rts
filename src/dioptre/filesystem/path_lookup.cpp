@@ -1,5 +1,7 @@
 #include <boost/filesystem.hpp>
+
 #include "dioptre/filesystem/path_lookup.h"
+#include "dioptre/debug.h"
 
 namespace dioptre {
 namespace filesystem {
