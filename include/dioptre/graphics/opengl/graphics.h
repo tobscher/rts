@@ -1,6 +1,8 @@
 #ifndef DIOPTRE_GRAPHICS_OPENGL_GRAPHICS_H_
 #define DIOPTRE_GRAPHICS_OPENGL_GRAPHICS_H_
 
+#include <map>
+
 #include "dioptre/graphics/opengl.h"
 #include "dioptre/graphics/graphics_interface.h"
 #include "dioptre/window/window_interface.h"
@@ -35,9 +37,14 @@ public:
   void destroy();
 
 private:
+  void initializeMesh(Mesh* mesh);
+  void renderMesh(Mesh* mesh);
+  void destroyMesh(Mesh* mesh);
+
   GLuint vertexArrayId_;
-  GLuint vertexBuffer_;
   GLuint programId_;
+
+  std::map<int, GLuint> vertexBuffers_;
 }; // Graphics
 
 } // opengl

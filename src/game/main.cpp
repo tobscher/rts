@@ -1,17 +1,36 @@
+#include <memory>
+
 #include "dioptre/application.h"
-
-/* void error_callback(int error, const char* description) { */
-/*   fputs(description, stderr); */
-/* } */
-
-/* static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) { */
-/*   if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) */
-/*     glfwSetWindowShouldClose(window, GL_TRUE); */
-/* } */
+#include "dioptre/object.h"
+#include "dioptre/graphics/basic_material.h"
+#include "dioptre/graphics/box_geometry.h"
+#include "dioptre/graphics/component.h"
+#include "dioptre/behaviours/rotate.h"
 
 int main(int argc, char *argv[]) {
-  dioptre::Application *application = new dioptre::Application(argc, argv);
-  application->run();
+  dioptre::Application application(argc, argv);
+  application.initialize();
+
+  // Global material and geometry
+  // Consider geometry and material factory to handle lifetime
+  std::unique_ptr<dioptre::graphics::BasicMaterial> material(new dioptre::graphics::BasicMaterial());
+  std::unique_ptr<dioptre::graphics::BoxGeometry> geometry(new dioptre::graphics::BoxGeometry());
+
+  // Extract this into level loading once levels are available
+  std::unique_ptr<dioptre::Object> cube(new dioptre::Object());
+
+  // Graphics Component
+  std::unique_ptr<dioptre::graphics::Mesh> cubeMesh(new dioptre::graphics::Mesh(geometry.get(), material.get()));
+  std::unique_ptr<dioptre::graphics::Component> visual(new dioptre::graphics::Component(cubeMesh.get()));
+  cube->addComponent(visual.get());
+
+  // Rotator Component
+  std::unique_ptr<dioptre::behaviours::Rotate> rotator(new dioptre::behaviours::Rotate());
+  cube->addComponent(rotator.get());
+
+  application.addObject(cube.get());
+
+  application.run();
 
   return 0;
 }

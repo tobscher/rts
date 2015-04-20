@@ -28,8 +28,8 @@ private:
   static dioptre::graphics::null::Graphics nullGraphicsService_;
   static dioptre::keyboard::null::Keyboard nullKeyboardService_;
 
-  static Module *defaults_[Module::M_MAX_ENUM];
-  static Module *instances_[Module::M_MAX_ENUM];
+  static Module* defaults_[Module::M_MAX_ENUM];
+  static Module* instances_[Module::M_MAX_ENUM];
 }; // Locator
 
 } // dioptre

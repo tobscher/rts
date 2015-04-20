@@ -9,8 +9,6 @@ namespace keyboard {
 void KeyboardInterface::press(Key key) {
   pressed_.push_back(key);
 
-  debug(key);
-
   auto handlers = keyHandlers_.find(key);
   if (handlers == keyHandlers_.end()) return;
 

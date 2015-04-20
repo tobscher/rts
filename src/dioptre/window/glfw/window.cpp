@@ -25,8 +25,7 @@ int Window::initialize() {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // We don't want the old OpenGL
 
   // Open a window and create its OpenGL context
-  /* glfwSetErrorCallback(error_callback); */
-  glfwWindow_ = glfwCreateWindow(1024, 768, "Tutorial 01", NULL, NULL);
+  glfwWindow_ = glfwCreateWindow(1024, 768, "RTS", NULL, NULL);
   if (glfwWindow_ == NULL) {
     fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible.\n");
     glfwTerminate();

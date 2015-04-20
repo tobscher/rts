@@ -19,7 +19,11 @@
 
 namespace dioptre {
 
-Application::Application(int argc, char *argv[]) {
+Application::Application(int argc, char *argv[]) :
+  windowService_(new dioptre::window::glfw::Window()),
+  graphicsService_(new dioptre::graphics::opengl::Graphics()),
+  keyboardService_(new dioptre::keyboard::glfw::Keyboard())
+{
   // Enforce singleton property
   if (instance_) {
     throw std::runtime_error("Only one instance of Application allowed.");
@@ -29,45 +33,55 @@ Application::Application(int argc, char *argv[]) {
 
   // Register current path of executable as shader lookup path
   dioptre::filesystem::PathLookup::instance().registerFromArgs(argv);
-
-  // Initialize services
-  dioptre::Locator::initialize();
-  dioptre::Locator::provide(Module::M_WINDOW, new dioptre::window::glfw::Window());
-  dioptre::Locator::provide(Module::M_GRAPHICS, new dioptre::graphics::opengl::Graphics());
-  dioptre::Locator::provide(Module::M_KEYBOARD, new dioptre::keyboard::glfw::Keyboard());
-
-  // Configure the logging mechanism
-  log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
-  rootlogger->addAppender(new log4cxx::ConsoleAppender(new log4cxx::PatternLayout("%d [%-5p] %c - %m%n")));
 }
 
 bool Application::isRunning() {
   return isRunning_;
 }
 
+int Application::initialize() {
+  // Initialize services
+  dioptre::Locator::initialize();
+  dioptre::Locator::provide(Module::M_WINDOW, windowService_.get());
+  dioptre::Locator::provide(Module::M_GRAPHICS, graphicsService_.get());
+  dioptre::Locator::provide(Module::M_KEYBOARD, keyboardService_.get());
+
+  windowService_->initialize();
+  graphicsService_->initialize();
+  keyboardService_->initialize();
+
+  // Configure the logging mechanism
+  log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
+  rootlogger->addAppender(new log4cxx::ConsoleAppender(new log4cxx::PatternLayout("%d [%-5p] %c - %m%n")));
+
+  return 0;
+}
+
 void Application::run() {
   isRunning_ = true;
 
-  auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
-  auto graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
-  auto keyboard = dioptre::Locator::getInstance<dioptre::keyboard::KeyboardInterface>(dioptre::Module::M_KEYBOARD);
-
-  window->initialize();
-  graphics->initialize();
-  keyboard->initialize();
-
+  // free this handler
   dioptre::keyboard::handlers::ExitGame* exitGameHandler = new dioptre::keyboard::handlers::ExitGame();
-  keyboard->registerKeyHandler(exitGameHandler);
+  keyboardService_->registerKeyHandler(exitGameHandler);
 
-  while(!window->shouldClose()) {
-    graphics->render();
-    window->swapBuffers();
+  while(!windowService_->shouldClose()) {
+    for (auto o : objects_) {
+      o->update();
+    }
+
+    graphicsService_->update();
+    windowService_->swapBuffers();
   }
 
-  graphics->destroy();
-  window->destroy();
+  keyboardService_->destroy();
+  graphicsService_->destroy();
+  windowService_->destroy();
 
   isRunning_ = false;
+}
+
+void Application::addObject(dioptre::Object* object) {
+  objects_.push_back(object);
 }
 
 Application* Application::instance_ = 0;
