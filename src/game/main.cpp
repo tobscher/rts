@@ -3,7 +3,7 @@
 #include "dioptre/application.h"
 #include "dioptre/object.h"
 #include "dioptre/graphics/basic_material.h"
-#include "dioptre/graphics/box_geometry.h"
+#include "dioptre/graphics/triangle_geometry.h"
 #include "dioptre/graphics/component.h"
 #include "dioptre/behaviours/rotate.h"
 
@@ -13,8 +13,11 @@ int main(int argc, char *argv[]) {
 
   // Global material and geometry
   // Consider geometry and material factory to handle lifetime
+  glm::vec3 a = {-1.0f, -1.0f, 0.0f};
+  glm::vec3 b = {1.0f, -1.0f, 0.0f};
+  glm::vec3 c = {0.0f, 1.0f, 0.0f};
   std::unique_ptr<dioptre::graphics::BasicMaterial> material(new dioptre::graphics::BasicMaterial());
-  std::unique_ptr<dioptre::graphics::BoxGeometry> geometry(new dioptre::graphics::BoxGeometry());
+  std::unique_ptr<dioptre::graphics::TriangleGeometry> geometry(new dioptre::graphics::TriangleGeometry(a, b, c));
 
   // Extract this into level loading once levels are available
   std::unique_ptr<dioptre::Object> cube(new dioptre::Object());

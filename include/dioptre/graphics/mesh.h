@@ -13,6 +13,8 @@ public:
   Mesh(Geometry* geometry, Material* material);
   bool isInitialized();
   void setIsInitialized(bool value);
+  Geometry* getGeometry();
+  Material* getMaterial();
 
 private:
   bool isInitialized_;

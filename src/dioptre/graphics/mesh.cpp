@@ -17,5 +17,13 @@ void Mesh::setIsInitialized(bool value) {
   isInitialized_ = value;
 }
 
+Geometry* Mesh::getGeometry() {
+  return geometry_;
+}
+
+Material* Mesh::getMaterial() {
+  return material_;
+}
+
 } // graphics
 } // dioptre

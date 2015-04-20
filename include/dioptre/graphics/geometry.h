@@ -8,9 +8,11 @@ namespace dioptre {
 namespace graphics {
 
 class Geometry {
+public:
+  ~Geometry() {}
+  std::vector<glm::vec3> getData();
 
-
-private:
+protected:
   std::vector<glm::vec3> vertices_;
 }; // Geometry
 
