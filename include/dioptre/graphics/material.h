@@ -6,7 +6,7 @@
 namespace dioptre {
 namespace graphics {
 
-using color = glm::vec3;
+typedef glm::vec3 color;
 
 class Material {
 public:
