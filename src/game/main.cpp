@@ -3,7 +3,7 @@
 #include "dioptre/application.h"
 #include "dioptre/object.h"
 #include "dioptre/graphics/opengl/basic_material.h"
-#include "dioptre/graphics/triangle_geometry.h"
+#include "dioptre/graphics/opengl/triangle_geometry.h"
 #include "dioptre/graphics/component.h"
 #include "dioptre/behaviours/rotate.h"
 
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
   mat->setColor(dioptre::graphics::color(1.0f, 0.0f, 0.0f));
 
   std::unique_ptr<dioptre::graphics::BasicMaterial> material(mat);
-  std::unique_ptr<dioptre::graphics::TriangleGeometry> geometry(new dioptre::graphics::TriangleGeometry(a, b, c));
+  std::unique_ptr<dioptre::graphics::TriangleGeometry> geometry(new dioptre::graphics::opengl::TriangleGeometry(a, b, c));
 
   // Extract this into level loading once levels are available
   std::unique_ptr<dioptre::Object> cube(new dioptre::Object());

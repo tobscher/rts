@@ -24,10 +24,6 @@ int Graphics::initialize() {
   glGenVertexArrays(1, &vertexArrayId_);
   glBindVertexArray(vertexArrayId_);
 
-  // Use material
-  dioptre::graphics::opengl::Shader shader;
-	programId_ = shader.loadFromFile("simple.vert", "simple.frag");
-
   for (auto it = scene_->begin(); it != scene_->end(); it++) {
     initializeMesh(*it);
   }
@@ -47,20 +43,11 @@ void Graphics::initializeMesh(Mesh* mesh) {
     material->setIsInitialized(true);
   }
 
-  /* auto geometry = mesh->getGeometry(); */
-  /* if (!geometry->isInitialized()) { */
-  /*   geometry->initialize(); */
-  /*   geometry->setIsInitialized(true); */
-  /* } */
-
-  // Initialize geometry
-  GLuint vertexBuffer;
-  glGenBuffers(1, &vertexBuffer);
-  vertexBuffers_[mesh->getId()] = vertexBuffer;
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-  auto bufferData = mesh->getGeometry()->getData();
-  // Give our vertices to OpenGL.
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * bufferData.size(), &bufferData[0], GL_STATIC_DRAW);
+  auto geometry = mesh->getGeometry();
+  if (!geometry->isInitialized()) {
+    geometry->initialize();
+    geometry->setIsInitialized(true);
+  }
 
   mesh->setIsInitialized(true);
 }
@@ -85,39 +72,23 @@ void Graphics::renderMesh(Mesh* mesh) {
   auto material = mesh->getMaterial();
   material->update();
 
-  /* auto geometry = mesh->getGeometry(); */
-  /* geometry->update(); */
-
-  auto data = mesh->getGeometry()->getData();
-
-  // 1st attribute buffer : vertices
-  glEnableVertexAttribArray(0);
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffers_[mesh->getId()]);
-  glVertexAttribPointer(
-     0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-     data.size(),        // size
-     GL_FLOAT,           // type
-     GL_FALSE,           // normalized?
-     0,                  // stride
-     (void*)0            // array buffer offset
-  );
-
-  // Draw the triangle !
-  glDrawArrays(GL_TRIANGLES, 0, data.size());
-  glDisableVertexAttribArray(0);
+  auto geometry = mesh->getGeometry();
+  geometry->update();
 }
 
 void Graphics::destroy() {
   for (auto it = scene_->begin(); it != scene_->end(); it++) {
     destroyMesh(*it);
   }
+	glDeleteVertexArrays(1, &vertexArrayId_);
 }
 
 void Graphics::destroyMesh(Mesh* mesh) {
-	// Cleanup VBO
-	glDeleteBuffers(1, &vertexBuffers_[mesh->getId()]);
-	glDeleteVertexArrays(1, &vertexArrayId_);
-	glDeleteProgram(programId_);
+  auto geometry = mesh->getGeometry();
+  geometry->destroy();
+
+  auto material = mesh->getMaterial();
+  material->destroy();
 }
 
 } // opengl

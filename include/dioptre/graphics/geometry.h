@@ -9,14 +9,21 @@ namespace graphics {
 
 class Geometry {
 public:
-  ~Geometry() {}
+  virtual ~Geometry() {}
   std::vector<glm::vec3> getData();
 
-  /* virtual void initialize() = 0; */
-  /* virtual void update() = 0; */
+  bool isInitialized();
+  void setIsInitialized(bool value);
+
+  virtual void initialize() = 0;
+  virtual void update() = 0;
+  virtual void destroy() = 0;
 
 protected:
   std::vector<glm::vec3> vertices_;
+
+private:
+  bool isInitialized_;
 }; // Geometry
 
 } // graphics

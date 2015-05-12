@@ -42,9 +42,6 @@ private:
   void destroyMesh(Mesh* mesh);
 
   GLuint vertexArrayId_;
-  GLuint programId_;
-
-  std::map<int, GLuint> vertexBuffers_;
 }; // Graphics
 
 } // opengl

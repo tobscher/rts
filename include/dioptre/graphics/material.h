@@ -17,6 +17,7 @@ public:
 
   virtual void initialize() = 0;
   virtual void update() = 0;
+  virtual void destroy() = 0;
 
 private:
   bool isInitialized_;

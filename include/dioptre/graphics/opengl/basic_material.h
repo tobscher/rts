@@ -12,6 +12,7 @@ class BasicMaterial : public dioptre::graphics::BasicMaterial {
 public:
   void initialize();
   void update();
+  void destroy();
 
 protected:
   GLuint programId_;
