@@ -1,11 +1,12 @@
 #include <iostream>
 
 #include "glm/glm.hpp"
+#include <glm/gtc/type_ptr.hpp>
 
 #include "dioptre/graphics/opengl.h"
 #include "dioptre/graphics/opengl/graphics.h"
 #include "dioptre/math/triangle.h"
-#include "shader.h"
+#include "dioptre/graphics/opengl/shader.h"
 #include "dioptre/debug.h"
 
 namespace dioptre {
@@ -39,14 +40,25 @@ void Graphics::initializeMesh(Mesh* mesh) {
 
   debug("Initializing mesh...");
 
+  // Initialize material
+  auto material = mesh->getMaterial();
+  if (!material->isInitialized()) {
+    material->initialize();
+    material->setIsInitialized(true);
+  }
+
+  /* auto geometry = mesh->getGeometry(); */
+  /* if (!geometry->isInitialized()) { */
+  /*   geometry->initialize(); */
+  /*   geometry->setIsInitialized(true); */
+  /* } */
+
+  // Initialize geometry
   GLuint vertexBuffer;
   glGenBuffers(1, &vertexBuffer);
   vertexBuffers_[mesh->getId()] = vertexBuffer;
-
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-
   auto bufferData = mesh->getGeometry()->getData();
-
   // Give our vertices to OpenGL.
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * bufferData.size(), &bufferData[0], GL_STATIC_DRAW);
 
@@ -55,7 +67,7 @@ void Graphics::initializeMesh(Mesh* mesh) {
 
 void Graphics::resize(int width, int height) {
   // Set the viewport to window dimensions
-  glViewport( 0, 0, width, height);
+  glViewport(0, 0, width, height);
 }
 
 void Graphics::render() {
@@ -70,8 +82,11 @@ void Graphics::render() {
 }
 
 void Graphics::renderMesh(Mesh* mesh) {
-  // Use our shader
-  glUseProgram(programId_);
+  auto material = mesh->getMaterial();
+  material->update();
+
+  /* auto geometry = mesh->getGeometry(); */
+  /* geometry->update(); */
 
   auto data = mesh->getGeometry()->getData();
 

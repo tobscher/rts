@@ -12,6 +12,9 @@ public:
   ~Geometry() {}
   std::vector<glm::vec3> getData();
 
+  /* virtual void initialize() = 0; */
+  /* virtual void update() = 0; */
+
 protected:
   std::vector<glm::vec3> vertices_;
 }; // Geometry

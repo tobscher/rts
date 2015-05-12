@@ -9,5 +9,5 @@ TriangleGeometry::TriangleGeometry(glm::vec3 a, glm::vec3 b, glm::vec3 c) {
   vertices_.push_back(c);
 }
 
-}
-}
+} // graphics
+} // dioptre

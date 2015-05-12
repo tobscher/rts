@@ -7,7 +7,12 @@ namespace dioptre {
 namespace graphics {
 
 class BasicMaterial : public Material {
+public:
+  void setColor(color color);
+  color getColor();
 
+protected:
+  color color_;
 }; // BasicMaterial
 
 } // graphics

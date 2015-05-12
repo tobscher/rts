@@ -2,7 +2,7 @@
 #include <fstream>
 #include <vector>
 
-#include "shader.h"
+#include "dioptre/graphics/opengl/shader.h"
 #include "dioptre/filesystem/path_lookup.h"
 #include "dioptre/graphics/opengl.h"
 
