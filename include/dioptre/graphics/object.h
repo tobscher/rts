@@ -1,7 +1,7 @@
 #ifndef DIOPTRE_GRAPHICS_OBJECT_H_
 #define DIOPTRE_GRAPHICS_OBJECT_H_
 
-#include "glm/glm.hpp"
+#include "dioptre/graphics/transform.h"
 
 namespace dioptre {
 namespace graphics {
@@ -12,13 +12,12 @@ public:
   virtual ~Object() {};
 
   int getId();
+  Transform getTransform();
 
 private:
   int id_;
 
-  glm::mat4x4 matrix_;
-  glm::vec3 position_;
-  glm::vec3 scale_;
+  Transform transform_;
 }; // Object
 
 } // graphics
