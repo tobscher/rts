@@ -8,7 +8,13 @@ namespace graphics {
 
 // Possibly abstract
 class Camera : public Object {
+public:
+  glm::mat4 getProjectionMatrix();
 
+protected:
+  glm::mat4 projectionMatrix_;
+
+  virtual void updateProjectionMatrix() = 0;
 }; // Camera
 
 } // graphics

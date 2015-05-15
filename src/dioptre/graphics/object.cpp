@@ -5,14 +5,15 @@ namespace dioptre {
 namespace graphics {
 
 Object::Object() :
-    id_(dioptre::math::Id::next()) {
+    id_(dioptre::math::Id::next()),
+    transform_(new Transform()) {
 }
 
 int Object::getId() {
   return id_;
 }
 
-Transform Object::getTransform() {
+Transform* Object::getTransform() {
   return transform_;
 }
 

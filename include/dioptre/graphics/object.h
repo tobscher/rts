@@ -12,12 +12,12 @@ public:
   virtual ~Object() {};
 
   int getId();
-  Transform getTransform();
+  Transform* getTransform();
 
 private:
   int id_;
 
-  Transform transform_;
+  Transform* transform_;
 }; // Object
 
 } // graphics

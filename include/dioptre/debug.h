@@ -5,8 +5,10 @@
 #include <map>
 #include <iostream>
 
+#include "glm/mat4x4.hpp"
+
 template <typename T>
-void debug(const std::vector<T>& v) {
+inline void debug(const std::vector<T>& v) {
   std::cout << "[";
   for(auto& i : v) {
     std::cout << " " << i << " ";
@@ -15,7 +17,7 @@ void debug(const std::vector<T>& v) {
 }
 
 template <typename Key, typename T>
-void debug(const std::map<Key, T> m) {
+inline void debug(const std::map<Key, T> m) {
   std::cout << "[";
 
   for(auto it = m.begin(); it != m.end(); it++) {
@@ -25,8 +27,14 @@ void debug(const std::map<Key, T> m) {
   std::cout << "]" << std::endl;
 }
 
+inline void debug(glm::mat4x4 m) {
+  for (unsigned i = 0; i < 4; i++) {
+    std::cout << "[" << m[0][i] << " " << m[1][i] << " " << m[2][i] << " " << m[3][i] << "]" << std::endl;
+  }
+}
+
 template <typename T>
-void debug(const T x) {
+inline void debug(const T x) {
   std::cout << x << std::endl;
 }
 

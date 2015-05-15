@@ -3,6 +3,7 @@
 
 #include "dioptre/graphics/basic_material.h"
 #include "dioptre/graphics/opengl.h"
+#include "glm/glm.hpp"
 
 namespace dioptre {
 namespace graphics {
@@ -13,6 +14,8 @@ public:
   void initialize();
   void update();
   void destroy();
+
+  void setMVP(glm::mat4 mvp);
 
 protected:
   GLuint programId_;

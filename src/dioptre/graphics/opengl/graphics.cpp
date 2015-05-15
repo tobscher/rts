@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 #include <glm/gtc/type_ptr.hpp>
 
 #include "dioptre/graphics/opengl.h"
@@ -43,11 +44,15 @@ void Graphics::initializeMesh(Mesh* mesh) {
     material->setIsInitialized(true);
   }
 
+  debug("Initialized material...");
+
   auto geometry = mesh->getGeometry();
   if (!geometry->isInitialized()) {
     geometry->initialize();
     geometry->setIsInitialized(true);
   }
+
+  debug("Initialized geometry...");
 
   mesh->setIsInitialized(true);
 }
@@ -57,23 +62,29 @@ void Graphics::resize(int width, int height) {
   glViewport(0, 0, width, height);
 }
 
-void Graphics::render() {
+void Graphics::render(Scene* scene, Camera* camera) {
   glClear(GL_COLOR_BUFFER_BIT);
 
   for (auto it = scene_->begin(); it != scene_->end(); it++) {
     if (!(*it)->isInitialized()) {
       initializeMesh(*it);
     }
-    renderMesh(*it);
+
+    auto mesh = *it;
+
+    // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
+    glm::mat4 projection = camera->getProjectionMatrix();
+    glm::mat4 view = glm::inverse(camera->getTransform()->getMatrix());
+    glm::mat4 model = mesh->getTransform()->getMatrix();  // Changes for each model !
+    glm::mat4 mvp = projection * view * model;
+
+    auto material = mesh->getMaterial();
+    material->update();
+    material->setMVP(mvp);
+
+    auto geometry = mesh->getGeometry();
+    geometry->update();
   }
-}
-
-void Graphics::renderMesh(Mesh* mesh) {
-  auto material = mesh->getMaterial();
-  material->update();
-
-  auto geometry = mesh->getGeometry();
-  geometry->update();
 }
 
 void Graphics::destroy() {

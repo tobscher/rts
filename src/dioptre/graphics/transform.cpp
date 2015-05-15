@@ -4,6 +4,8 @@
 #include "glm/gtc/quaternion.hpp"
 #include "glm/gtx/quaternion.hpp"
 
+#include "dioptre/debug.h"
+
 namespace dioptre {
 namespace graphics {
 
