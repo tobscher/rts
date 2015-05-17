@@ -31,7 +31,7 @@ public:
   /**
    * Should render scene graph.
    */
-  virtual void render(Scene* scene, Camera* camera) = 0;
+  virtual void render() = 0;
 
   /**
    * Updates the graphics service.

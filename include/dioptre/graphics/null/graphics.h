@@ -11,7 +11,7 @@ class Graphics : public dioptre::graphics::GraphicsInterface {
 public:
   int initialize() { return 0; }
   void resize(int width, int height) { }
-  void render(Scene* scene, Camera* camera) { }
+  void render() { }
   void destroy() { }
 }; // Graphics
 

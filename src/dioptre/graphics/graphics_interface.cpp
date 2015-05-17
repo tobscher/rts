@@ -12,7 +12,7 @@ GraphicsInterface::GraphicsInterface() :
 }
 
 void GraphicsInterface::update() {
-  render(scene_.get(), camera_.get());
+  render();
 }
 
 Scene* GraphicsInterface::getScene() {

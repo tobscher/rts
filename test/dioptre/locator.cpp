@@ -35,7 +35,7 @@ class MockGraphics : public GraphicsInterface {
 public:
   int initialize() { return 1337; }
   void resize(int width, int height) {  }
-  void render(dioptre::graphics::Scene* scene, dioptre::graphics::Camera* camera) { }
+  void render() { }
   void destroy() { }
 };
 

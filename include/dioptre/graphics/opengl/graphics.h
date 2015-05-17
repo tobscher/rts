@@ -29,7 +29,7 @@ public:
   /**
    * Renders the current scene graph to the screen.
    */
-  void render(Scene* scene, Camera* camera);
+  void render();
 
   /**
    * Destroys the current 3D context.
