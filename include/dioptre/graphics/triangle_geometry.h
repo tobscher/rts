@@ -11,7 +11,7 @@ public:
   TriangleGeometry(glm::vec3 a, glm::vec3 b, glm::vec3 c);
 }; // TriangleGeometry
 
-}
-}
+} // graphics
+} // dioptre
 
-#endif
+#endif // DIOPTRE_GRAPHICS_TRIANGLE_GEOMETRY_H_

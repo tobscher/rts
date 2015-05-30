@@ -63,7 +63,7 @@ void Graphics::resize(int width, int height) {
 }
 
 void Graphics::render() {
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   for (auto it = scene_->begin(); it != scene_->end(); it++) {
     if (!(*it)->isInitialized()) {

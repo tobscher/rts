@@ -20,7 +20,7 @@ private:
   GLuint vertexBuffer_;
 }; // TriangleGeometry
 
-}
+} // opengl
 } // graphics
 } // dioptre
 
