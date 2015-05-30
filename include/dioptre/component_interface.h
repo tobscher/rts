@@ -3,9 +3,15 @@
 
 namespace dioptre {
 
+class Object;
 class ComponentInterface {
 public:
     virtual void update() = 0;
+    void setObject(Object* object);
+    Object* getObject();
+
+private:
+    Object* object_;
 };
 
 }
