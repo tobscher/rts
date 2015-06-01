@@ -27,6 +27,8 @@ public:
 
 private:
   GLFWwindow* glfwWindow_;
+  GLFWmonitor* glfwMonitor_;
+  const GLFWvidmode* glfwVideoMode_;
 }; // Window
 
 } // glfw

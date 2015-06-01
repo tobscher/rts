@@ -11,6 +11,7 @@ Window::Window()
   : glfwWindow_(nullptr) {
 }
 
+// TODO(Tobscher) initialize window from settings, e.g. only go into fullscreen if requested.
 int Window::initialize() {
   // Initialise GLFW
   if(!glfwInit()) {
@@ -18,14 +19,21 @@ int Window::initialize() {
     return -1;
   }
 
+  glfwMonitor_ = glfwGetPrimaryMonitor();
+  glfwVideoMode_ = glfwGetVideoMode(glfwMonitor_);
+
   glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // We don't want the old OpenGL
+  glfwWindowHint(GLFW_RED_BITS, glfwVideoMode_->redBits);
+  glfwWindowHint(GLFW_GREEN_BITS, glfwVideoMode_->greenBits);
+  glfwWindowHint(GLFW_BLUE_BITS, glfwVideoMode_->blueBits);
+  glfwWindowHint(GLFW_REFRESH_RATE, glfwVideoMode_->refreshRate);
 
   // Open a window and create its OpenGL context
-  glfwWindow_ = glfwCreateWindow(1024, 768, "RTS", NULL, NULL);
+  glfwWindow_ = glfwCreateWindow(glfwVideoMode_->width, glfwVideoMode_->height, "RTS", glfwMonitor_, nullptr);
   if (glfwWindow_ == NULL) {
     fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible.\n");
     glfwTerminate();
