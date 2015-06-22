@@ -17,7 +17,6 @@ class Shader {
 public:
   Shader();
   GLuint loadFromFile(std::string vertexFilePath, std::string fragmentFilePath);
-  GLuint identifier();
 
 private:
   bool loaded_;

@@ -121,10 +121,6 @@ GLuint Shader::loadFromFile(string vertexFilePath, string fragmentFilePath) {
   return programId_;
 }
 
-GLuint Shader::identifier() {
-  return programId_;
-}
-
 log4cxx::LoggerPtr Shader::logger_ = log4cxx::Logger::getLogger("dioptre.shader");
 
 } // opengl

@@ -14,13 +14,14 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
+// TODO(Tobscher) Take clear color from settings.
 int Graphics::initialize() {
   glewExperimental = true; // Needed in core profile
   if (glewInit() != GLEW_OK) {
     fprintf(stderr, "Failed to initialize GLEW\n");
     return -1;
   }
-  glClearColor(0.0f, 0.0f, 0.4f, 1.0f);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
   glGenVertexArrays(1, &vertexArrayId_);
   glBindVertexArray(vertexArrayId_);

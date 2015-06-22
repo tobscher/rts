@@ -124,3 +124,8 @@ ENDIF (EXISTS "${MAINFOLDER}/include/${PROJECT_NAME}" AND IS_DIRECTORY "${MAINFO
 # Add Documentation Targets
 #
 INCLUDE (DocumentationTargets)
+
+FILE (GLOB_RECURSE clion_all_headers ${CMAKE_SOURCE_DIR}/include/*.h)
+ADD_CUSTOM_TARGET(all_clion
+    SOURCES ${clion_all_headers}
+)

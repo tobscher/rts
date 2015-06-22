@@ -11,5 +11,5 @@ void Rotate::update() {
   graphicsComponent->rotateY(0.02f);
 }
 
-}
-}
+} // behaviours
+} // dioptre
