@@ -93,7 +93,9 @@ ADD_SUBDIRECTORY(thirdparty/physfs)
 INCLUDE_DIRECTORIES(thirdparty/physfs)
 
 # zlib
-ADD_SUBDIRECTORY(thirdparty/zlib)
+FIND_PACKAGE (zlib REQUIRED)
+INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIRS})
+LINK_DIRECTORIES(${ZLIB_LIBRARY_DIRS})
 
 #
 # Configure Files

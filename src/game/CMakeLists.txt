@@ -1,5 +1,5 @@
 FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
-SET (project_LIBS engine glfw ${GLFW_LIBRARIES} libglew_static zlibstatic physfs-static ${Boost_LIBRARIES})
+SET (project_LIBS engine glfw ${GLFW_LIBRARIES} libglew_static physfs-static ${Boost_LIBRARIES})
 SET (project_BIN ${PROJECT_NAME})
 
 SET (project_EXTRAS)
