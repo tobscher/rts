@@ -1,6 +1,6 @@
 SET (engine_LIB engine)
 FILE (GLOB_RECURSE engine_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
-SET (engine_LIBS glfw libglew_static ${ZLIB_LIBRARY} physfs-static ${Boost_LIBRARIES} ${Log4Cxx_LIBRARIES})
+SET (engine_LIBS glfw libglew_static ${ZLIB_LIBRARIES} physfs-static ${Boost_LIBRARIES} ${Log4Cxx_LIBRARIES})
 
 ADD_LIBRARY(
   ${engine_LIB}
