@@ -107,6 +107,9 @@ FOREACH (CONFIGINPUT ${CONFIGINPUTS})
     CONFIGURE_FILE ("${CONFIGINPUT}" "${CONFIGOUTPUT2}")
 ENDFOREACH (CONFIGINPUT ${CONFIGINPUTS})
 
+# shaders
+FILE (GLOB_RECURSE shader_SRCS shaders/*.frag shaders/*.vert)
+
 #
 # Add Build Targets
 #
