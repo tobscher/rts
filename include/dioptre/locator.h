@@ -7,6 +7,8 @@
 #include "graphics/null/graphics.h"
 #include "keyboard/keyboard_interface.h"
 #include "keyboard/null/keyboard.h"
+#include "filesystem/filesystem_interface.h"
+#include "filesystem/null/filesystem.h"
 
 #include "dioptre/module.h"
 
@@ -27,6 +29,7 @@ private:
   static dioptre::window::null::Window nullWindowService_;
   static dioptre::graphics::null::Graphics nullGraphicsService_;
   static dioptre::keyboard::null::Keyboard nullKeyboardService_;
+  static dioptre::filesystem::null::Filesystem nullFilesystemService_;
 
   static Module* defaults_[Module::M_MAX_ENUM];
   static Module* instances_[Module::M_MAX_ENUM];

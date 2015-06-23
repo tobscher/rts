@@ -3,8 +3,8 @@
 #include <vector>
 
 #include "dioptre/graphics/opengl/shader.h"
-#include "dioptre/filesystem/path_lookup.h"
 #include "dioptre/graphics/opengl.h"
+#include "dioptre/locator.h"
 
 #include <log4cxx/logger.h>
 
@@ -22,7 +22,8 @@ Shader::Shader() :
  * Reads the content of the given file.
  */
 std::string Shader::readShaderContent(string file) {
-  string filePath = dioptre::filesystem::PathLookup::instance().find(file);
+  auto filesystem = dioptre::Locator::getInstance<dioptre::filesystem::FilesystemInterface>(dioptre::Module::M_FILESYSTEM);
+  string filePath = filesystem->find(file);
 
   LOG4CXX_INFO(Shader::logger_, "Loading shader: " + filePath);
 

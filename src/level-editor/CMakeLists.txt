@@ -1,5 +1,5 @@
 SET (project_BIN ${PROJECT_NAME}-editor)
-SET (project_LIBS libglew_static ${OPENGL_LIBRARIES})
+SET (project_LIBS libglew_static ${ZLIB_LIBRARY} physfs-static ${OPENGL_LIBRARIES})
 
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
