@@ -18,6 +18,7 @@ public:
 
 private:
   GLuint vertexBuffer_;
+  GLuint uvBuffer_;
 }; // BoxGeometry
 
 } // opengl

@@ -11,16 +11,34 @@ namespace graphics {
 namespace opengl {
 
 void BasicMaterial::initialize() {
+  ShaderFeatures features(FeatureNone);
+
+  if (texture_ == nullptr) {
+    features = features | FeatureColor;
+  } else {
+    features = features | FeatureTexture;
+  }
+
   // Use material
-  dioptre::graphics::opengl::Shader shader;
+  dioptre::graphics::opengl::Shader shader(features);
 	programId_ = shader.loadFromFile("basic.vert", "basic.frag");
+
+  if (texture_ != nullptr) {
+    std::cout << "Initializing texture..." << std::endl;
+    glTexture_ = (Texture*)texture_;
+    glTexture_->initialize();
+  }
 }
 
 void BasicMaterial::update() {
   glUseProgram(programId_);
 
-  GLint diffuseLocation = glGetUniformLocation(programId_, "diffuse");
-  glUniform3fv(diffuseLocation, 1, glm::value_ptr(color_));
+  if (texture_ == nullptr) {
+    GLint diffuseLocation = glGetUniformLocation(programId_, "diffuse");
+    glUniform3fv(diffuseLocation, 1, glm::value_ptr(color_));
+  } else {
+    glTexture_->updateGL(programId_);
+  }
 }
 
 void BasicMaterial::setMVP(glm::mat4 mvp) {

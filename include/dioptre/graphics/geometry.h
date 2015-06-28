@@ -11,6 +11,7 @@ class Geometry {
 public:
   virtual ~Geometry() {}
   std::vector<glm::vec3> getData();
+  std::vector<glm::vec2> getUVData();
 
   bool isInitialized();
   void setIsInitialized(bool value);
@@ -21,6 +22,7 @@ public:
 
 protected:
   std::vector<glm::vec3> vertices_;
+  std::vector<glm::vec2> uvs_;
 
 private:
   bool isInitialized_;

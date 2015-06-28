@@ -57,6 +57,16 @@ BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height, glm::float32 d
       glm::vec3(-halfWidth, halfHeight, -halfDepth),
       glm::vec3(halfWidth, halfHeight, -halfDepth)
   );
+
+  for (int i = 0; i < 6; i++) {
+    uvs_.push_back(glm::vec2(1,1));
+    uvs_.push_back(glm::vec2(0,0));
+    uvs_.push_back(glm::vec2(1,0));
+
+    uvs_.push_back(glm::vec2(1,1));
+    uvs_.push_back(glm::vec2(0,1));
+    uvs_.push_back(glm::vec2(0,0));
+  }
 }
 
 void BoxGeometry::addPlane(glm::vec3 a, glm::vec3 b, glm::vec3 c, glm::vec3 d) {

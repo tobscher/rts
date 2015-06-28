@@ -1,5 +1,6 @@
-#include <dioptre/graphics/texture.h>
 #include "map.h"
+
+#include "dioptre/graphics/opengl/texture.h"
 #include "dioptre/graphics/opengl/basic_material.h"
 #include "dioptre/graphics/opengl/box_geometry.h"
 
@@ -7,8 +8,8 @@ namespace objects {
 
 Map* Map::spawn() {
   auto material = new dioptre::graphics::opengl::BasicMaterial();
-//  material->setColor(dioptre::graphics::color(0.761f, 0.698f, 0.502f));
-  dioptre::graphics::Texture* texture = new dioptre::graphics::Texture("");
+  dioptre::graphics::opengl::Texture* texture = new dioptre::graphics::opengl::Texture("sand.jpg");
+  texture->setRepeat(glm::vec2(5,5));
   material->setTexture(texture);
 
   auto geometry = new dioptre::graphics::opengl::BoxGeometry(200.0f,1.0f,200.0f);

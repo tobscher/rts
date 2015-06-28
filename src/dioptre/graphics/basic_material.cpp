@@ -11,5 +11,13 @@ color BasicMaterial::getColor() {
   return color_;
 }
 
+void BasicMaterial::setTexture(dioptre::graphics::Texture* texture) {
+  texture_ = texture;
+}
+
+dioptre::graphics::Texture* BasicMaterial::getTexture() {
+  return texture_;
+}
+
 } // graphics
 } // dioptre

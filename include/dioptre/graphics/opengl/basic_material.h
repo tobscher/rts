@@ -3,6 +3,7 @@
 
 #include "dioptre/graphics/basic_material.h"
 #include "dioptre/graphics/opengl.h"
+#include "dioptre/graphics/opengl/texture.h"
 #include "glm/glm.hpp"
 
 namespace dioptre {
@@ -19,6 +20,7 @@ public:
 
 protected:
   GLuint programId_;
+  dioptre::graphics::opengl::Texture* glTexture_;
 }; // BasicMaterial
 
 } // opengl

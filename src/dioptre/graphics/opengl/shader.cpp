@@ -1,6 +1,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <iostream>
 
 #include "dioptre/graphics/opengl/shader.h"
 #include "dioptre/graphics/opengl.h"
@@ -14,8 +15,9 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
-Shader::Shader() :
-  loaded_(false) {
+Shader::Shader(ShaderFeatures features) :
+  loaded_(false),
+  features_(features) {
 }
 
 /**
@@ -46,6 +48,7 @@ std::string Shader::readShaderContent(string file) {
  */
 bool Shader::compileShader(string shaderCode, GLuint& shaderId) {
   LOG4CXX_INFO(Shader::logger_, "Compiling shader");
+  LOG4CXX_INFO(Shader::logger_, shaderCode);
 
   // compile
   char const * shaderSourcePointer = shaderCode.c_str();
@@ -106,6 +109,9 @@ GLuint Shader::loadFromFile(string vertexFilePath, string fragmentFilePath) {
   string vertexShaderCode = readShaderContent(vertexFilePath);
   string fragmentShaderCode = readShaderContent(fragmentFilePath);
 
+  vertexShaderCode = applyFeatures(vertexShaderCode);
+  fragmentShaderCode = applyFeatures(fragmentShaderCode);
+
   // Compile the shaders
   compileShader(vertexShaderCode, vertexShaderId);
   compileShader(fragmentShaderCode, fragmentShaderId);
@@ -120,6 +126,20 @@ GLuint Shader::loadFromFile(string vertexFilePath, string fragmentFilePath) {
   loaded_ = true;
 
   return programId_;
+}
+
+string Shader::applyFeatures(string code) {
+  std::cout << "Features:" << features_ << std::endl;
+
+  if ((features_ & FeatureColor) == FeatureColor) {
+    code.insert(19, USE_COLOR);
+  }
+
+  if ((features_ & FeatureTexture) == FeatureTexture) {
+    code.insert(19, USE_TEXTURE);
+  }
+
+  return code;
 }
 
 log4cxx::LoggerPtr Shader::logger_ = log4cxx::Logger::getLogger("dioptre.shader");
