@@ -84,7 +84,13 @@ LINK_DIRECTORIES(${Log4Cxx_LIBRARY_DIRS})
 # ADD_SUBDIRECTORY(thirdparty/unittest-cpp)
 
 # googletest
-add_subdirectory(thirdparty/googletest)
+ADD_SUBDIRECTORY(thirdparty/googletest)
+
+# physfs
+OPTION(PHYSFS_BUILD_SHARED FALSE)
+OPTION(PHYSFS_BUILD_DOCS OFF)
+ADD_SUBDIRECTORY(thirdparty/physfs)
+INCLUDE_DIRECTORIES(thirdparty/physfs)
 
 #
 # Configure Files
@@ -106,6 +112,9 @@ FOREACH (CONFIGINPUT ${CONFIGINPUTS})
     STRING (REPLACE ".h.in.cmake" ".h" CONFIGOUTPUT2 "${CONFIGOUTPUT1}")
     CONFIGURE_FILE ("${CONFIGINPUT}" "${CONFIGOUTPUT2}")
 ENDFOREACH (CONFIGINPUT ${CONFIGINPUTS})
+
+# shaders
+FILE (GLOB_RECURSE shader_SRCS shaders/*.frag shaders/*.vert)
 
 #
 # Add Build Targets

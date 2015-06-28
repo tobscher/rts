@@ -4,13 +4,14 @@
 
 #include "dioptre/application.h"
 #include "dioptre/locator.h"
-#include "dioptre/filesystem/path_lookup.h"
 #include "dioptre/graphics/graphics_interface.h"
 #include "dioptre/graphics/opengl/graphics.h"
 #include "dioptre/window/window_interface.h"
 #include "dioptre/window/glfw/window.h"
 #include "dioptre/keyboard/keyboard_interface.h"
 #include "dioptre/keyboard/glfw/keyboard.h"
+#include "dioptre/filesystem/filesystem_interface.h"
+#include "dioptre/filesystem/physfs/filesystem.h"
 
 #include "keyboard/handlers/exit_game.h"
 
@@ -22,7 +23,8 @@ namespace dioptre {
 Application::Application(int argc, char *argv[]) :
   windowService_(new dioptre::window::glfw::Window()),
   graphicsService_(new dioptre::graphics::opengl::Graphics()),
-  keyboardService_(new dioptre::keyboard::glfw::Keyboard())
+  keyboardService_(new dioptre::keyboard::glfw::Keyboard()),
+  filesystemService_(new dioptre::filesystem::physfs::Filesystem())
 {
   // Enforce singleton property
   if (instance_) {
@@ -31,8 +33,8 @@ Application::Application(int argc, char *argv[]) :
 
   instance_ = this;
 
-  // Register current path of executable as shader lookup path
-  dioptre::filesystem::PathLookup::instance().registerFromArgs(argv);
+  // Register current path of executable as lookup path
+  filesystemService_->registerFromArgs(argv);
 }
 
 bool Application::isRunning() {
@@ -45,10 +47,12 @@ int Application::initialize() {
   dioptre::Locator::provide(Module::M_WINDOW, windowService_.get());
   dioptre::Locator::provide(Module::M_GRAPHICS, graphicsService_.get());
   dioptre::Locator::provide(Module::M_KEYBOARD, keyboardService_.get());
+  dioptre::Locator::provide(Module::M_FILESYSTEM, filesystemService_.get());
 
   windowService_->initialize();
   graphicsService_->initialize();
   keyboardService_->initialize();
+  filesystemService_->initialize();
 
   // Configure the logging mechanism
   log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
@@ -76,6 +80,7 @@ void Application::run() {
   keyboardService_->destroy();
   graphicsService_->destroy();
   windowService_->destroy();
+  filesystemService_->destroy();
 
   isRunning_ = false;
 }

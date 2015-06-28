@@ -4,7 +4,6 @@
 
 #include "dioptre/locator.h"
 #include "dioptre/module.h"
-#include "dioptre/filesystem/path_lookup.h"
 #include "dioptre/graphics/opengl/graphics.h"
 
 #include <log4cxx/consoleappender.h>
@@ -12,8 +11,6 @@
 
 int main(int argc, char *argv[])
 {
-  dioptre::filesystem::PathLookup::instance().registerFromArgs(argv);
-
   QApplication a(argc, argv);
 
   // Specify an OpenGL 3.3 format using the Core profile.
