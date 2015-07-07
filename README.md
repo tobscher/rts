@@ -31,6 +31,6 @@ Once the project has been built (see "Building"), execute `sudo make install`.
 
 ## Contributing
 
-If you encounter any issues please [file an issue](https://github.com/tobscher/rts/issues/new).
+If you encounter any problems please [file an issue](https://github.com/tobscher/rts/issues/new).
 
 Pull requests are welcome.
