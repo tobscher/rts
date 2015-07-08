@@ -7,6 +7,9 @@ namespace dioptre {
 namespace mouse {
 namespace null {
 
+/*
+ * Null Mouse service.
+ */
 class Mouse : public dioptre::mouse::MouseInterface {
 public:
   int initialize() { return 0; }

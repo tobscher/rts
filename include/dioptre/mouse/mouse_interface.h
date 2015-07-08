@@ -8,13 +8,32 @@
 namespace dioptre {
 namespace mouse {
 
+/*
+ * Abstract base class for mouse handling service.
+ */
 class MouseInterface : public dioptre::Module {
 public:
   virtual ~MouseInterface() {}
+
+  /*
+   * setPosition sets the x and y position of the cursor.
+   * This normally happens within a callback of the window system.
+   */
   void setPosition(double x, double y);
 
+  /**
+   * getX returns the horizontal position of the mouse cursor.
+   */
   double getX();
+
+  /**
+   * getY returns the vertical position of the mouse cursor.
+   */
   double getY();
+
+  /**
+   * getPosition returns the position of the mouse cursor.
+   */
   Position getPosition();
 
 private:

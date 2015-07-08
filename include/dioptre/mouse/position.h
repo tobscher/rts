@@ -4,6 +4,9 @@
 namespace dioptre {
 namespace mouse {
 
+/*
+ * Mouse position
+ */
 struct Position {
   double x;
   double y;
