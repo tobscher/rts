@@ -10,6 +10,7 @@
 #include "window/glfw/window.h"
 #include "keyboard/glfw/keyboard.h"
 #include "filesystem/physfs/filesystem.h"
+#include "mouse/glfw/mouse.h"
 
 namespace dioptre {
 
@@ -47,6 +48,7 @@ private:
   std::unique_ptr<dioptre::graphics::opengl::Graphics> graphicsService_;
   std::unique_ptr<dioptre::keyboard::glfw::Keyboard> keyboardService_;
   std::unique_ptr<dioptre::filesystem::physfs::Filesystem> filesystemService_;
+  std::unique_ptr<dioptre::mouse::glfw::Mouse> mouseService_;
 
   std::vector<dioptre::Object*> objects_;
 

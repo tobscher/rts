@@ -1,6 +1,7 @@
 #ifndef DIOPTRE_KEYBOARD_GLFW_KEYBOARD_H_
 #define DIOPTRE_KEYBOARD_GLFW_KEYBOARD_H_
 
+#include <GLFW/glfw3.h>
 #include <map>
 
 #include "dioptre/keyboard/keyboard_interface.h"
@@ -14,8 +15,6 @@ namespace glfw {
  */
 class Keyboard : public dioptre::keyboard::KeyboardInterface {
 public:
-  ~Keyboard() {}
-
   /*
    * Binds the keyboard input
    */
@@ -39,7 +38,7 @@ private:
 /*
  * Method to handle key events.
  */
-void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 } // glfw
 } // keyboard
