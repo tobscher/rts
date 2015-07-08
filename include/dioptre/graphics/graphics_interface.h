@@ -15,7 +15,6 @@ namespace graphics {
 class GraphicsInterface : public Module {
 public:
   GraphicsInterface();
-
   virtual ~GraphicsInterface() {}
 
   /**

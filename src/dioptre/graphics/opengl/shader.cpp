@@ -4,10 +4,9 @@
 #include <iostream>
 
 #include "dioptre/graphics/opengl/shader.h"
+#include "dioptre/graphics/opengl/shader_features.h"
 #include "dioptre/graphics/opengl.h"
 #include "dioptre/locator.h"
-
-#include <log4cxx/logger.h>
 
 using std::string;
 

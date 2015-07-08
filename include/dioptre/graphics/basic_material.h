@@ -9,6 +9,8 @@ namespace graphics {
 
 class BasicMaterial : public Material {
 public:
+  virtual ~BasicMaterial() {}
+
   void setColor(color color);
   color getColor();
 

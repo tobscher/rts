@@ -15,6 +15,8 @@ namespace filesystem {
  */
 class FilesystemInterface : public Module {
 public:
+  virtual ~FilesystemInterface() {}
+
   /*
    * Register path of the exectable as a registered
    * lookup path

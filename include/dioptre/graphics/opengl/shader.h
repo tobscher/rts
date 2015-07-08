@@ -4,29 +4,13 @@
 #include <string>
 
 #include "dioptre/graphics/opengl.h"
+#include "dioptre/graphics/opengl/shader_features.h"
 
 #include "log4cxx/logger.h"
 
 namespace dioptre {
 namespace graphics {
 namespace opengl {
-
-enum ShaderFeatures {
-  FeatureNone = 0,
-  FeatureColor = 1,
-  FeatureTexture = 2
-};
-
-inline ShaderFeatures operator|(ShaderFeatures a, ShaderFeatures b) {
-  return static_cast<ShaderFeatures>(static_cast<int>(a) | static_cast<int>(b));
-}
-
-inline ShaderFeatures operator&(ShaderFeatures a, ShaderFeatures b) {
-  return static_cast<ShaderFeatures>(static_cast<int>(a) & static_cast<int>(b));
-}
-
-const std::string USE_COLOR("#define USE_COLOR\n");
-const std::string USE_TEXTURE("#define USE_TEXTURE\n");
 
 /**
  * Loads and links shader program for the given file path.

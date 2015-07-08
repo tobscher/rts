@@ -6,14 +6,16 @@ namespace dioptre {
 class Object;
 class ComponentInterface {
 public:
-    virtual void update() = 0;
-    void setObject(Object* object);
-    Object* getObject();
+  virtual ~ComponentInterface() {}
+
+  virtual void update() = 0;
+  void setObject(Object* object);
+  Object* getObject();
 
 private:
-    Object* object_;
-};
+  Object* object_;
+}; // ComponentInterface
 
-}
+} // dioptre
 
 #endif // DIOPTRE_COMPONENT_INTERFACE_H_
