@@ -120,6 +120,9 @@ ENDFOREACH (CONFIGINPUT ${CONFIGINPUTS})
 # shaders
 FILE (GLOB_RECURSE shader_SRCS shaders/*.frag shaders/*.vert)
 
+# textures
+FILE (GLOB_RECURSE texture_SRCS textures/*.jpg textures/*.png textures/*.dds)
+
 #
 # Add Build Targets
 #

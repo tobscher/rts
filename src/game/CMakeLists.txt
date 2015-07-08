@@ -10,27 +10,30 @@ IF (APPLE)
   #   LIST (APPEND project_EXTRAS icon.icns)
   #   SET_SOURCE_FILES_PROPERTIES("icon.icns" PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
   # ENDIF()
-  LIST (APPEND project_EXTRAS ${shader_SRCS})
+  LIST (APPEND project_EXTRAS ${shader_SRCS} ${texture_SRCS})
   FOREACH(SHADER ${shader_SRCS})
     SET_SOURCE_FILES_PROPERTIES(${SHADER} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
   ENDFOREACH()
+
+  FOREACH(TEXTURE ${texture_SRCS})
+    SET_SOURCE_FILES_PROPERTIES(${TEXTURE} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+  ENDFOREACH()
+ELSE()
+  ADD_CUSTOM_COMMAND(TARGET rts POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+      ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:rts>
+  )
+
+  ADD_CUSTOM_COMMAND(TARGET rts POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+      ${CMAKE_SOURCE_DIR}/textures $<TARGET_FILE_DIR:rts>
+  )
 ENDIF()
 
 ADD_EXECUTABLE(
   ${project_BIN}
   ${project_EXTRAS}
   ${project_SRCS}
-)
-
-# TODO(tobscher) don't do this on OSX as resources have their own directory in the bundle
-ADD_CUSTOM_COMMAND(TARGET rts POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:rts>
-)
-
-ADD_CUSTOM_COMMAND(TARGET rts POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/textures $<TARGET_FILE_DIR:rts>
 )
 
 TARGET_LINK_LIBRARIES(

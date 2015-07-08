@@ -14,8 +14,12 @@ void Filesystem::destroy() {
 
 void Filesystem::registerFromArgs(char *argv[]) {
   PHYSFS_init(argv[0]);
+
+// Files are located in the resources directory
+#ifdef __APPLE__
   std::string baseDir(PHYSFS_getBaseDir());
-  registerPath(baseDir.append("Contents/MacOS/"));
+  registerPath(baseDir.append("Contents/Resources/"));
+#endif
 }
 
 void Filesystem::registerPath(std::string path) {
