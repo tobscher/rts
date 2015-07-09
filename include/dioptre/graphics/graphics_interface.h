@@ -43,6 +43,11 @@ public:
   Scene* getScene();
 
   /**
+   * Returns the camera that's used.
+   */
+  Camera* getCamera();
+
+  /**
    * Should destroy the window.
    */
   virtual void destroy() = 0;

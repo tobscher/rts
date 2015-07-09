@@ -21,5 +21,9 @@ Scene* GraphicsInterface::getScene() {
   return scene_.get();
 }
 
+Camera* GraphicsInterface::getCamera() {
+  return camera_.get();
+}
+
 } // graphics
 } // dioptre

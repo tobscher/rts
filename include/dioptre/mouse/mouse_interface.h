@@ -36,8 +36,14 @@ public:
    */
   Position getPosition();
 
+  /**
+   * Returns a value that indicates if the mouse has moved yet.
+   */
+  bool hasMovedYet();
+
 private:
   Position position_;
+  bool moved_;
 }; // MouseInterface
 
 } // mouse

@@ -4,6 +4,8 @@ namespace dioptre {
 namespace mouse {
 
 void MouseInterface::setPosition(double x, double y) {
+  moved_ = true;
+
   position_.x = x;
   position_.y = y;
 }
@@ -18,6 +20,10 @@ double MouseInterface::getY() {
 
 Position MouseInterface::getPosition() {
   return position_;
+}
+
+bool MouseInterface::hasMovedYet() {
+  return moved_;
 }
 
 } // mouse
