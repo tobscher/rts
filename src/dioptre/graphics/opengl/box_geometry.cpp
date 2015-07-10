@@ -23,6 +23,11 @@ void BoxGeometry::initialize() {
   glBindBuffer(GL_ARRAY_BUFFER, uvBuffer_);
   auto uvBufferData = getUVData();
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * uvBufferData.size(), &uvBufferData[0], GL_STATIC_DRAW);
+
+  glGenBuffers(1, &normalBuffer_);
+  glBindBuffer(GL_ARRAY_BUFFER, normalBuffer_);
+  auto normalBufferData = getNormalData();
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * normalBufferData.size(), &normalBufferData[0], GL_STATIC_DRAW);
 }
 
 void BoxGeometry::update() {
@@ -52,15 +57,28 @@ void BoxGeometry::update() {
      (void*)0            // array buffer offset
   );
 
+  glEnableVertexAttribArray(2);
+  glBindBuffer(GL_ARRAY_BUFFER, normalBuffer_);
+  glVertexAttribPointer(
+     2,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+     3,                  // size
+     GL_FLOAT,           // type
+     GL_FALSE,           // normalized?
+     0,                  // stride
+     (void*)0            // array buffer offset
+  );
+
   glDrawArrays(GL_TRIANGLES, 0, data.size());
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
+  glDisableVertexAttribArray(2);
 }
 
 void BoxGeometry::destroy() {
   glDeleteBuffers(1, &vertexBuffer_);
   glDeleteBuffers(1, &uvBuffer_);
+  glDeleteBuffers(1, &normalBuffer_);
 }
 
 } // opengl

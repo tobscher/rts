@@ -75,12 +75,12 @@ void Graphics::render() {
 
     glm::mat4 projection = camera_->getProjectionMatrix();
     glm::mat4 view = glm::inverse(camera_->getTransform()->getMatrix());
-    glm::mat4 model = mesh->getTransform()->getMatrix();  // Changes for each model !
+    glm::mat4 model = mesh->getTransform()->getMatrix();
     glm::mat4 mvp = projection * view * model;
 
     auto material = mesh->getMaterial();
     material->update();
-    material->setMVP(mvp);
+    material->setMVP(model, view, mvp);
 
     auto geometry = mesh->getGeometry();
     geometry->update();

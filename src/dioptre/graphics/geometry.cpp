@@ -11,6 +11,10 @@ std::vector<glm::vec2> Geometry::getUVData() {
   return uvs_;
 }
 
+std::vector<glm::vec3> Geometry::getNormalData() {
+  return normals_;
+}
+
 bool Geometry::isInitialized() {
   return isInitialized_;
 }

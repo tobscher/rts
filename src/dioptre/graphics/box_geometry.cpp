@@ -18,6 +18,11 @@ BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height, glm::float32 d
       glm::vec3(-halfWidth, -halfHeight, -halfDepth)
   );
 
+  // Normals
+  for (int i = 0; i < 6; i++) {
+    normals_.push_back(glm::vec3(0,-1,0));
+  }
+
   // Side 1
   addPlane(
       glm::vec3(halfWidth, -halfHeight, -halfDepth),
@@ -25,6 +30,11 @@ BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height, glm::float32 d
       glm::vec3(halfWidth, halfHeight, -halfDepth),
       glm::vec3(-halfWidth, halfHeight, -halfDepth)
   );
+
+  // Normals
+  for (int i = 0; i < 6; i++) {
+    normals_.push_back(glm::vec3(0,0,-1));
+  }
 
   // Side 2
   addPlane(
@@ -34,6 +44,11 @@ BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height, glm::float32 d
       glm::vec3(-halfWidth, halfHeight, halfDepth)
   );
 
+  // Normals
+  for (int i = 0; i < 6; i++) {
+    normals_.push_back(glm::vec3(-1,0,0));
+  }
+
   // Side 3
   addPlane(
       glm::vec3(halfWidth, -halfHeight, halfDepth),
@@ -41,6 +56,11 @@ BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height, glm::float32 d
       glm::vec3(halfWidth, halfHeight, halfDepth),
       glm::vec3(halfWidth, halfHeight, -halfDepth)
   );
+
+  // Normals
+  for (int i = 0; i < 6; i++) {
+    normals_.push_back(glm::vec3(1,0,0));
+  }
 
   // Side 4
   addPlane(
@@ -50,6 +70,11 @@ BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height, glm::float32 d
       glm::vec3(halfWidth, halfHeight, halfDepth)
   );
 
+  // Normals
+  for (int i = 0; i < 6; i++) {
+    normals_.push_back(glm::vec3(0,0,1));
+  }
+
   // Top
   addPlane(
       glm::vec3(-halfWidth, halfHeight, halfDepth),
@@ -57,6 +82,11 @@ BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height, glm::float32 d
       glm::vec3(-halfWidth, halfHeight, -halfDepth),
       glm::vec3(halfWidth, halfHeight, -halfDepth)
   );
+
+  // Normals
+  for (int i = 0; i < 6; i++) {
+    normals_.push_back(glm::vec3(0,1,0));
+  }
 
   for (int i = 0; i < 6; i++) {
     uvs_.push_back(glm::vec2(1,1));

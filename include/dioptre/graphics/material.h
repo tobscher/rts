@@ -18,7 +18,7 @@ public:
   virtual void initialize() = 0;
   virtual void update() = 0;
   virtual void destroy() = 0;
-  virtual void setMVP(glm::mat4 mvp) = 0;
+  virtual void setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) = 0;
 
 private:
   bool isInitialized_;
