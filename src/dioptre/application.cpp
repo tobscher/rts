@@ -24,7 +24,8 @@ Application::Application(int argc, char *argv[]) :
   windowService_(new dioptre::window::glfw::Window()),
   graphicsService_(new dioptre::graphics::opengl::Graphics()),
   keyboardService_(new dioptre::keyboard::glfw::Keyboard()),
-  filesystemService_(new dioptre::filesystem::physfs::Filesystem())
+  filesystemService_(new dioptre::filesystem::physfs::Filesystem()),
+  mouseService_(new dioptre::mouse::glfw::Mouse())
 {
   // Enforce singleton property
   if (instance_) {
@@ -48,11 +49,13 @@ int Application::initialize() {
   dioptre::Locator::provide(Module::M_GRAPHICS, graphicsService_.get());
   dioptre::Locator::provide(Module::M_KEYBOARD, keyboardService_.get());
   dioptre::Locator::provide(Module::M_FILESYSTEM, filesystemService_.get());
+  dioptre::Locator::provide(Module::M_MOUSE, mouseService_.get());
 
   windowService_->initialize();
   graphicsService_->initialize();
   keyboardService_->initialize();
   filesystemService_->initialize();
+  mouseService_->initialize();
 
   // Configure the logging mechanism
   log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
@@ -81,6 +84,7 @@ void Application::run() {
   graphicsService_->destroy();
   windowService_->destroy();
   filesystemService_->destroy();
+  mouseService_->destroy();
 
   isRunning_ = false;
 }

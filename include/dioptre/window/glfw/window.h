@@ -22,6 +22,7 @@ public:
   int shouldClose();
   void setShouldClose(bool value);
   void swapBuffers();
+  Size getSize();
 
   GLFWwindow* GetWindow();
 

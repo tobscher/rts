@@ -67,6 +67,10 @@ GLFWwindow* Window::GetWindow() {
   return glfwWindow_;
 }
 
+Size Window::getSize() {
+  return Size(glfwVideoMode_->width, glfwVideoMode_->height);
+}
+
 } // glfw
 } // window
 } // dioptre

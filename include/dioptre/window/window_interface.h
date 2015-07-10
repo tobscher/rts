@@ -2,6 +2,7 @@
 #define DIOPTRE_WINDOW_WINDOW_INTERFACE_H_
 
 #include "dioptre/module.h"
+#include "size.h"
 
 namespace dioptre {
 namespace window {
@@ -28,6 +29,11 @@ public:
    * Should swap back and front buffer for rendering.
    */
   virtual void swapBuffers() = 0;
+
+  /**
+   * Returns the dimensions of the screen.
+   */
+  virtual Size getSize() = 0;
 }; // WindowInterface
 
 } // window

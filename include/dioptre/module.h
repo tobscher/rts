@@ -10,6 +10,7 @@ public:
     M_GRAPHICS,
     M_KEYBOARD,
     M_FILESYSTEM,
+    M_MOUSE,
     M_MAX_ENUM
   };
 

@@ -1,0 +1,2 @@
+#! /bin/bash
+(cd debug >/dev/null 2>&1 && cmake -DCMAKE_BUILD_TYPE=Debug .. "$@")

@@ -16,6 +16,7 @@ public:
   int shouldClose() { return shouldClose_; }
   void setShouldClose(bool state) { shouldClose_ = state; }
   void swapBuffers() {  }
+  Size getSize() { return Size(800, 600); }
 
 private:
   bool shouldClose_;
