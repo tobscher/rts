@@ -11,6 +11,7 @@
 #include "keyboard/glfw/keyboard.h"
 #include "filesystem/physfs/filesystem.h"
 #include "mouse/glfw/mouse.h"
+#include "time/glfw/time.h"
 
 namespace dioptre {
 
@@ -49,6 +50,7 @@ private:
   std::unique_ptr<dioptre::keyboard::glfw::Keyboard> keyboardService_;
   std::unique_ptr<dioptre::filesystem::physfs::Filesystem> filesystemService_;
   std::unique_ptr<dioptre::mouse::glfw::Mouse> mouseService_;
+  std::unique_ptr<dioptre::time::glfw::Time> timeService_;
 
   std::vector<dioptre::Object*> objects_;
 

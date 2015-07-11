@@ -11,6 +11,8 @@
 #include "mouse/null/mouse.h"
 #include "filesystem/filesystem_interface.h"
 #include "filesystem/null/filesystem.h"
+#include "time/time_interface.h"
+#include "time/null/time.h"
 
 #include "dioptre/module.h"
 
@@ -33,6 +35,7 @@ private:
   static dioptre::keyboard::null::Keyboard nullKeyboardService_;
   static dioptre::mouse::null::Mouse nullMouseService_;
   static dioptre::filesystem::null::Filesystem nullFilesystemService_;
+  static dioptre::time::null::Time nullTimeService_;
 
   static Module* defaults_[Module::M_MAX_ENUM];
   static Module* instances_[Module::M_MAX_ENUM];

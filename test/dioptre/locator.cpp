@@ -6,11 +6,13 @@
 #include "dioptre/graphics/graphics_interface.h"
 #include "dioptre/keyboard/keyboard_interface.h"
 #include "dioptre/mouse/mouse_interface.h"
+#include "dioptre/time/time_interface.h"
 
 using dioptre::window::WindowInterface;
 using dioptre::graphics::GraphicsInterface;
 using dioptre::keyboard::KeyboardInterface;
 using dioptre::mouse::MouseInterface;
+using dioptre::time::TimeInterface;
 
 TEST(Locator, DefaultWindow) {
   dioptre::Locator::initialize();
@@ -38,6 +40,13 @@ TEST(Locator, DefaultMouse) {
   MouseInterface* mouse = dioptre::Locator::getInstance<MouseInterface>(dioptre::Module::M_MOUSE);
 
   EXPECT_EQ(mouse->initialize(), 0);
+}
+
+TEST(Locator, DefaultTime) {
+  dioptre::Locator::initialize();
+  TimeInterface* time = dioptre::Locator::getInstance<TimeInterface>(dioptre::Module::M_TIME);
+
+  EXPECT_EQ(time->initialize(), 0);
 }
 
 class MockGraphics : public GraphicsInterface {

@@ -25,7 +25,8 @@ Application::Application(int argc, char *argv[]) :
   graphicsService_(new dioptre::graphics::opengl::Graphics()),
   keyboardService_(new dioptre::keyboard::glfw::Keyboard()),
   filesystemService_(new dioptre::filesystem::physfs::Filesystem()),
-  mouseService_(new dioptre::mouse::glfw::Mouse())
+  mouseService_(new dioptre::mouse::glfw::Mouse()),
+  timeService_(new dioptre::time::glfw::Time())
 {
   // Enforce singleton property
   if (instance_) {
@@ -50,12 +51,14 @@ int Application::initialize() {
   dioptre::Locator::provide(Module::M_KEYBOARD, keyboardService_.get());
   dioptre::Locator::provide(Module::M_FILESYSTEM, filesystemService_.get());
   dioptre::Locator::provide(Module::M_MOUSE, mouseService_.get());
+  dioptre::Locator::provide(Module::M_TIME, timeService_.get());
 
   windowService_->initialize();
   graphicsService_->initialize();
   keyboardService_->initialize();
   filesystemService_->initialize();
   mouseService_->initialize();
+  timeService_->initialize();
 
   // Configure the logging mechanism
   log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
@@ -71,12 +74,12 @@ void Application::run() {
   dioptre::keyboard::handlers::ExitGame* exitGameHandler = new dioptre::keyboard::handlers::ExitGame();
   keyboardService_->registerKeyHandler(exitGameHandler);
 
-  double lastTime = glfwGetTime();
+  double lastTime = timeService_->getTime();
   int nbFrames = 0;
 
   while (!windowService_->shouldClose()) {
     // Measure speed
-    double currentTime = glfwGetTime();
+    double currentTime = timeService_->getTime();
     nbFrames++;
     if (currentTime - lastTime >= 1.0) {
       printf("%f ms/frame\n", 1000.0/double(nbFrames));
@@ -97,6 +100,7 @@ void Application::run() {
   windowService_->destroy();
   filesystemService_->destroy();
   mouseService_->destroy();
+  timeService_->destroy();
 
   isRunning_ = false;
 }
