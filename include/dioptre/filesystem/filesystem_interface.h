@@ -15,6 +15,8 @@ namespace filesystem {
  */
 class FilesystemInterface : public Module {
 public:
+  FilesystemInterface() : Module("dioptre.filesystem") {}
+
   virtual ~FilesystemInterface() {}
 
   /*

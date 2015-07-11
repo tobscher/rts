@@ -8,6 +8,7 @@ namespace time {
 
 class TimeInterface : public dioptre::Module {
 public:
+  TimeInterface() : Module("dioptre.time") {}
   virtual ~TimeInterface() {}
 
   virtual double getTime() = 0;

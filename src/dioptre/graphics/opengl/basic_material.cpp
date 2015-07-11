@@ -1,10 +1,12 @@
-#include "dioptre/graphics/opengl/basic_material.h"
+#include <iostream>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "dioptre/graphics/opengl/shader.h"
 
-#include <iostream>
+#include "dioptre/graphics/opengl/basic_material.h"
+#include "dioptre/graphics/opengl/shader.h"
+#include "dioptre/graphics/opengl/error.h"
 
 namespace dioptre {
 namespace graphics {
@@ -24,10 +26,13 @@ void BasicMaterial::initialize() {
 	programId_ = shader.loadFromFile("basic.vert", "basic.frag");
 
   if (texture_ != nullptr) {
-    std::cout << "Initializing texture..." << std::endl;
+    LOG4CXX_INFO(logger_, "Initializing texture...");
     glTexture_ = (Texture*)texture_;
     glTexture_->initialize();
   }
+
+  // check OpenGL error
+  check_gl_error();
 }
 
 void BasicMaterial::update() {
@@ -43,6 +48,9 @@ void BasicMaterial::update() {
   glm::vec3 lightPosition(0.0, 100.0, 0.0);
   GLuint lightPositionId = glGetUniformLocation(programId_, "LightPosition_worldspace");
   glUniform3fv(lightPositionId, 1, glm::value_ptr(lightPosition));
+
+  // check OpenGL error
+  check_gl_error();
 }
 
 void BasicMaterial::setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) {
@@ -58,6 +66,9 @@ void BasicMaterial::setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) {
 
 void BasicMaterial::destroy() {
   glDeleteProgram(programId_);
+  if (texture_ != nullptr) {
+    texture_->destroy();
+  }
 }
 
 } // opengl

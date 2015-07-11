@@ -3,6 +3,11 @@
 namespace dioptre {
 namespace graphics {
 
+Geometry::Geometry() :
+  isInitialized_(false) {
+  logger_ = log4cxx::Logger::getLogger("dioptre.geometry");
+}
+
 std::vector<glm::vec3> Geometry::getData() {
   return vertices_;
 }

@@ -21,6 +21,7 @@ namespace dioptre {
 class Application {
 public:
   Application(int argc, char *argv[]);
+  ~Application();
 
   /**
    * Indicates if the application is running.

@@ -3,6 +3,11 @@
 namespace dioptre {
 namespace graphics {
 
+Material::Material() :
+  isInitialized_(false) {
+  logger_ = log4cxx::Logger::getLogger("dioptre.material");
+}
+
 bool Material::isInitialized() {
   return isInitialized_;
 }

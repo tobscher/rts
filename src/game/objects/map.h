@@ -4,7 +4,8 @@ namespace objects {
 
 class Map : public dioptre::Object {
 public:
-    static Map* spawn();
+  Map() : Object("objects.map") {}
+  static Map* spawn();
 };
 
 } // objects

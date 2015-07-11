@@ -6,10 +6,11 @@ namespace graphics {
 
 // TODO(Tobscher) use aspect ratio from window
 GraphicsInterface::GraphicsInterface() :
+  Module("dioptre.graphics"),
   scene_(new Scene()),
-  camera_(new PerspectiveCamera(45.0, 800/600, 1, 10000))
+  camera_(new PerspectiveCamera(28.0, 800/600, 1, 10000))
 {
-  camera_->getTransform()->setPosition(0,100,50);
+  camera_->getTransform()->setPosition(0,100,25);
   camera_->getTransform()->lookAt(0.0f, 0.0f, 0.0f);
 }
 

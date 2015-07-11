@@ -55,6 +55,7 @@ public:
   void resize(int width, int height) {  }
   void render() { }
   void destroy() { }
+  void initializeScene() {}
 };
 
 TEST(Locator, Provide) {

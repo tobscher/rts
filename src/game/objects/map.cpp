@@ -8,11 +8,11 @@ namespace objects {
 
 Map* Map::spawn() {
   auto material = new dioptre::graphics::opengl::BasicMaterial();
-  dioptre::graphics::opengl::Texture* texture = new dioptre::graphics::opengl::Texture("sand.jpg");
-  texture->setRepeat(glm::vec2(5,5));
+  dioptre::graphics::opengl::Texture* texture = new dioptre::graphics::opengl::Texture("ground.png");
+  texture->setRepeat(glm::vec2(15,15));
   material->setTexture(texture);
 
-  auto geometry = new dioptre::graphics::opengl::BoxGeometry(200.0f,1.0f,200.0f);
+  auto geometry = new dioptre::graphics::opengl::BoxGeometry(256.0f,1.0f,256.0f);
 
   // Extract this into level loading once levels are available
   Map* map = new Map();

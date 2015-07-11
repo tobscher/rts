@@ -2,6 +2,17 @@
 
 namespace dioptre {
 
+Object::Object(std::string name) :
+  name_(name) {
+  logger_ = log4cxx::Logger::getLogger(name);
+}
+
+Object::~Object() {
+  for (auto c : components_) {
+    delete c;
+  }
+}
+
 void Object::addComponent(ComponentInterface* component) {
   component->setObject(this);
   components_.push_back(component);

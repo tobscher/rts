@@ -1,4 +1,5 @@
 #include "dioptre/graphics/opengl/texture.h"
+#include "dioptre/graphics/opengl/error.h"
 #include "stb_image.h"
 #include "glm/gtc/type_ptr.hpp"
 

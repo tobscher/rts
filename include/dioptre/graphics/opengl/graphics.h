@@ -36,6 +36,8 @@ public:
    */
   void destroy();
 
+  void initializeScene();
+
 private:
   void initializeMesh(Mesh* mesh);
   void renderMesh(Mesh* mesh);

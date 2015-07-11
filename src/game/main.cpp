@@ -9,12 +9,13 @@ int main(int argc, char *argv[]) {
   dioptre::Application application(argc, argv);
   application.initialize();
 
-  std::unique_ptr<objects::Map> map(objects::Map::spawn());
-  std::unique_ptr<objects::CommandCentre> commandCentre(objects::CommandCentre::spawn());
-  std::unique_ptr<objects::HumanPlayer> humanPlayer(objects::HumanPlayer::spawn());
-  application.addObject(map.get());
-  application.addObject(commandCentre.get());
-  application.addObject(humanPlayer.get());
+  objects::Map* map(objects::Map::spawn());
+  objects::CommandCentre* commandCentre(objects::CommandCentre::spawn());
+  objects::HumanPlayer* humanPlayer(objects::HumanPlayer::spawn());
+
+  application.addObject(map);
+  application.addObject(commandCentre);
+  application.addObject(humanPlayer);
 
   application.run();
 

@@ -1,7 +1,8 @@
 #include "dioptre/graphics/opengl/box_geometry.h"
 #include "dioptre/graphics/opengl.h"
+#include "dioptre/graphics/opengl/error.h"
 
-#include "dioptre/debug.h"
+#include <iostream>
 
 namespace dioptre {
 namespace graphics {
@@ -19,15 +20,24 @@ void BoxGeometry::initialize() {
   auto bufferData = getData();
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * bufferData.size(), &bufferData[0], GL_STATIC_DRAW);
 
+  LOG4CXX_INFO(logger_, "Vertex Buffer: " << vertexBuffer_);
+
   glGenBuffers(1, &uvBuffer_);
   glBindBuffer(GL_ARRAY_BUFFER, uvBuffer_);
   auto uvBufferData = getUVData();
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * uvBufferData.size(), &uvBufferData[0], GL_STATIC_DRAW);
 
+  LOG4CXX_INFO(logger_, "UV Buffer: " << uvBuffer_);
+
   glGenBuffers(1, &normalBuffer_);
   glBindBuffer(GL_ARRAY_BUFFER, normalBuffer_);
   auto normalBufferData = getNormalData();
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * normalBufferData.size(), &normalBufferData[0], GL_STATIC_DRAW);
+
+  LOG4CXX_INFO(logger_, "Normal Buffer: " << normalBuffer_);
+
+  // check OpenGL error
+  check_gl_error();
 }
 
 void BoxGeometry::update() {
@@ -49,7 +59,7 @@ void BoxGeometry::update() {
   glEnableVertexAttribArray(1);
   glBindBuffer(GL_ARRAY_BUFFER, uvBuffer_);
   glVertexAttribPointer(
-     1,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+     1,                  // attribute 1. No particular reason for 1, but must match the layout in the shader.
      2,                  // size
      GL_FLOAT,           // type
      GL_FALSE,           // normalized?
@@ -60,7 +70,7 @@ void BoxGeometry::update() {
   glEnableVertexAttribArray(2);
   glBindBuffer(GL_ARRAY_BUFFER, normalBuffer_);
   glVertexAttribPointer(
-     2,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+     2,                  // attribute 2. No particular reason for 2, but must match the layout in the shader.
      3,                  // size
      GL_FLOAT,           // type
      GL_FALSE,           // normalized?

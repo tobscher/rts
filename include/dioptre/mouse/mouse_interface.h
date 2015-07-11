@@ -13,6 +13,8 @@ namespace mouse {
  */
 class MouseInterface : public dioptre::Module {
 public:
+  MouseInterface() : Module("dioptre.mouse") {}
+
   virtual ~MouseInterface() {}
 
   /*

@@ -5,7 +5,9 @@ namespace dioptre {
 namespace graphics {
 
 Component::Component(Mesh* mesh) :
-  mesh_(mesh) {
+  ComponentInterface("dioptre.graphics.component"),
+  mesh_(mesh)
+{
   auto graphicsService = dioptre::Locator::getInstance<GraphicsInterface>(dioptre::Module::M_GRAPHICS);
   auto scene = graphicsService->getScene();
   scene->add(mesh);

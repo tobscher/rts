@@ -16,6 +16,7 @@ namespace keyboard {
  */
 class KeyboardInterface : public dioptre::Module {
 public:
+  KeyboardInterface() : Module("dioptre.keyboard") {}
   virtual ~KeyboardInterface() {}
 
   /**

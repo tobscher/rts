@@ -13,6 +13,7 @@ namespace window {
  */
 class WindowInterface : public Module {
 public:
+  WindowInterface() : Module("dioptre.window") {}
   virtual ~WindowInterface() { }
 
   /**

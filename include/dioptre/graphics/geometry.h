@@ -3,12 +3,14 @@
 
 #include <vector>
 #include "glm/glm.hpp"
+#include "log4cxx/logger.h"
 
 namespace dioptre {
 namespace graphics {
 
 class Geometry {
 public:
+  Geometry();
   virtual ~Geometry() {}
   std::vector<glm::vec3> getData();
   std::vector<glm::vec2> getUVData();
@@ -22,6 +24,7 @@ public:
   virtual void destroy() = 0;
 
 protected:
+  log4cxx::LoggerPtr logger_;
   std::vector<glm::vec3> vertices_;
   std::vector<glm::vec2> uvs_;
   std::vector<glm::vec3> normals_;

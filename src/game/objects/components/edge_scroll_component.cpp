@@ -7,8 +7,9 @@ namespace objects {
 namespace components {
 
 EdgeScrollComponent::EdgeScrollComponent() :
-  scrollSpeed_(2.0),
-  scrollThreshold_(20)
+  ComponentInterface("components.edge_scroll"),
+  scrollSpeed_(1.0),
+  scrollThreshold_(1)
 {
 }
 

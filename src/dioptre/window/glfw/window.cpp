@@ -31,6 +31,7 @@ int Window::initialize() {
   glfwWindowHint(GLFW_GREEN_BITS, glfwVideoMode_->greenBits);
   glfwWindowHint(GLFW_BLUE_BITS, glfwVideoMode_->blueBits);
   glfwWindowHint(GLFW_REFRESH_RATE, glfwVideoMode_->refreshRate);
+  glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
 
   // Open a window and create its OpenGL context
   glfwWindow_ = glfwCreateWindow(glfwVideoMode_->width, glfwVideoMode_->height, "RTS", glfwMonitor_, nullptr);

@@ -39,11 +39,22 @@ Application::Application(int argc, char *argv[]) :
   filesystemService_->registerFromArgs(argv);
 }
 
+Application::~Application() {
+  LOG4CXX_INFO(logger_, "Cleaning up objects");
+  for (auto o : objects_) {
+    delete o;
+  }
+}
+
 bool Application::isRunning() {
   return isRunning_;
 }
 
 int Application::initialize() {
+  // Configure the logging mechanism
+  log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
+  rootlogger->addAppender(new log4cxx::ConsoleAppender(new log4cxx::PatternLayout("%d [%-5p] %c - %m%n")));
+
   // Initialize services
   dioptre::Locator::initialize();
   dioptre::Locator::provide(Module::M_WINDOW, windowService_.get());
@@ -60,10 +71,6 @@ int Application::initialize() {
   mouseService_->initialize();
   timeService_->initialize();
 
-  // Configure the logging mechanism
-  log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
-  rootlogger->addAppender(new log4cxx::ConsoleAppender(new log4cxx::PatternLayout("%d [%-5p] %c - %m%n")));
-
   return 0;
 }
 
@@ -73,6 +80,8 @@ void Application::run() {
   // free this handler
   dioptre::keyboard::handlers::ExitGame* exitGameHandler = new dioptre::keyboard::handlers::ExitGame();
   keyboardService_->registerKeyHandler(exitGameHandler);
+
+  graphicsService_->initializeScene();
 
   double lastTime = timeService_->getTime();
   int nbFrames = 0;

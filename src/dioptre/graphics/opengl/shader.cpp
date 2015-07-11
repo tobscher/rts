@@ -6,6 +6,7 @@
 #include "dioptre/graphics/opengl/shader.h"
 #include "dioptre/graphics/opengl/shader_features.h"
 #include "dioptre/graphics/opengl.h"
+#include "dioptre/graphics/opengl/error.h"
 #include "dioptre/locator.h"
 
 using std::string;
@@ -47,7 +48,6 @@ std::string Shader::readShaderContent(string file) {
  */
 bool Shader::compileShader(string shaderCode, GLuint& shaderId) {
   LOG4CXX_INFO(Shader::logger_, "Compiling shader");
-  LOG4CXX_INFO(Shader::logger_, shaderCode);
 
   // compile
   char const * shaderSourcePointer = shaderCode.c_str();
@@ -128,8 +128,6 @@ GLuint Shader::loadFromFile(string vertexFilePath, string fragmentFilePath) {
 }
 
 string Shader::applyFeatures(string code) {
-  std::cout << "Features:" << features_ << std::endl;
-
   if ((features_ & FeatureColor) == FeatureColor) {
     code.insert(19, USE_COLOR);
   }

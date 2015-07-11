@@ -52,6 +52,8 @@ public:
    */
   virtual void destroy() = 0;
 
+  virtual void initializeScene() = 0;
+
 protected:
   std::unique_ptr<Scene> scene_;
   std::unique_ptr<Camera> camera_;
