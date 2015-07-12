@@ -11,6 +11,7 @@ CommandCentre* CommandCentre::spawn() {
   building->setColor(dioptre::graphics::color(0.5f, 0.5f, 0.5f));
   auto geometry = new dioptre::graphics::opengl::BoxGeometry(5.0f, 5.0f, 5.0f);
   auto mesh = new dioptre::graphics::Mesh(geometry, building);
+  mesh->getTransform()->translateY(3.5);
   auto visual = new dioptre::graphics::Component(mesh);
   commandCentre->addComponent(visual);
 
