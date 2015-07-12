@@ -9,8 +9,6 @@ layout(location = 2) in vec3 vertexNormal_modelspace;
   out vec2 UV;
 #endif
 
-
-
 out vec3 Position_worldspace;
 out vec3 Normal_cameraspace;
 out vec3 EyeDirection_cameraspace;
