@@ -21,6 +21,7 @@ public:
   void registerPath(std::string path) { }
   void clear() { }
   std::string find(std::string file) { return file; }
+  std::string readAll(std::string file) { return file; };
 }; // Filesystem
 
 } // null

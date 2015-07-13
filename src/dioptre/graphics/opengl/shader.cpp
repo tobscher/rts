@@ -24,23 +24,12 @@ Shader::Shader(ShaderFeatures features) :
  * Reads the content of the given file.
  */
 std::string Shader::readShaderContent(string file) {
+  LOG4CXX_INFO(Shader::logger_, "Loading shader: " << file);
+
   auto filesystem = dioptre::Locator::getInstance<dioptre::filesystem::FilesystemInterface>(dioptre::Module::M_FILESYSTEM);
-  string filePath = filesystem->find(file);
+  auto data = filesystem->readAll(file);
 
-  LOG4CXX_INFO(Shader::logger_, "Loading shader: " + filePath);
-
-  string shaderCode;
-  std::ifstream shaderStream(filePath.c_str(), std::ios::in);
-
-  if (shaderStream.is_open()) {
-    string line;
-    while (getline(shaderStream, line)) {
-      shaderCode += "\n" + line;
-    }
-    shaderStream.close();
-  }
-
-  return shaderCode;
+  return data;
 }
 
 /**

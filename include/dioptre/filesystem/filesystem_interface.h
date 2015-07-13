@@ -39,6 +39,11 @@ public:
    * Attempts to find files in all registered paths.
    */
   virtual std::string find(std::string file) = 0;
+
+  /**
+   * Reads the entire contents of the file.
+   */
+  virtual std::string readAll(std::string file) = 0;
 }; // FilesystemInterface
 
 } // filesystem
