@@ -23,10 +23,10 @@ Texture::Texture(std::string image) :
 
   if (image_ == nullptr) {
     std::stringstream exception;
-    exception << imageLoadError;
-    exception << image;
-    exception << SOIL_last_result();
-    exception << buffer;
+    exception << imageLoadError
+              << image
+              << "; Error: "
+              << SOIL_last_result();
 
     throw std::runtime_error(exception.str());
   }
