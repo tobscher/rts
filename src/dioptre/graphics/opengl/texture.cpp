@@ -1,7 +1,8 @@
 #include "dioptre/graphics/opengl/texture.h"
 #include "dioptre/graphics/opengl/error.h"
-#include "stb_image.h"
 #include "glm/gtc/type_ptr.hpp"
+
+#include "SOIL.h"
 
 #include <iostream>
 
@@ -24,7 +25,7 @@ int Texture::initialize() {
   glBindTexture(GL_TEXTURE_2D, 0);
 
   // no longer needed
-  stbi_image_free(image_);
+  SOIL_free_image_data(image_);
 
   return 0;
 }

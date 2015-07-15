@@ -41,6 +41,16 @@ public:
   virtual std::string find(std::string file) = 0;
 
   /**
+   * Returns the size of the file.
+   */
+  virtual int size(std::string file) = 0;
+
+  /**
+   * Reads the content of the file into the given buffer.
+   */
+  virtual int read(std::string file, void* buffer, int size) = 0;
+
+  /**
    * Reads the entire contents of the file.
    */
   virtual std::string readAll(std::string file) = 0;

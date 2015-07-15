@@ -37,20 +37,35 @@ std::string Filesystem::find(std::string file) {
   return fileDir.append(file);
 }
 
-std::string Filesystem::readAll(std::string file) {
+int Filesystem::size(std::string file) {
   auto fileHandle = PHYSFS_openRead(file.c_str());
   if (!fileHandle) {
-    return nullptr;
+    return 0;
   }
-
   int size = PHYSFS_fileLength(fileHandle);
-  char* buffer;
-  buffer = new char[size];
-
-  PHYSFS_read(fileHandle, buffer, 1, PHYSFS_fileLength(fileHandle));
   PHYSFS_close(fileHandle);
 
-  std::string s(buffer, size);
+  return size;
+}
+
+int Filesystem::read(std::string file, void* buffer, int size) {
+  auto fileHandle = PHYSFS_openRead(file.c_str());
+  if (!fileHandle) {
+    return 0;
+  }
+
+  auto read = PHYSFS_read(fileHandle, buffer, 1, size);
+  PHYSFS_close(fileHandle);
+
+  return read;
+}
+
+std::string Filesystem::readAll(std::string file) {
+  auto fileSize = size(file);
+  char* buffer = new char[fileSize];
+  auto length = read(file, buffer, fileSize);
+
+  std::string s(buffer, length);
 
   return s;
 }

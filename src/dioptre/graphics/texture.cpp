@@ -6,8 +6,7 @@
 #include "dioptre/graphics/texture.h"
 #include "dioptre/locator.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "SOIL.h"
 
 namespace dioptre {
 namespace graphics {
@@ -15,15 +14,19 @@ namespace graphics {
 Texture::Texture(std::string image) :
   repeat_(glm::vec2(1,1)) {
   auto filesystem = dioptre::Locator::getInstance<dioptre::filesystem::FilesystemInterface>(dioptre::Module::M_FILESYSTEM);
-  std::string imagePath = filesystem->find(image);
+  auto size = filesystem->size(image);
+  unsigned char* buffer = new unsigned char[size];
+  auto read = filesystem->read(image, buffer, size);
 
   // Load texture from image path
-  image_ = stbi_load(imagePath.c_str(), &width_, &height_, &components_, 0);
+  image_ = SOIL_load_image_from_memory(buffer, size, &width_, &height_, &components_, SOIL_LOAD_RGBA);
 
   if (image_ == nullptr) {
     std::stringstream exception;
     exception << imageLoadError;
-    exception << imagePath;
+    exception << image;
+    exception << SOIL_last_result();
+    exception << buffer;
 
     throw std::runtime_error(exception.str());
   }
