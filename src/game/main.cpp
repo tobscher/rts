@@ -3,6 +3,7 @@
 #include "dioptre/application.h"
 #include "objects/map.h"
 #include "objects/command_centre.h"
+#include "objects/unit.h"
 #include "objects/human_player.h"
 
 int main(int argc, char *argv[]) {
@@ -16,6 +17,16 @@ int main(int argc, char *argv[]) {
   application.addObject(map);
   application.addObject(commandCentre);
   application.addObject(humanPlayer);
+
+  // Add some units
+  for (int i = 0; i < 5; i++) {
+    objects::Unit* unit(objects::Unit::spawn());
+    auto component = unit->getComponent<dioptre::graphics::Component>();
+    component->translateX(-10 + (i * 5));
+    component->translateZ(10);
+
+    application.addObject(unit);
+  }
 
   application.run();
 
