@@ -14,7 +14,7 @@ namespace graphics {
 Texture::Texture(std::string image) :
   repeat_(glm::vec2(1,1)) {
   auto filesystem = dioptre::Locator::getInstance<dioptre::filesystem::FilesystemInterface>(dioptre::Module::M_FILESYSTEM);
-  auto size = filesystem->size(image);
+  auto size = filesystem->getSize(image);
   unsigned char* buffer = new unsigned char[size];
   auto read = filesystem->read(image, buffer, size);
 

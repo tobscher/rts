@@ -18,7 +18,7 @@ public:
   void clear();
   std::string find(std::string file);
   int read(std::string file, void* buffer, int size);
-  int size(std::string file);
+  int getSize(std::string file);
   std::string readAll(std::string file);
 }; // Filesystem
 

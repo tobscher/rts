@@ -43,7 +43,7 @@ public:
   /**
    * Returns the size of the file.
    */
-  virtual int size(std::string file) = 0;
+  virtual int getSize(std::string file) = 0;
 
   /**
    * Reads the content of the file into the given buffer.

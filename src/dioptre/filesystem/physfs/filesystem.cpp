@@ -37,7 +37,7 @@ std::string Filesystem::find(std::string file) {
   return fileDir.append(file);
 }
 
-int Filesystem::size(std::string file) {
+int Filesystem::getSize(std::string file) {
   auto fileHandle = PHYSFS_openRead(file.c_str());
   if (!fileHandle) {
     return 0;
@@ -61,7 +61,7 @@ int Filesystem::read(std::string file, void* buffer, int size) {
 }
 
 std::string Filesystem::readAll(std::string file) {
-  auto fileSize = size(file);
+  auto fileSize = getSize(file);
   char* buffer = new char[fileSize];
   auto length = read(file, buffer, fileSize);
 

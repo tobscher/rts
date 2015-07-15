@@ -22,7 +22,7 @@ public:
   void clear() { }
   std::string find(std::string file) { return file; }
   int read(std::string file, void* buffer, int size) { return size; }
-  int size(std::string file) { return 0; }
+  int getSize(std::string file) { return 0; }
   std::string readAll(std::string file) { return file; };
 }; // Filesystem
 
