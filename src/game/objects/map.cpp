@@ -8,7 +8,7 @@ namespace objects {
 
 Map* Map::spawn() {
   auto material = new dioptre::graphics::opengl::BasicMaterial();
-  dioptre::graphics::opengl::Texture* texture = new dioptre::graphics::opengl::Texture("ground.png");
+  dioptre::graphics::opengl::Texture* texture = new dioptre::graphics::opengl::Texture("ground.dds");
   texture->setRepeat(glm::vec2(15,15));
   material->setTexture(texture);
 
