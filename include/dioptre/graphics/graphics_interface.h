@@ -4,6 +4,8 @@
 #include "dioptre/module.h"
 #include "scene.h"
 #include "camera.h"
+#include "debug.h"
+
 #include <memory>
 
 namespace dioptre {
@@ -15,12 +17,17 @@ namespace graphics {
 class GraphicsInterface : public Module {
 public:
   GraphicsInterface();
-  virtual ~GraphicsInterface() {}
+  virtual ~GraphicsInterface() { if (debug_) delete debug_; }
 
   /**
    * Should initialize graphics context.
    */
   virtual int initialize() = 0;
+
+  /**
+   * Initializes the current scene.
+   */
+  virtual void initializeScene() = 0;
 
   /**
    * Should handles window resize events.
@@ -43,13 +50,6 @@ public:
   Scene* getScene();
 
   /**
-   * Returns the debug scene that's used.
-   */
-  Scene* getDebugScene() { return debugScene_.get(); }
-
-  virtual void resetDebug() {}
-
-  /**
    * Returns the camera that's used.
    */
   Camera* getCamera();
@@ -59,16 +59,25 @@ public:
    */
   virtual void destroy() = 0;
 
-  virtual void destroyScene(Scene* scene) {}
+  /**
+   * Destroys the given scene.
+   */
+  virtual void destroyScene(Scene* scene) = 0;
 
-  virtual void initializeScene() = 0;
+  /**
+   * Returns the debug object.
+   */
+  Debug* getDebug() { return debug_; }
 
-  virtual void addLine(glm::vec3 from, glm::vec3 to) = 0;
-
+  /**
+   * Sets the debug drawer.
+   */
+  void setDebug(Debug* debug) { debug_ = debug; }
 protected:
   std::unique_ptr<Scene> scene_;
-  std::unique_ptr<Scene> debugScene_;
   std::unique_ptr<Camera> camera_;
+
+  Debug* debug_;
 }; // GraphicsInterface
 
 } // graphics

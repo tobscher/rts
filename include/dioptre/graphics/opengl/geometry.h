@@ -11,7 +11,7 @@ namespace opengl {
 
 class Geometry : public dioptre::graphics::Geometry {
 public:
-  Geometry();
+  Geometry(GLenum drawMode);
 
   void initialize();
   void update();
@@ -19,6 +19,7 @@ public:
 
 private:
   std::unique_ptr<dioptre::graphics::opengl::BufferManager> bufferManager_;
+  GLenum drawMode_;
 }; // Geometry
 
 } // opengl

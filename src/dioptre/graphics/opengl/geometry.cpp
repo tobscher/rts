@@ -10,7 +10,8 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
-Geometry::Geometry() {
+Geometry::Geometry(GLenum drawMode) :
+  drawMode_(drawMode) {
   bufferManager_ = std::unique_ptr<BufferManager>(new BufferManager(this));
 }
 
@@ -27,7 +28,7 @@ void Geometry::update() {
   bufferManager_->setUVBuffer();
   bufferManager_->setNormalBuffer();
 
-  glDrawArrays(GL_LINES, 0, data.size());
+  glDrawArrays(drawMode_, 0, data.size());
 
   bufferManager_->disableVertexBuffer();
   bufferManager_->disableUVBuffer();

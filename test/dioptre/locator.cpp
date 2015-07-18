@@ -64,8 +64,8 @@ public:
   void resize(int width, int height) {  }
   void render() { }
   void destroy() { }
+  void destroyScene(dioptre::graphics::Scene* scene) { }
   void initializeScene() {}
-  void addLine(glm::vec3 from, glm::vec3 to) {}
 };
 
 TEST(Locator, Provide) {

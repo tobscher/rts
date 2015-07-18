@@ -10,12 +10,11 @@ namespace null {
 class Graphics : public dioptre::graphics::GraphicsInterface {
 public:
   int initialize() { return 0; }
+  void initializeScene() { }
   void resize(int width, int height) { }
   void render() { }
   void destroy() { }
-
-  void initializeScene() { }
-  void addLine(glm::vec3 from, glm::vec3 to) {}
+  void destroyScene(Scene* scene) { }
 }; // Graphics
 
 } // null

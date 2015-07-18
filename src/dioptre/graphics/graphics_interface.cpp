@@ -4,12 +4,11 @@
 namespace dioptre {
 namespace graphics {
 
-// TODO(Tobscher) use aspect ratio from window
-// Add method to define camera
+// TODO(Tobscher) Use aspect ratio from window
+// TODO(Tobscher) Add method to define camera
 GraphicsInterface::GraphicsInterface() :
   Module("dioptre.graphics"),
   scene_(new Scene()),
-  debugScene_(new Scene()),
   camera_(new PerspectiveCamera(28.0, 1280/800, 1, 10000))
 {
   camera_->getTransform()->setPosition(0,100,25);

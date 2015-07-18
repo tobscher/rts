@@ -13,7 +13,11 @@ DebugDrawer::DebugDrawer() :
 }
 
 void DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& color) {
-  graphics_->addLine(glm::vec3(from.x(), from.y(), from.z()), glm::vec3(to.x(), to.y(), to.z()));
+  auto debug = graphics_->getDebug();
+
+  if (debug) {
+    debug->addLine(glm::vec3(from.x(), from.y(), from.z()), glm::vec3(to.x(), to.y(), to.z()));
+  }
 }
 
 void DebugDrawer::drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color) {

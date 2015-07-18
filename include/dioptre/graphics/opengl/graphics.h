@@ -24,6 +24,11 @@ public:
   int initialize();
 
   /**
+   * Initialzies the current scene.
+   */
+  void initializeScene();
+
+  /**
    * Handles window resizing, e.g. changing viewport.
    */
   void resize(int width, int height);
@@ -33,6 +38,9 @@ public:
    */
   void render();
 
+  /**
+   * Renders the given scene graph with the current camera.
+   */
   void renderScene(Scene* scene);
 
   /**
@@ -40,13 +48,10 @@ public:
    */
   void destroy();
 
+  /**
+   * Destroys the given scene.
+   */
   void destroyScene(Scene* scene);
-
-  void resetDebug();
-
-  void initializeScene();
-
-  void addLine(glm::vec3 from, glm::vec3 to);
 
 private:
   void initializeMesh(Mesh* mesh);
@@ -54,9 +59,6 @@ private:
   void destroyMesh(Mesh* mesh);
 
   GLuint vertexArrayId_;
-
-  DebugMaterial* debugMaterial_;
-  Geometry* debugGeometry_;
 }; // Graphics
 
 } // opengl

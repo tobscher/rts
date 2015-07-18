@@ -152,9 +152,11 @@ void Physics::castRay(dioptre::mouse::Position position) {
 
 void Physics::debug() {
   auto graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
-  graphics->resetDebug();
+  auto debug = graphics->getDebug();
 
-  // TODO(Tobscher) graphics->debug()->reset();
+  if (debug) {
+    debug->reset();
+  }
 
   dynamicsWorld_->debugDrawWorld();
 }
