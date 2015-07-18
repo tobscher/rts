@@ -1,4 +1,4 @@
-#include "dioptre/graphics/transform.h"
+#include "dioptre/transform.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/quaternion.hpp"
@@ -7,7 +7,6 @@
 #include "dioptre/debug.h"
 
 namespace dioptre {
-namespace graphics {
 
 Transform::Transform() :
   position_(0.0f),
@@ -101,5 +100,4 @@ void Transform::rotateOnAxis(glm::float32 angle, glm::vec3 axis) {
   matrix_ *= glm::toMat4(q);
 }
 
-} // graphics
 } // dioptre

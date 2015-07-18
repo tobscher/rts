@@ -18,7 +18,7 @@ private:
   RigidBody* rigidBody_;
 };
 
-}
-}
+} // physics
+} // dioptre
 
-#endif // DIOPTRE_GRAPHICS_COMPONENT_H_
+#endif // DIOPTRE_PHYSIC_COMPONENT_H_

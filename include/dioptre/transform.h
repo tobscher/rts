@@ -1,18 +1,18 @@
-#ifndef DIOPTRE_GRAPHICS_TRANSFORM_H_
-#define DIOPTRE_GRAPHICS_TRANSFORM_H_
+#ifndef DIOPTRE_TRANSFORM_H_
+#define DIOPTRE_TRANSFORM_H_
 
 #include "glm/glm.hpp"
 #include "glm/gtc/quaternion.hpp"
 #include "glm/gtx/quaternion.hpp"
 
 namespace dioptre {
-namespace graphics {
 
 class Transform {
 public:
   Transform();
 
   // Translation
+  glm::vec3 getPosition() { return position_; }
   void setPosition(glm::float32 x, glm::float32 y, glm::float32 z);
   void translateX(glm::float32 x);
   void translateY(glm::float32 y);
@@ -23,6 +23,7 @@ public:
   void setScale(glm::float32 x, glm::float32 y, glm::float32 z);
 
   // Rotation
+  glm::quat getOrientation() { return quaternion_; }
   void rotateX(glm::float32 angle);
   void rotateY(glm::float32 angle);
   void rotateZ(glm::float32 angle);
@@ -46,7 +47,6 @@ private:
   glm::mat4 matrix_;
 }; // Transform
 
-} // graphics
 } // dioptre
 
-#endif // DIOPTRE_GRAPHICS_TRANSFORM_H_
+#endif // DIOPTRE_TRANSFORM_H_

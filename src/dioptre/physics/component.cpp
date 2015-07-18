@@ -11,6 +11,8 @@ Component::Component(RigidBody* rigidBody) :
   auto physicsService = dioptre::Locator::getInstance<PhysicsInterface>(dioptre::Module::M_PHYSICS);
   auto world = physicsService->getWorld();
   world->add(rigidBody);
+
+  rigidBody->setComponent(this);
 }
 
 void Component::update() {

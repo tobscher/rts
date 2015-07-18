@@ -103,9 +103,20 @@ void Graphics::renderScene(Scene* scene) {
       initializeMesh(mesh);
     }
 
+    glm::mat4 matrix;
+    auto component = mesh->getComponent();
+
+    // If mesh does not have a component it's likely to not have a changed position,
+    // so just use identity matrix.
+    if (component) {
+      auto object = component->getObject();
+      auto transform = object->getTransform();
+      matrix = transform->getMatrix();
+    }
+
     glm::mat4 projection = camera_->getProjectionMatrix();
     glm::mat4 view = glm::inverse(camera_->getTransform()->getMatrix());
-    glm::mat4 model = mesh->getTransform()->getMatrix();
+    glm::mat4 model = matrix;
     glm::mat4 mvp = projection * view * model;
 
     auto material = mesh->getMaterial();

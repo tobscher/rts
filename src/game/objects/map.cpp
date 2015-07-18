@@ -1,8 +1,10 @@
 #include "map.h"
 
+#include "dioptre/graphics/component.h"
 #include "dioptre/graphics/opengl/texture.h"
 #include "dioptre/graphics/opengl/basic_material.h"
 #include "dioptre/graphics/opengl/box_geometry.h"
+
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/box_shape.h"
 

@@ -5,8 +5,7 @@
 #include <vector>
 
 #include "component_interface.h"
-#include "dioptre/graphics/component.h"
-#include "dioptre/physics/component.h"
+#include "transform.h"
 
 #include "log4cxx/logger.h"
 
@@ -18,22 +17,22 @@ public:
   ~Object();
 
   void addComponent(ComponentInterface* component);
-  void addComponent(dioptre::graphics::Component* component);
-  void addComponent(dioptre::physics::Component* component);
 
   template<typename T>
   T* getComponent();
 
+  Transform* getTransform() { return transform_; }
+
   void update();
 
 protected:
+  Transform* transform_;
+
   std::string name_;
   log4cxx::LoggerPtr logger_;
 
 private:
   std::vector<ComponentInterface*> components_;
-  std::vector<dioptre::graphics::Component*> graphicsComponents_;
-  std::vector<dioptre::physics::Component*> physicsComponents_;
 };
 
 }

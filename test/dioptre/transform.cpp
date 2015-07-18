@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "dioptre/graphics/transform.h"
+#include "dioptre/transform.h"
 
-using dioptre::graphics::Transform;
+using dioptre::Transform;
 
 TEST(Transform, Defaults) {
   Transform t;

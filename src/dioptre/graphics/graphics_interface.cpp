@@ -11,8 +11,10 @@ GraphicsInterface::GraphicsInterface() :
   scene_(new Scene()),
   camera_(new PerspectiveCamera(28.0, 1280/800, 1, 10000))
 {
-  camera_->getTransform()->setPosition(0,100,25);
-  camera_->getTransform()->lookAt(0.0f, 0.0f, 0.0f);
+  auto transform = camera_->getTransform();
+
+  transform->setPosition(0,100,25);
+  transform->lookAt(0.0f, 0.0f, 0.0f);
 }
 
 void GraphicsInterface::update() {

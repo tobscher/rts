@@ -21,9 +21,10 @@ int main(int argc, char *argv[]) {
   // Add some units
   for (int i = 0; i < 5; i++) {
     objects::Unit* unit(objects::Unit::spawn());
-    auto component = unit->getComponent<dioptre::graphics::Component>();
-    component->translateX(-10 + (i * 5));
-    component->translateZ(10);
+    auto transform = unit->getTransform();
+
+    transform->translateX(-10 + (i * 5));
+    transform->translateZ(10);
 
     application.addObject(unit);
   }

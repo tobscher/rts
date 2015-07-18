@@ -41,8 +41,8 @@ void Physics::initializeRigidBody(dioptre::physics::RigidBody* body) {
   auto shape = dynamic_cast<dioptre::physics::bullet::Shape*>(body->getShape());
   btCollisionShape* boxCollisionShape = shape->getCollisionShape();
 
-  auto position = body->getPosition();
-  auto orientation = body->getOrientation();
+  auto position = body->getComponent()->getObject()->getTransform()->getPosition();
+  auto orientation = body->getComponent()->getObject()->getTransform()->getOrientation();
   auto inertia = body->getInertia();
   auto mass = body->getMass();
 
