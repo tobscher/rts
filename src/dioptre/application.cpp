@@ -4,14 +4,6 @@
 
 #include "dioptre/application.h"
 #include "dioptre/locator.h"
-#include "dioptre/graphics/graphics_interface.h"
-#include "dioptre/graphics/opengl/graphics.h"
-#include "dioptre/window/window_interface.h"
-#include "dioptre/window/glfw/window.h"
-#include "dioptre/keyboard/keyboard_interface.h"
-#include "dioptre/keyboard/glfw/keyboard.h"
-#include "dioptre/filesystem/filesystem_interface.h"
-#include "dioptre/filesystem/physfs/filesystem.h"
 
 #include "keyboard/handlers/exit_game.h"
 
@@ -26,7 +18,8 @@ Application::Application(int argc, char *argv[]) :
   keyboardService_(new dioptre::keyboard::glfw::Keyboard()),
   filesystemService_(new dioptre::filesystem::physfs::Filesystem()),
   mouseService_(new dioptre::mouse::glfw::Mouse()),
-  timeService_(new dioptre::time::glfw::Time())
+  timeService_(new dioptre::time::glfw::Time()),
+  physicsService_(new dioptre::physics::bullet::Physics())
 {
   // Enforce singleton property
   if (instance_) {
@@ -63,6 +56,7 @@ int Application::initialize() {
   dioptre::Locator::provide(Module::M_FILESYSTEM, filesystemService_.get());
   dioptre::Locator::provide(Module::M_MOUSE, mouseService_.get());
   dioptre::Locator::provide(Module::M_TIME, timeService_.get());
+  dioptre::Locator::provide(Module::M_PHYSICS, physicsService_.get());
 
   windowService_->initialize();
   graphicsService_->initialize();
@@ -70,6 +64,7 @@ int Application::initialize() {
   filesystemService_->initialize();
   mouseService_->initialize();
   timeService_->initialize();
+  physicsService_->initialize();
 
   return 0;
 }
@@ -82,6 +77,7 @@ void Application::run() {
   keyboardService_->registerKeyHandler(exitGameHandler);
 
   graphicsService_->initializeScene();
+  physicsService_->initializeWorld();
 
   double lastTime = timeService_->getTime();
   int nbFrames = 0;
@@ -100,6 +96,7 @@ void Application::run() {
       o->update();
     }
 
+    physicsService_->debug();
     graphicsService_->update();
     windowService_->swapBuffers();
   }
@@ -110,6 +107,7 @@ void Application::run() {
   filesystemService_->destroy();
   mouseService_->destroy();
   timeService_->destroy();
+  physicsService_->destroy();
 
   isRunning_ = false;
 }

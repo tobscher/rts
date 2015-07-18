@@ -5,7 +5,11 @@
 namespace dioptre {
 namespace graphics {
 
-BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height, glm::float32 depth) {
+BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height, glm::float32 depth) :
+  width_(width),
+  height_(height),
+  depth_(depth)
+{
   auto halfWidth = width / 2.0f;
   auto halfHeight = height / 2.0f;
   auto halfDepth = depth / 2.0f;

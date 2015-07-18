@@ -10,6 +10,7 @@ namespace graphics {
 class Scene {
 public:
   void add(Mesh* mesh);
+  void clear();
 
   std::vector<Mesh*>::iterator begin();
   std::vector<Mesh*>::iterator end();

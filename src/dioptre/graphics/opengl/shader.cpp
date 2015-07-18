@@ -20,6 +20,10 @@ Shader::Shader(ShaderFeatures features) :
   features_(features) {
 }
 
+Shader::~Shader() {
+  glDeleteProgram(programId_);
+}
+
 /**
  * Reads the content of the given file.
  */

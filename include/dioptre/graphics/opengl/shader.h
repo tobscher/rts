@@ -12,15 +12,21 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
+class ShaderFactory;
 /**
  * Loads and links shader program for the given file path.
  */
 class Shader {
+friend class ShaderFactory;
+
 public:
+  ~Shader();
+  GLuint getProgram() { return programId_; }
+
+private:
   Shader(ShaderFeatures features);
   GLuint loadFromFile(std::string vertexFilePath, std::string fragmentFilePath);
 
-private:
   bool loaded_;
   GLuint programId_;
   ShaderFeatures features_;

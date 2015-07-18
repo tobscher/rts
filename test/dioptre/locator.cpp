@@ -7,12 +7,14 @@
 #include "dioptre/keyboard/keyboard_interface.h"
 #include "dioptre/mouse/mouse_interface.h"
 #include "dioptre/time/time_interface.h"
+#include "dioptre/physics/physics_interface.h"
 
 using dioptre::window::WindowInterface;
 using dioptre::graphics::GraphicsInterface;
 using dioptre::keyboard::KeyboardInterface;
 using dioptre::mouse::MouseInterface;
 using dioptre::time::TimeInterface;
+using dioptre::physics::PhysicsInterface;
 
 TEST(Locator, DefaultWindow) {
   dioptre::Locator::initialize();
@@ -49,6 +51,13 @@ TEST(Locator, DefaultTime) {
   EXPECT_EQ(time->initialize(), 0);
 }
 
+TEST(Locator, DefaultPhysics) {
+  dioptre::Locator::initialize();
+  PhysicsInterface* physics= dioptre::Locator::getInstance<PhysicsInterface>(dioptre::Module::M_PHYSICS);
+
+  EXPECT_EQ(physics->initialize(), 0);
+}
+
 class MockGraphics : public GraphicsInterface {
 public:
   int initialize() { return 1337; }
@@ -56,6 +65,7 @@ public:
   void render() { }
   void destroy() { }
   void initializeScene() {}
+  void addLine(glm::vec3 from, glm::vec3 to) {}
 };
 
 TEST(Locator, Provide) {

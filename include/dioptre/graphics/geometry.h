@@ -19,12 +19,26 @@ public:
   bool isInitialized();
   void setIsInitialized(bool value);
 
+  void addVertex(glm::vec3 vertex);
+  void addUV(glm::vec2 uv);
+  void addNormal(glm::vec3 normal);
+
+  void clearVertices();
+  void clearUVs();
+  void clearNormals();
+
+  bool getIsDirty() { return isDirty_; }
+  bool setIsDirty(bool isDirty) { return isDirty_ = isDirty; }
+
   virtual void initialize() = 0;
   virtual void update() = 0;
   virtual void destroy() = 0;
 
 protected:
   log4cxx::LoggerPtr logger_;
+
+  bool isDirty_;
+
   std::vector<glm::vec3> vertices_;
   std::vector<glm::vec2> uvs_;
   std::vector<glm::vec3> normals_;

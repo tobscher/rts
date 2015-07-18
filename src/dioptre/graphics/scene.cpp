@@ -14,6 +14,14 @@ std::vector<Mesh*>::iterator Scene::end() {
   return meshes_.end();
 }
 
+void Scene::clear() {
+  for (auto it = meshes_.begin(); it != meshes_.end(); it++) {
+    delete *it;
+  }
+
+  meshes_.clear();
+}
+
 void Scene::add(Mesh* mesh) {
   meshes_.push_back(mesh);
 }

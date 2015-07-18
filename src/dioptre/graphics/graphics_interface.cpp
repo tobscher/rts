@@ -9,6 +9,7 @@ namespace graphics {
 GraphicsInterface::GraphicsInterface() :
   Module("dioptre.graphics"),
   scene_(new Scene()),
+  debugScene_(new Scene()),
   camera_(new PerspectiveCamera(28.0, 1280/800, 1, 10000))
 {
   camera_->getTransform()->setPosition(0,100,25);

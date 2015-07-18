@@ -24,6 +24,12 @@ void Object::addComponent(dioptre::graphics::Component* component) {
   components_.push_back(component);
 }
 
+void Object::addComponent(dioptre::physics::Component* component) {
+  component->setObject(this);
+  physicsComponents_.push_back(component);
+  components_.push_back(component);
+}
+
 void Object::update() {
   for (auto c : components_) {
     c->update();

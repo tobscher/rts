@@ -43,6 +43,13 @@ public:
   Scene* getScene();
 
   /**
+   * Returns the debug scene that's used.
+   */
+  Scene* getDebugScene() { return debugScene_.get(); }
+
+  virtual void resetDebug() {}
+
+  /**
    * Returns the camera that's used.
    */
   Camera* getCamera();
@@ -52,10 +59,15 @@ public:
    */
   virtual void destroy() = 0;
 
+  virtual void destroyScene(Scene* scene) {}
+
   virtual void initializeScene() = 0;
+
+  virtual void addLine(glm::vec3 from, glm::vec3 to) = 0;
 
 protected:
   std::unique_ptr<Scene> scene_;
+  std::unique_ptr<Scene> debugScene_;
   std::unique_ptr<Camera> camera_;
 }; // GraphicsInterface
 

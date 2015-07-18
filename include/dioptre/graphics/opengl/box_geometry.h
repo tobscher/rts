@@ -2,6 +2,7 @@
 #define DIOPTRE_GRAPHICS_OPENGL_BOX_GEOMETRY_H_
 
 #include "dioptre/graphics/box_geometry.h"
+#include "dioptre/graphics/opengl/buffer_manager.h"
 #include "dioptre/graphics/opengl.h"
 
 namespace dioptre {
@@ -17,9 +18,7 @@ public:
   void destroy();
 
 private:
-  GLuint vertexBuffer_;
-  GLuint uvBuffer_;
-  GLuint normalBuffer_;
+  std::unique_ptr<dioptre::graphics::opengl::BufferManager> bufferManager_;
 }; // BoxGeometry
 
 } // opengl

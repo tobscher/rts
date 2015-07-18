@@ -13,6 +13,8 @@
 #include "filesystem/null/filesystem.h"
 #include "time/time_interface.h"
 #include "time/null/time.h"
+#include "physics/physics_interface.h"
+#include "physics/null/physics.h"
 
 #include "dioptre/module.h"
 
@@ -36,6 +38,7 @@ private:
   static dioptre::mouse::null::Mouse nullMouseService_;
   static dioptre::filesystem::null::Filesystem nullFilesystemService_;
   static dioptre::time::null::Time nullTimeService_;
+  static dioptre::physics::null::Physics nullPhysicsService_;
 
   static Module* defaults_[Module::M_MAX_ENUM];
   static Module* instances_[Module::M_MAX_ENUM];

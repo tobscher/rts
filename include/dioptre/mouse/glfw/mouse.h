@@ -28,6 +28,7 @@ public:
 
 // Callback when mouse position changes
 void cursorPosCallback(GLFWwindow* window, double xpos, double ypos);
+void mouseCallback(GLFWwindow* window, int button, int action, int mods);
 
 } // glfw
 } // mouse

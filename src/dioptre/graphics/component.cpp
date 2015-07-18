@@ -13,6 +13,10 @@ Component::Component(Mesh* mesh) :
   scene->add(mesh);
 }
 
+Component::~Component() {
+  delete mesh_;
+}
+
 void Component::update() {
 }
 

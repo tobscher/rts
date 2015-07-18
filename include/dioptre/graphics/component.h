@@ -11,6 +11,7 @@ namespace graphics {
 class Component : public dioptre::ComponentInterface {
 public:
   Component(Mesh* mesh);
+  ~Component();
   void update();
 
   // Translation

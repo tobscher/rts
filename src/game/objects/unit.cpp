@@ -1,6 +1,8 @@
 #include "unit.h"
 #include "dioptre/graphics/opengl/basic_material.h"
 #include "dioptre/graphics/opengl/box_geometry.h"
+#include "dioptre/physics/component.h"
+#include "dioptre/physics/bullet/box_shape.h"
 
 namespace objects {
 
@@ -14,6 +16,12 @@ Unit* Unit::spawn() {
   mesh->getTransform()->translateY(3.5);
   auto visual = new dioptre::graphics::Component(mesh);
   unit->addComponent(visual);
+
+  /* auto shape = new dioptre::physics::bullet::BoxShape(1.0f, 2.5f, 1.0f); */
+  /* auto rigidBody = new dioptre::physics::RigidBody(shape); */
+  /* rigidBody->translateY(3.5); */
+  /* auto physics = new dioptre::physics::Component(rigidBody); */
+  /* unit->addComponent(physics); */
 
   return unit;
 }

@@ -12,8 +12,6 @@ namespace null {
  */
 class Keyboard : public dioptre::keyboard::KeyboardInterface {
 public:
-  ~Keyboard() {}
-
   /*
    * Null initializer.
    */

@@ -4,91 +4,41 @@
 
 #include <iostream>
 
+using dioptre::graphics::opengl::BufferManager;
+
 namespace dioptre {
 namespace graphics {
 namespace opengl {
 
 BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height, glm::float32 depth) :
   dioptre::graphics::BoxGeometry(width, height, depth) {
+  bufferManager_ = std::unique_ptr<BufferManager>(new BufferManager(this));
 }
 
-// TODO(Tobscher) Extract into base class.
 void BoxGeometry::initialize() {
-  // Initialize geometry
-  glGenBuffers(1, &vertexBuffer_);
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
-  auto bufferData = getData();
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * bufferData.size(), &bufferData[0], GL_STATIC_DRAW);
-
-  LOG4CXX_INFO(logger_, "Vertex Buffer: " << vertexBuffer_);
-
-  glGenBuffers(1, &uvBuffer_);
-  glBindBuffer(GL_ARRAY_BUFFER, uvBuffer_);
-  auto uvBufferData = getUVData();
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * uvBufferData.size(), &uvBufferData[0], GL_STATIC_DRAW);
-
-  LOG4CXX_INFO(logger_, "UV Buffer: " << uvBuffer_);
-
-  glGenBuffers(1, &normalBuffer_);
-  glBindBuffer(GL_ARRAY_BUFFER, normalBuffer_);
-  auto normalBufferData = getNormalData();
-  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * normalBufferData.size(), &normalBufferData[0], GL_STATIC_DRAW);
-
-  LOG4CXX_INFO(logger_, "Normal Buffer: " << normalBuffer_);
-
-  // check OpenGL error
-  check_gl_error();
+  bufferManager_->initializeVertexBuffer();
+  bufferManager_->initializeUVBuffer();
+  bufferManager_->initializeNormalBuffer();
 }
 
 void BoxGeometry::update() {
   auto data = getData();
 
-  // 1st attribute buffer : vertices
-  glEnableVertexAttribArray(0);
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
-  glVertexAttribPointer(
-     0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-     3,                  // size
-     GL_FLOAT,           // type
-     GL_FALSE,           // normalized?
-     0,                  // stride
-     (void*)0            // array buffer offset
-  );
-
-  // 2nd attribute buffer : UVs
-  glEnableVertexAttribArray(1);
-  glBindBuffer(GL_ARRAY_BUFFER, uvBuffer_);
-  glVertexAttribPointer(
-     1,                  // attribute 1. No particular reason for 1, but must match the layout in the shader.
-     2,                  // size
-     GL_FLOAT,           // type
-     GL_FALSE,           // normalized?
-     0,                  // stride
-     (void*)0            // array buffer offset
-  );
-
-  glEnableVertexAttribArray(2);
-  glBindBuffer(GL_ARRAY_BUFFER, normalBuffer_);
-  glVertexAttribPointer(
-     2,                  // attribute 2. No particular reason for 2, but must match the layout in the shader.
-     3,                  // size
-     GL_FLOAT,           // type
-     GL_FALSE,           // normalized?
-     0,                  // stride
-     (void*)0            // array buffer offset
-  );
+  bufferManager_->setVertexBuffer();
+  bufferManager_->setUVBuffer();
+  bufferManager_->setNormalBuffer();
 
   glDrawArrays(GL_TRIANGLES, 0, data.size());
 
-  glDisableVertexAttribArray(0);
-  glDisableVertexAttribArray(1);
-  glDisableVertexAttribArray(2);
+  bufferManager_->disableVertexBuffer();
+  bufferManager_->disableUVBuffer();
+  bufferManager_->disableNormalBuffer();
 }
 
 void BoxGeometry::destroy() {
-  glDeleteBuffers(1, &vertexBuffer_);
-  glDeleteBuffers(1, &uvBuffer_);
-  glDeleteBuffers(1, &normalBuffer_);
+  bufferManager_->destroyVertexBuffer();
+  bufferManager_->destroyUVBuffer();
+  bufferManager_->destroyNormalBuffer();
 }
 
 } // opengl

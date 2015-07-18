@@ -15,6 +15,7 @@ public:
   void destroy() { }
 
   void initializeScene() { }
+  void addLine(glm::vec3 from, glm::vec3 to) {}
 }; // Graphics
 
 } // null

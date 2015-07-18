@@ -8,7 +8,7 @@
 #include "dioptre/graphics/opengl/error.h"
 #include "dioptre/graphics/opengl/graphics.h"
 #include "dioptre/math/triangle.h"
-#include "dioptre/graphics/opengl/shader.h"
+#include "dioptre/graphics/opengl/shader_factory.h"
 
 namespace dioptre {
 namespace graphics {
@@ -36,6 +36,14 @@ int Graphics::initialize() {
   check_gl_error();
 
   LOG4CXX_INFO(logger_, "Vertex array: " << vertexArrayId_);
+
+  debugMaterial_ = new dioptre::graphics::opengl::DebugMaterial();
+  debugMaterial_->setColor(dioptre::graphics::color(1.0f, 0.0f, 0.0f));
+
+  debugGeometry_ = new dioptre::graphics::opengl::Geometry();
+
+  auto mesh = new dioptre::graphics::Mesh(debugGeometry_, debugMaterial_);
+  debugScene_->add(mesh);
 
   return 0;
 }
@@ -84,7 +92,12 @@ void Graphics::resize(int width, int height) {
 void Graphics::render() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  for (auto it = scene_->begin(); it != scene_->end(); it++) {
+  renderScene(scene_.get());
+  renderScene(debugScene_.get());
+}
+
+void Graphics::renderScene(Scene* scene) {
+  for (auto it = scene->begin(); it != scene->end(); it++) {
     auto mesh = *it;
 
     if (!mesh->isInitialized()) {
@@ -105,11 +118,30 @@ void Graphics::render() {
   }
 }
 
+void Graphics::addLine(glm::vec3 from, glm::vec3 to) {
+  debugGeometry_->addVertex(from);
+  debugGeometry_->addVertex(to);
+}
+
+void Graphics::resetDebug() {
+  debugGeometry_->clearVertices();
+}
+
 void Graphics::destroy() {
-  for (auto it = scene_->begin(); it != scene_->end(); it++) {
+  destroyScene(scene_.get());
+  destroyScene(debugScene_.get());
+
+  debugMaterial_->destroy();
+
+  ShaderFactory::cleanUp();
+
+	glDeleteVertexArrays(1, &vertexArrayId_);
+}
+
+void Graphics::destroyScene(Scene* scene) {
+  for (auto it = scene->begin(); it != scene->end(); it++) {
     destroyMesh(*it);
   }
-	glDeleteVertexArrays(1, &vertexArrayId_);
 }
 
 void Graphics::destroyMesh(Mesh* mesh) {

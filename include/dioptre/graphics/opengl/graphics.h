@@ -4,6 +4,8 @@
 #include <map>
 
 #include "dioptre/graphics/opengl.h"
+#include "dioptre/graphics/opengl/debug_material.h"
+#include "dioptre/graphics/opengl/geometry.h"
 #include "dioptre/graphics/graphics_interface.h"
 #include "dioptre/window/window_interface.h"
 
@@ -31,12 +33,20 @@ public:
    */
   void render();
 
+  void renderScene(Scene* scene);
+
   /**
    * Destroys the current 3D context.
    */
   void destroy();
 
+  void destroyScene(Scene* scene);
+
+  void resetDebug();
+
   void initializeScene();
+
+  void addLine(glm::vec3 from, glm::vec3 to);
 
 private:
   void initializeMesh(Mesh* mesh);
@@ -44,6 +54,9 @@ private:
   void destroyMesh(Mesh* mesh);
 
   GLuint vertexArrayId_;
+
+  DebugMaterial* debugMaterial_;
+  Geometry* debugGeometry_;
 }; // Graphics
 
 } // opengl

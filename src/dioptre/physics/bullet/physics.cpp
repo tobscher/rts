@@ -1,0 +1,172 @@
+#include "dioptre/physics/bullet/physics.h"
+#include "dioptre/physics/bullet/shape.h"
+#include "dioptre/locator.h"
+
+#include <iostream>
+
+namespace dioptre {
+namespace physics {
+namespace bullet {
+
+int Physics::initialize() {
+  broadphase_ = std::unique_ptr<btBroadphaseInterface>(new btDbvtBroadphase());
+  collisionConfiguration_ = std::unique_ptr<btDefaultCollisionConfiguration>(new btDefaultCollisionConfiguration());
+  dispatcher_ = std::unique_ptr<btCollisionDispatcher>(new btCollisionDispatcher(collisionConfiguration_.get()));
+  solver_ = std::unique_ptr<btSequentialImpulseConstraintSolver>(new btSequentialImpulseConstraintSolver);
+
+  dynamicsWorld_ = std::unique_ptr<btDiscreteDynamicsWorld>(new btDiscreteDynamicsWorld(dispatcher_.get(), broadphase_.get(), solver_.get(), collisionConfiguration_.get()));
+
+  auto gravity = world_->getGravity();
+  dynamicsWorld_->setGravity(btVector3(gravity.x, gravity.y, gravity.z));
+
+  debugDrawer_ = std::unique_ptr<DebugDrawer>(new DebugDrawer());
+  debugDrawer_->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
+  dynamicsWorld_->setDebugDrawer(debugDrawer_.get());
+
+  LOG4CXX_INFO(logger_, "Bullet engine initialized.");
+
+  return 0;
+}
+
+void Physics::initializeWorld() {
+  LOG4CXX_INFO(logger_, "Initializing physics world.");
+  for (auto it = world_->begin(); it != world_->end(); it++) {
+    initializeRigidBody(*it);
+  }
+}
+
+void Physics::initializeRigidBody(dioptre::physics::RigidBody* body) {
+  LOG4CXX_INFO(logger_, "Initializing rigid body.");
+
+  auto shape = dynamic_cast<dioptre::physics::bullet::Shape*>(body->getShape());
+  btCollisionShape* boxCollisionShape = shape->getCollisionShape();
+
+  auto position = body->getPosition();
+  auto orientation = body->getOrientation();
+  auto inertia = body->getInertia();
+  auto mass = body->getMass();
+
+  btDefaultMotionState* motionstate = new btDefaultMotionState(btTransform(
+    btQuaternion(orientation.x, orientation.y, orientation.z, orientation.w),
+    btVector3(position.x, position.y, position.z)
+  ));
+
+  btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
+      mass, // mass, in kg. 0 -> Static object, will never move.
+      motionstate,
+      boxCollisionShape, // collision shape of body
+      btVector3(inertia.x, inertia.y, inertia.z) // local inertia
+      );
+
+  btRigidBody *rigidBody = new btRigidBody(rigidBodyCI);
+
+  rigidBodies_.push_back(rigidBody);
+  dynamicsWorld_->addRigidBody(rigidBody);
+
+  rigidBody->setUserPointer((void*)body->getId());
+}
+
+void ScreenPosToWorldRay(
+    int mouseX, int mouseY,             // Mouse position, in pixels, from bottom-left corner of the window
+    int screenWidth, int screenHeight,  // Window size, in pixels
+    glm::mat4 ViewMatrix,               // Camera position and orientation
+    glm::mat4 ProjectionMatrix,         // Camera parameters (ratio, field of view, near and far planes)
+    glm::vec3& out_origin,              // Ouput : Origin of the ray. /!\ Starts at the near plane, so if you want the ray to start at the camera's position instead, ignore this.
+    glm::vec3& out_direction            // Ouput : Direction, in world space, of the ray that goes "through" the mouse.
+    ){
+
+  // The ray Start and End positions, in Normalized Device Coordinates (Have you read Tutorial 4 ?)
+  glm::vec4 lRayStart_NDC(
+      ((float)mouseX/(float)screenWidth  - 0.5f) * 2.0f, // [0,1024] -> [-1,1]
+      ((float)mouseY/(float)screenHeight - 0.5f) * 2.0f, // [0, 768] -> [-1,1]
+      -1.0, // The near plane maps to Z=-1 in Normalized Device Coordinates
+      1.0f
+      );
+  glm::vec4 lRayEnd_NDC(
+      ((float)mouseX/(float)screenWidth  - 0.5f) * 2.0f,
+      ((float)mouseY/(float)screenHeight - 0.5f) * 2.0f,
+      0.0,
+      1.0f
+      );
+
+  // The Projection matrix goes from Camera Space to NDC.
+  // So inverse(ProjectionMatrix) goes from NDC to Camera Space.
+  glm::mat4 InverseProjectionMatrix = glm::inverse(ProjectionMatrix);
+
+  // The View Matrix goes from World Space to Camera Space.
+  // So inverse(ViewMatrix) goes from Camera Space to World Space.
+  glm::mat4 InverseViewMatrix = glm::inverse(ViewMatrix);
+
+  glm::vec4 lRayStart_camera = InverseProjectionMatrix * lRayStart_NDC;    lRayStart_camera/=lRayStart_camera.w;
+  glm::vec4 lRayStart_world  = InverseViewMatrix       * lRayStart_camera; lRayStart_world /=lRayStart_world .w;
+  glm::vec4 lRayEnd_camera   = InverseProjectionMatrix * lRayEnd_NDC;      lRayEnd_camera  /=lRayEnd_camera  .w;
+  glm::vec4 lRayEnd_world    = InverseViewMatrix       * lRayEnd_camera;   lRayEnd_world   /=lRayEnd_world   .w;
+
+  // Faster way (just one inverse)
+  //glm::mat4 M = glm::inverse(ProjectionMatrix * ViewMatrix);
+  //glm::vec4 lRayStart_world = M * lRayStart_NDC; lRayStart_world/=lRayStart_world.w;
+  //glm::vec4 lRayEnd_world   = M * lRayEnd_NDC  ; lRayEnd_world  /=lRayEnd_world.w;
+
+  glm::vec3 lRayDir_world(lRayEnd_world - lRayStart_world);
+  lRayDir_world = glm::normalize(lRayDir_world);
+
+  out_origin = glm::vec3(lRayStart_world);
+  out_direction = glm::normalize(lRayDir_world);
+}
+
+void Physics::castRay(dioptre::mouse::Position position) {
+  LOG4CXX_INFO(logger_, "Casting ray at:" << position.x << "x" << position.y);
+
+  auto graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
+  auto camera = graphics->getCamera();
+  auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
+  auto size = window->getSize();
+
+  auto view = glm::inverse(camera->getTransform()->getMatrix());
+  auto projection = camera->getProjectionMatrix();
+
+  glm::vec3 out_origin;
+  glm::vec3 out_direction;
+  ScreenPosToWorldRay(
+      size.width/2, size.height/2,
+      size.width, size.height,
+      view,
+      projection,
+      out_origin,
+      out_direction
+      );
+
+  out_direction = out_direction * 1000.0f;
+  btCollisionWorld::ClosestRayResultCallback RayCallback(btVector3(out_origin.x, out_origin.y, out_origin.z), btVector3(out_direction.x, out_direction.y, out_direction.z));
+
+  dynamicsWorld_->rayTest(btVector3(out_origin.x, out_origin.y, out_origin.z), btVector3(out_direction.x, out_direction.y, out_direction.z), RayCallback);
+
+  if (RayCallback.hasHit()) {
+    LOG4CXX_INFO(logger_, "Ray hit object.");
+    std::cout << (size_t)RayCallback.m_collisionObject->getUserPointer() << std::endl;
+
+  } else {
+    LOG4CXX_INFO(logger_, "Ray hit background.");
+  }
+}
+
+void Physics::debug() {
+  auto graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
+  graphics->resetDebug();
+
+  // TODO(Tobscher) graphics->debug()->reset();
+
+  dynamicsWorld_->debugDrawWorld();
+}
+
+void Physics::simulate() {
+
+}
+
+void Physics::destroy() {
+
+}
+
+} // bullet
+} // physics
+} // dioptre

@@ -15,6 +15,7 @@ public:
     M_FILESYSTEM,
     M_MOUSE,
     M_TIME,
+    M_PHYSICS,
     M_MAX_ENUM
   };
 

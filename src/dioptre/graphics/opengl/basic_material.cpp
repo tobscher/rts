@@ -5,7 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "dioptre/graphics/opengl/basic_material.h"
-#include "dioptre/graphics/opengl/shader.h"
+#include "dioptre/graphics/opengl/shader_factory.h"
 #include "dioptre/graphics/opengl/error.h"
 
 namespace dioptre {
@@ -22,8 +22,8 @@ void BasicMaterial::initialize() {
   }
 
   // Use material
-  dioptre::graphics::opengl::Shader shader(features);
-	programId_ = shader.loadFromFile("basic.vert", "basic.frag");
+  dioptre::graphics::opengl::Shader* shader = dioptre::graphics::opengl::ShaderFactory::getShader(features, "basic.vert", "basic.frag");
+	programId_ = shader->getProgram();
 
   if (texture_ != nullptr) {
     LOG4CXX_INFO(logger_, "Initializing texture...");
@@ -65,7 +65,6 @@ void BasicMaterial::setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) {
 }
 
 void BasicMaterial::destroy() {
-  glDeleteProgram(programId_);
   if (texture_ != nullptr) {
     texture_->destroy();
   }
