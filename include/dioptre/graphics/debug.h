@@ -6,6 +6,8 @@
 #include "dioptre/graphics/geometry.h"
 #include "dioptre/graphics/scene.h"
 
+#include <memory>
+
 namespace dioptre {
 namespace graphics {
 
