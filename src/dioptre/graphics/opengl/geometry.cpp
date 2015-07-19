@@ -28,7 +28,9 @@ void Geometry::update() {
   bufferManager_->setUVBuffer();
   bufferManager_->setNormalBuffer();
 
-  glDrawArrays(drawMode_, 0, data.size());
+  if (data.size() > 0) {
+    glDrawArrays(drawMode_, 0, data.size());
+  }
 
   bufferManager_->disableVertexBuffer();
   bufferManager_->disableUVBuffer();

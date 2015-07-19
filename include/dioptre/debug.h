@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "glm/mat4x4.hpp"
+#include "glm/vec3.hpp"
 
 template <typename T>
 inline void debug(const std::vector<T>& v) {
@@ -31,6 +32,10 @@ inline void debug(glm::mat4x4 m) {
   for (unsigned i = 0; i < 4; i++) {
     std::cout << "[" << m[0][i] << " " << m[1][i] << " " << m[2][i] << " " << m[3][i] << "]" << std::endl;
   }
+}
+
+inline void debug(glm::vec3 v) {
+  std::cout << "[" << "X:" << v.x << "; Y:" << v.y << "; Z:" << v.z << "]" << std::endl;
 }
 
 template <typename T>

@@ -10,10 +10,13 @@ int Debug::initialize() {
   material_ = new dioptre::graphics::opengl::DebugMaterial();
   material_->setColor(dioptre::graphics::color(1.0f, 0.0f, 0.0f));
 
-  geometry_ = new dioptre::graphics::opengl::Geometry(GL_LINES);
-
-  auto mesh = new dioptre::graphics::Mesh(geometry_, material_);
+  lines_ = new dioptre::graphics::opengl::Geometry(GL_LINES);
+  auto mesh = new dioptre::graphics::Mesh(lines_, material_);
   scene_->add(mesh);
+
+  crosses_ = new dioptre::graphics::opengl::Geometry(GL_LINES);
+  auto crossMesh = new dioptre::graphics::Mesh(crosses_, material_);
+  scene_->add(crossMesh);
 
   return 0;
 }

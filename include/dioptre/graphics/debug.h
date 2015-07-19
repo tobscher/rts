@@ -21,12 +21,14 @@ public:
   Scene* getScene() { return scene_.get(); }
 
   void addLine(glm::vec3 from, glm::vec3 to);
+  void addCross(glm::vec3 point);
 
 protected:
   std::unique_ptr<Scene> scene_;
 
   DebugMaterial* material_;
-  Geometry* geometry_;
+  Geometry* lines_;
+  Geometry* crosses_;
 }; // Debug
 
 } // graphics

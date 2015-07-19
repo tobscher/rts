@@ -22,6 +22,7 @@ public:
   T* getComponent();
 
   Transform* getTransform() { return transform_; }
+  std::string getName() { return name_; }
 
   void update();
 

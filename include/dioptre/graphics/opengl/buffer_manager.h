@@ -31,6 +31,10 @@ public:
 private:
   dioptre::graphics::Geometry* geometry_;
 
+  bool vertexBufferInitialized_;
+  bool uVBufferInitialized_;
+  bool normalBufferInitialized_;
+
   GLuint vertexBuffer_;
   GLuint uvBuffer_;
   GLuint normalBuffer_;

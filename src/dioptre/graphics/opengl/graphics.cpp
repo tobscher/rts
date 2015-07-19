@@ -108,7 +108,7 @@ void Graphics::renderScene(Scene* scene) {
 
     // If mesh does not have a component it's likely to not have a changed position,
     // so just use identity matrix.
-    if (component) {
+    if (component != nullptr) {
       auto object = component->getObject();
       auto transform = object->getTransform();
       matrix = transform->getMatrix();

@@ -36,15 +36,18 @@ void Physics::initializeWorld() {
 }
 
 void Physics::initializeRigidBody(dioptre::physics::RigidBody* body) {
-  LOG4CXX_INFO(logger_, "Initializing rigid body.");
-
   auto shape = dynamic_cast<dioptre::physics::bullet::Shape*>(body->getShape());
   btCollisionShape* boxCollisionShape = shape->getCollisionShape();
 
-  auto position = body->getComponent()->getObject()->getTransform()->getPosition();
+  auto component = body->getComponent();
+  auto object = component->getObject();
+  auto transform = object->getTransform();
+  auto position = transform->getPosition();
   auto orientation = body->getComponent()->getObject()->getTransform()->getOrientation();
   auto inertia = body->getInertia();
   auto mass = body->getMass();
+
+  LOG4CXX_INFO(logger_, "Initializing rigid body." << object->getName());
 
   btDefaultMotionState* motionstate = new btDefaultMotionState(btTransform(
     btQuaternion(orientation.x, orientation.y, orientation.z, orientation.w),
@@ -63,11 +66,11 @@ void Physics::initializeRigidBody(dioptre::physics::RigidBody* body) {
   rigidBodies_.push_back(rigidBody);
   dynamicsWorld_->addRigidBody(rigidBody);
 
-  rigidBody->setUserPointer((void*)body->getId());
+  rigidBody->setUserPointer(object);
 }
 
 void ScreenPosToWorldRay(
-    int mouseX, int mouseY,             // Mouse position, in pixels, from bottom-left corner of the window
+    double mouseX, double mouseY,             // Mouse position, in pixels, from bottom-left corner of the window
     int screenWidth, int screenHeight,  // Window size, in pixels
     glm::mat4 ViewMatrix,               // Camera position and orientation
     glm::mat4 ProjectionMatrix,         // Camera parameters (ratio, field of view, near and far planes)
@@ -89,23 +92,10 @@ void ScreenPosToWorldRay(
       1.0f
       );
 
-  // The Projection matrix goes from Camera Space to NDC.
-  // So inverse(ProjectionMatrix) goes from NDC to Camera Space.
-  glm::mat4 InverseProjectionMatrix = glm::inverse(ProjectionMatrix);
-
-  // The View Matrix goes from World Space to Camera Space.
-  // So inverse(ViewMatrix) goes from Camera Space to World Space.
-  glm::mat4 InverseViewMatrix = glm::inverse(ViewMatrix);
-
-  glm::vec4 lRayStart_camera = InverseProjectionMatrix * lRayStart_NDC;    lRayStart_camera/=lRayStart_camera.w;
-  glm::vec4 lRayStart_world  = InverseViewMatrix       * lRayStart_camera; lRayStart_world /=lRayStart_world .w;
-  glm::vec4 lRayEnd_camera   = InverseProjectionMatrix * lRayEnd_NDC;      lRayEnd_camera  /=lRayEnd_camera  .w;
-  glm::vec4 lRayEnd_world    = InverseViewMatrix       * lRayEnd_camera;   lRayEnd_world   /=lRayEnd_world   .w;
-
   // Faster way (just one inverse)
-  //glm::mat4 M = glm::inverse(ProjectionMatrix * ViewMatrix);
-  //glm::vec4 lRayStart_world = M * lRayStart_NDC; lRayStart_world/=lRayStart_world.w;
-  //glm::vec4 lRayEnd_world   = M * lRayEnd_NDC  ; lRayEnd_world  /=lRayEnd_world.w;
+  glm::mat4 M = glm::inverse(ProjectionMatrix * ViewMatrix);
+  glm::vec4 lRayStart_world = M * lRayStart_NDC; lRayStart_world/=lRayStart_world.w;
+  glm::vec4 lRayEnd_world   = M * lRayEnd_NDC  ; lRayEnd_world  /=lRayEnd_world.w;
 
   glm::vec3 lRayDir_world(lRayEnd_world - lRayStart_world);
   lRayDir_world = glm::normalize(lRayDir_world);
@@ -118,6 +108,7 @@ void Physics::castRay(dioptre::mouse::Position position) {
   LOG4CXX_INFO(logger_, "Casting ray at:" << position.x << "x" << position.y);
 
   auto graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
+  auto debug = graphics->getDebug();
   auto camera = graphics->getCamera();
   auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
   auto size = window->getSize();
@@ -125,26 +116,34 @@ void Physics::castRay(dioptre::mouse::Position position) {
   auto view = glm::inverse(camera->getTransform()->getMatrix());
   auto projection = camera->getProjectionMatrix();
 
-  glm::vec3 out_origin;
-  glm::vec3 out_direction;
+  position.y = size.height - position.y;
+  glm::vec3 rayStart;
+  glm::vec3 rayDirection;
   ScreenPosToWorldRay(
-      size.width/2, size.height/2,
+      position.x, position.y,
       size.width, size.height,
       view,
       projection,
-      out_origin,
-      out_direction
-      );
+      rayStart,
+      rayDirection
+    );
 
-  out_direction = out_direction * 1000.0f;
-  btCollisionWorld::ClosestRayResultCallback RayCallback(btVector3(out_origin.x, out_origin.y, out_origin.z), btVector3(out_direction.x, out_direction.y, out_direction.z));
+  rayDirection = rayDirection * 100000.0f;
+  btCollisionWorld::ClosestRayResultCallback rayCallback(btVector3(rayStart.x, rayStart.y, rayStart.z),
+                                                         btVector3(rayDirection.x, rayDirection.y, rayDirection.z));
 
-  dynamicsWorld_->rayTest(btVector3(out_origin.x, out_origin.y, out_origin.z), btVector3(out_direction.x, out_direction.y, out_direction.z), RayCallback);
+  dynamicsWorld_->rayTest(btVector3(rayStart.x, rayStart.y, rayStart.z),
+                          btVector3(rayDirection.x, rayDirection.y, rayDirection.z),
+                          rayCallback);
 
-  if (RayCallback.hasHit()) {
+  if (rayCallback.hasHit()) {
     LOG4CXX_INFO(logger_, "Ray hit object.");
-    std::cout << (size_t)RayCallback.m_collisionObject->getUserPointer() << std::endl;
 
+    auto hitPoint = rayCallback.m_hitPointWorld;
+    debug->addCross(glm::vec3(hitPoint.x(), hitPoint.y(), hitPoint.z()));
+
+    dioptre::Object* object = static_cast<dioptre::Object*>(rayCallback.m_collisionObject->getUserPointer());
+    std::cout << object->getName() << "; X:" << hitPoint.x() << ", Y:" << hitPoint.y() << "; Z:" << hitPoint.z() << std::endl;
   } else {
     LOG4CXX_INFO(logger_, "Ray hit background.");
   }

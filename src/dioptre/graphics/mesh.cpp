@@ -6,7 +6,8 @@ namespace graphics {
 Mesh::Mesh(Geometry* geometry, Material* material) :
   isInitialized_(false),
   geometry_(geometry),
-  material_(material) {
+  material_(material),
+  component_(nullptr) {
 }
 
 bool Mesh::isInitialized() {

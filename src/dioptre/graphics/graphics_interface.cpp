@@ -9,7 +9,7 @@ namespace graphics {
 GraphicsInterface::GraphicsInterface() :
   Module("dioptre.graphics"),
   scene_(new Scene()),
-  camera_(new PerspectiveCamera(28.0, 1280/800, 1, 10000))
+  camera_(new PerspectiveCamera(28.0, 1280.0/800.0, 1, 1000))
 {
   auto transform = camera_->getTransform();
 

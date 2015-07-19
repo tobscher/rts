@@ -28,9 +28,11 @@ void cursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
 }
 
 void mouseCallback(GLFWwindow* window, int button, int action, int mods) {
-  auto mouse = dioptre::Locator::getInstance<dioptre::mouse::MouseInterface>(dioptre::Module::M_MOUSE);
-  auto physics = dioptre::Locator::getInstance<dioptre::physics::PhysicsInterface>(dioptre::Module::M_PHYSICS);
-  physics->castRay(mouse->getPosition());
+  if (action == GLFW_PRESS) {
+    auto mouse = dioptre::Locator::getInstance<dioptre::mouse::MouseInterface>(dioptre::Module::M_MOUSE);
+    auto physics = dioptre::Locator::getInstance<dioptre::physics::PhysicsInterface>(dioptre::Module::M_PHYSICS);
+    physics->castRay(mouse->getPosition());
+  }
 }
 
 } // glfw
