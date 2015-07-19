@@ -118,6 +118,7 @@ void Physics::castRay(dioptre::mouse::Position position) {
 
   position.y = size.height - position.y;
   glm::vec3 rayStart;
+  glm::vec3 rayEnd;
   glm::vec3 rayDirection;
   ScreenPosToWorldRay(
       position.x, position.y,
@@ -126,14 +127,16 @@ void Physics::castRay(dioptre::mouse::Position position) {
       projection,
       rayStart,
       rayDirection
-    );
+  );
 
-  rayDirection = rayDirection * 100000.0f;
+  rayDirection = rayDirection * 1000.0f;
+  rayEnd = rayStart + rayDirection;
+
   btCollisionWorld::ClosestRayResultCallback rayCallback(btVector3(rayStart.x, rayStart.y, rayStart.z),
-                                                         btVector3(rayDirection.x, rayDirection.y, rayDirection.z));
+                                                         btVector3(rayEnd.x, rayEnd.y, rayEnd.z));
 
   dynamicsWorld_->rayTest(btVector3(rayStart.x, rayStart.y, rayStart.z),
-                          btVector3(rayDirection.x, rayDirection.y, rayDirection.z),
+                          btVector3(rayEnd.x, rayEnd.y, rayEnd.z),
                           rayCallback);
 
   if (rayCallback.hasHit()) {
