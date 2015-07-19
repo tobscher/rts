@@ -5,6 +5,8 @@
 #include "dioptre/graphics/opengl/buffer_manager.h"
 #include "dioptre/graphics/opengl.h"
 
+#include <memory>
+
 namespace dioptre {
 namespace graphics {
 namespace opengl {
