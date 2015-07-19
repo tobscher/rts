@@ -5,6 +5,8 @@
 #include "dioptre/mouse/mouse_interface.h"
 #include "dioptre/physics/world.h"
 
+#include <memory>
+
 namespace dioptre {
 namespace physics {
 
