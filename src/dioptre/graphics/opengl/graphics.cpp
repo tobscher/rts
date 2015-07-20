@@ -11,6 +11,7 @@
 #include "dioptre/graphics/opengl/graphics.h"
 #include "dioptre/graphics/opengl/debug.h"
 #include "dioptre/graphics/opengl/shader_factory.h"
+#include "dioptre/graphics/opengl/texture_factory.h"
 
 namespace dioptre {
 namespace graphics {
@@ -96,9 +97,9 @@ void Graphics::render() {
 
   renderScene(scene_.get());
 
-  /* if (debug_) { */
-  /*   renderScene(debug_->getScene()); */
-  /* } */
+  if (debug_) {
+    renderScene(debug_->getScene());
+  }
 }
 
 void Graphics::renderScene(Scene* scene) {
@@ -125,23 +126,6 @@ void Graphics::renderScene(Scene* scene) {
     glm::mat4 model = matrix;
     glm::mat4 mvp = projection * view * model;
 
-    /* glm::mat4 projectorView = glm::inverse(projector_->getTransform()->getMatrix()); */
-    /* glm::mat4 projectorProjection = projector_->getProjectionMatrix(); */
-
-    /* glm::mat4 biasMatrix = glm::mat4(0.5f, 0,    0,    0.5f, */
-    /*                                  0,    0.5f, 0,    0.5f, */
-    /*                                  0,    0,    0.5f, 0.5f, */
-    /*                                  0,    0,    0,    1); */
-    /* glm::mat4 objectTexGen = biasMatrix * projectorProjection * projectorView; */
-
-    /* glm::vec3 projPos = glm::vec3(20.0f,10.0f,-20.0f); */
-    /* glm::vec3 projAt = glm::vec3(-2.0f,0.0f,0.0f); */
-    /* glm::vec3 projUp = glm::vec3(0.0f,1.0f,0.0f); */
-
-    /* glm::mat4 projView = glm::lookAt(projPos, projAt, projUp); */
-
-    /* projector_->getTransform()->translateY(0.1); */
-
     glm::mat4 projView = glm::inverse(projector_->getTransform()->getMatrix());
     glm::mat4 projProj = projector_->getProjectionMatrix();
     glm::mat4 projScaleTrans = glm::translate(glm::vec3(0.5f)) *
@@ -166,6 +150,7 @@ void Graphics::destroy() {
     destroyScene(debug_->getScene());
   }
 
+  TextureFactory::cleanUp();
   ShaderFactory::cleanUp();
 
 	glDeleteVertexArrays(1, &vertexArrayId_);

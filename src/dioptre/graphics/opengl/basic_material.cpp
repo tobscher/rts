@@ -6,6 +6,7 @@
 
 #include "dioptre/graphics/opengl/basic_material.h"
 #include "dioptre/graphics/opengl/shader_factory.h"
+#include "dioptre/graphics/opengl/texture_factory.h"
 #include "dioptre/graphics/opengl/error.h"
 
 namespace dioptre {
@@ -31,7 +32,7 @@ void BasicMaterial::initialize() {
     glTexture_->initialize();
   }
 
-  glTexture2_ = new dioptre::graphics::opengl::Texture("selection.png");
+  glTexture2_ = dioptre::graphics::opengl::TextureFactory::getTexture("selection.png");
   glTexture2_->setWrapS(GL_CLAMP_TO_BORDER);
   glTexture2_->setWrapT(GL_CLAMP_TO_BORDER);
   glTexture2_->initialize();

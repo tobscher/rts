@@ -14,6 +14,7 @@ namespace opengl {
 int Texture::nextIndex_ = 0;
 
 Texture::Texture(std::string imagePath) :
+  isInitialized_(false),
   dioptre::graphics::Texture(imagePath),
   index_(getNextIndex()),
   wrapS_(GL_REPEAT),
@@ -22,9 +23,10 @@ Texture::Texture(std::string imagePath) :
 }
 
 int Texture::initialize() {
+  if (isInitialized_) return 0;
 
   glGenTextures(1, &texture_);
-  glActiveTexture(GL_TEXTURE0 + index_);
+  /* glActiveTexture(GL_TEXTURE0 + index_); */
   glBindTexture(GL_TEXTURE_2D, texture_);
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -42,6 +44,8 @@ int Texture::initialize() {
 
   // no longer needed
   SOIL_free_image_data(image_);
+
+  isInitialized_ = true;
 
   return 0;
 }

@@ -1,7 +1,7 @@
 #include "map.h"
 
 #include "dioptre/graphics/component.h"
-#include "dioptre/graphics/opengl/texture.h"
+#include "dioptre/graphics/opengl/texture_factory.h"
 #include "dioptre/graphics/opengl/basic_material.h"
 #include "dioptre/graphics/opengl/box_geometry.h"
 
@@ -12,7 +12,7 @@ namespace objects {
 
 Map* Map::spawn() {
   auto material = new dioptre::graphics::opengl::BasicMaterial();
-  dioptre::graphics::opengl::Texture* texture = new dioptre::graphics::opengl::Texture("ground.png");
+  dioptre::graphics::opengl::Texture* texture = dioptre::graphics::opengl::TextureFactory::getTexture("ground.dds");
   texture->setRepeat(glm::vec2(15,15));
   material->setTexture(texture);
 

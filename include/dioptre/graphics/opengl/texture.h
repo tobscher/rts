@@ -10,9 +10,11 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
+class TextureFactory;
 class Texture : public dioptre::graphics::Texture {
+friend class TextureFactory;
+
 public:
-  Texture(std::string imagePath);
 
   int initialize();
   void update();
@@ -24,9 +26,13 @@ public:
   void setWrapS(GLint wrapS) { wrapS_ = wrapS; }
   void setWrapT(GLint wrapT) { wrapT_ = wrapT; }
 
+  bool getIsInitialized() { return isInitialized_; }
+
   static int getNextIndex() { return nextIndex_++; }
 
 private:
+  bool isInitialized_;
+  Texture(std::string imagePath);
   static int nextIndex_;
 
   int index_;
