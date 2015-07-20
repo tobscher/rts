@@ -13,11 +13,13 @@ out vec3 Position_worldspace;
 out vec3 Normal_cameraspace;
 out vec3 EyeDirection_cameraspace;
 out vec3 LightDirection_cameraspace;
+out vec4 ProjTexCoord;
 
 uniform mat4 MVP;
 uniform mat4 V;
 uniform mat4 M;
 uniform vec3 LightPosition_worldspace;
+uniform mat4 ProjectorMatrix;
 
 #ifdef USE_TEXTURE
   uniform vec2 repeat;
@@ -31,11 +33,14 @@ void main() {
   LightDirection_cameraspace = LightPosition_cameraspace + EyeDirection_cameraspace;
   Normal_cameraspace = ( V * M * vec4(vertexNormal_modelspace,0)).xyz;
 
-  // Output position of the vertex, in clip space : MVP * position
-  vec4 v = vec4(vertexPosition_modelspace,1); // Transform an homogeneous 4D vector
-  gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
+  // Projection
+  ProjTexCoord = ProjectorMatrix * (M * vec4(vertexPosition_modelspace, 1));
 
 #ifdef USE_TEXTURE
   UV = vertexUV * repeat;
 #endif
+
+  // Output position of the vertex, in clip space : MVP * position
+  vec4 v = vec4(vertexPosition_modelspace,1); // Transform an homogeneous 4D vector
+  gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
 }

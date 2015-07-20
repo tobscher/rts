@@ -6,13 +6,15 @@
 #include "dioptre/graphics/texture.h"
 #include "dioptre/locator.h"
 
-#include "SOIL.h"
+#include "SOIL2.h"
 
 namespace dioptre {
 namespace graphics {
 
 Texture::Texture(std::string image) :
+  imagePath_(image),
   repeat_(glm::vec2(1,1)) {
+
   auto filesystem = dioptre::Locator::getInstance<dioptre::filesystem::FilesystemInterface>(dioptre::Module::M_FILESYSTEM);
   auto size = filesystem->getSize(image);
   unsigned char* buffer = new unsigned char[size];
@@ -30,6 +32,8 @@ Texture::Texture(std::string image) :
 
     throw std::runtime_error(exception.str());
   }
+
+  std::cout << "Texture loaded: " << image << "; Size: " << width_ << "x" << height_ << std::endl;
 }
 
 void Texture::setRepeat(glm::vec2 repeat) {

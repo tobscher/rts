@@ -31,6 +31,11 @@ void BasicMaterial::initialize() {
     glTexture_->initialize();
   }
 
+  glTexture2_ = new dioptre::graphics::opengl::Texture("selection.png");
+  glTexture2_->setWrapS(GL_CLAMP_TO_BORDER);
+  glTexture2_->setWrapT(GL_CLAMP_TO_BORDER);
+  glTexture2_->initialize();
+
   // check OpenGL error
   check_gl_error();
 }
@@ -42,8 +47,10 @@ void BasicMaterial::update() {
     GLint diffuseLocation = glGetUniformLocation(programId_, "diffuse");
     glUniform3fv(diffuseLocation, 1, glm::value_ptr(color_));
   } else {
-    glTexture_->updateGL(programId_);
+    glTexture_->updateGL(programId_, "textureSampler", true);
   }
+
+  glTexture2_->updateGL(programId_, "ProjectorTex", false);
 
   glm::vec3 lightPosition(0.0, 100.0, 0.0);
   GLuint lightPositionId = glGetUniformLocation(programId_, "LightPosition_worldspace");
@@ -62,6 +69,11 @@ void BasicMaterial::setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) {
 
   GLuint matrixId = glGetUniformLocation(programId_, "MVP");
   glUniformMatrix4fv(matrixId, 1, GL_FALSE, &mvp[0][0]);
+}
+
+void BasicMaterial::setProjection(glm::mat4 p) {
+  GLuint mId = glGetUniformLocation(programId_, "ProjectorMatrix");
+  glUniformMatrix4fv(mId, 1, GL_FALSE, &p[0][0]);
 }
 
 void BasicMaterial::destroy() {

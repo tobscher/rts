@@ -17,10 +17,12 @@ public:
   void destroy();
 
   void setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp);
+  void setProjection(glm::mat4 p);
 
 protected:
   GLuint programId_;
   dioptre::graphics::opengl::Texture* glTexture_;
+  dioptre::graphics::opengl::Texture* glTexture2_;
 }; // BasicMaterial
 
 } // opengl

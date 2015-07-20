@@ -8,6 +8,7 @@
 #include "dioptre/graphics/opengl/geometry.h"
 #include "dioptre/graphics/graphics_interface.h"
 #include "dioptre/window/window_interface.h"
+#include "dioptre/graphics/projector.h"
 
 namespace dioptre {
 namespace graphics {
@@ -57,6 +58,8 @@ private:
   void initializeMesh(Mesh* mesh);
   void renderMesh(Mesh* mesh);
   void destroyMesh(Mesh* mesh);
+
+  dioptre::graphics::Projector* projector_;
 
   GLuint vertexArrayId_;
 }; // Graphics

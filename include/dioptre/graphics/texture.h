@@ -24,6 +24,8 @@ public:
 protected:
   unsigned char* image_;
 
+  std::string imagePath_;
+
   int width_;
   int height_;
   int components_;

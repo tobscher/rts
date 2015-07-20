@@ -15,8 +15,13 @@ out vec3 color;
   uniform sampler2D textureSampler;
 #endif
 
+// Projection
+in vec4 ProjTexCoord;
+
 uniform mat4 MV;
 uniform vec3 LightPosition_worldspace;
+
+uniform sampler2D ProjectorTex;
 
 void main() {
 #ifdef USE_COLOR
@@ -42,4 +47,12 @@ void main() {
   color = MaterialAmbientColor +
     MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
     MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
+
+  vec4 projTexColor = vec4(0.0);
+  if (ProjTexCoord.z > 0.0) {
+    projTexColor = textureProj(ProjectorTex, ProjTexCoord);
+  }
+
+  // Projection
+  color = color + projTexColor.rgb * 0.2;
 }

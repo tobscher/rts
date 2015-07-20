@@ -24,6 +24,8 @@ public:
 
   // Rotation
   glm::quat getOrientation() { return quaternion_; }
+  glm::vec3 getRotation() { return rotation_; }
+
   void rotateX(glm::float32 angle);
   void rotateY(glm::float32 angle);
   void rotateZ(glm::float32 angle);
