@@ -3,6 +3,7 @@
 #include "dioptre/graphics/component.h"
 #include "dioptre/graphics/opengl/basic_material.h"
 #include "dioptre/graphics/opengl/box_geometry.h"
+#include "dioptre/graphics/opengl/texture_factory.h"
 
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/box_shape.h"
@@ -14,14 +15,15 @@ CommandCentre* CommandCentre::spawn() {
   commandCentre->getTransform()->translateY(3.5);
 
   // Material
-  auto building = new dioptre::graphics::opengl::BasicMaterial();
-  building->setColor(dioptre::graphics::color(0.5f, 0.5f, 0.5f));
+  auto material = new dioptre::graphics::opengl::BasicMaterial();
+  dioptre::graphics::opengl::Texture* texture = dioptre::graphics::opengl::TextureFactory::getTexture("uvgrid01.dds");
+  material->setTexture(texture);
 
   // Geometry
   auto geometry = new dioptre::graphics::opengl::BoxGeometry(5.0f, 5.0f, 5.0f);
 
   // Mesh
-  auto mesh = new dioptre::graphics::Mesh(geometry, building);
+  auto mesh = new dioptre::graphics::Mesh(geometry, material);
   auto visual = new dioptre::graphics::Component(mesh);
   commandCentre->addComponent(visual);
 

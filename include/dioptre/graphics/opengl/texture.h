@@ -35,6 +35,9 @@ private:
   Texture(std::string imagePath);
   static int nextIndex_;
 
+  GLint textureLocation_;
+  GLint repeatLocation_;
+
   int index_;
   GLuint texture_;
   GLint wrapS_;

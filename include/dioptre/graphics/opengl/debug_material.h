@@ -12,6 +12,8 @@ namespace opengl {
 
 class DebugMaterial : public dioptre::graphics::DebugMaterial {
 public:
+  DebugMaterial();
+
   void initialize();
   void update();
   void destroy();
@@ -20,6 +22,9 @@ public:
 
 protected:
   GLuint programId_;
+
+  GLint diffuseLocation_;
+  GLint matrixViewProjectionLocation_;
 }; // DebugMaterial
 
 } // opengl

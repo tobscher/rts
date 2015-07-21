@@ -34,6 +34,8 @@ Texture::Texture(std::string image) :
   }
 
   std::cout << "Texture loaded: " << image << "; Size: " << width_ << "x" << height_ << std::endl;
+
+  delete buffer;
 }
 
 void Texture::setRepeat(glm::vec2 repeat) {

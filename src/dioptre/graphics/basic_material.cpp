@@ -3,6 +3,12 @@
 namespace dioptre {
 namespace graphics {
 
+BasicMaterial::BasicMaterial() :
+  Material(),
+  texture_(nullptr) {
+
+}
+
 void BasicMaterial::setColor(color color) {
   color_ = color;
 }

@@ -67,6 +67,8 @@ std::string Filesystem::readAll(std::string file) {
 
   std::string s(buffer, length);
 
+  delete buffer;
+
   return s;
 }
 
