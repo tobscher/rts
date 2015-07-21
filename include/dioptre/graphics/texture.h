@@ -4,6 +4,7 @@
 #include <string>
 
 #include "glm/vec2.hpp"
+#include "log4cxx/logger.h"
 
 namespace dioptre {
 namespace graphics {
@@ -22,6 +23,8 @@ public:
   void setRepeat(glm::vec2 repeat);
 
 protected:
+  log4cxx::LoggerPtr logger_;
+
   unsigned char* image_;
 
   std::string imagePath_;
