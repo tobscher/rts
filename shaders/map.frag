@@ -40,5 +40,5 @@ void main() {
 
   vec3 projected = vec3(textureProj(ProjectorTex, ProjTexCoord).rgb);
 
-  color = color + projected * 0.2;
+  color = color + projected * 0.5;
 }
