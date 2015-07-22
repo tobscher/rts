@@ -34,8 +34,8 @@ int Window::initialize() {
   glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
 
   // Open a window and create its OpenGL context
-  glfwWindow_ = glfwCreateWindow(glfwVideoMode_->width, glfwVideoMode_->height, "RTS", nullptr, nullptr);
-  /* glfwWindow_ = glfwCreateWindow(glfwVideoMode_->width, glfwVideoMode_->height, "RTS", glfwMonitor_, nullptr); */
+  /* glfwWindow_ = glfwCreateWindow(glfwVideoMode_->width, glfwVideoMode_->height, "RTS", nullptr, nullptr); */
+  glfwWindow_ = glfwCreateWindow(glfwVideoMode_->width, glfwVideoMode_->height, "RTS", glfwMonitor_, nullptr);
   if (glfwWindow_ == NULL) {
     fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible.\n");
     glfwTerminate();
