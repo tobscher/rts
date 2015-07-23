@@ -1,5 +1,6 @@
 #include "dioptre/graphics/projector.h"
 #include "dioptre/math/conversion.h"
+#include "dioptre/camera_transform.h"
 
 #include "glm/gtc/matrix_transform.hpp"
 
@@ -15,7 +16,7 @@ Projector::Projector(glm::float32 fov, glm::float32 aspect, glm::float32 near, g
   aspect_(aspect),
   near_(near),
   far_(far),
-  transform_(new Transform())
+  transform_(new CameraTransform())
 {
   updateProjectionMatrix();
 }

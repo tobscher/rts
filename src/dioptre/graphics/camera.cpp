@@ -1,10 +1,11 @@
+#include "dioptre/camera_transform.h"
 #include "dioptre/graphics/camera.h"
 
 namespace dioptre {
 namespace graphics {
 
 Camera::Camera() :
-  transform_(new dioptre::Transform()) {
+  transform_(new dioptre::CameraTransform()) {
 
 }
 

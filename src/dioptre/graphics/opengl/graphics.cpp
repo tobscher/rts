@@ -47,7 +47,8 @@ int Graphics::initialize() {
 
   projector_ = new dioptre::graphics::Projector(40.0, 1280.0/800.0, 1, 100);
   projector_->getTransform()->setPosition(0.0, 10.0, 0.0);
-  projector_->getTransform()->rotateX(-1.57079633);
+  projector_->getTransform()->setUp(glm::vec3(0.0, 0.0, -1.0));
+  projector_->getTransform()->lookAt(0.0, 0.0, 0.0);
 
   return 0;
 }
@@ -123,11 +124,11 @@ void Graphics::renderScene(Scene* scene) {
     }
 
     glm::mat4 projection = camera_->getProjectionMatrix();
-    glm::mat4 view = glm::inverse(camera_->getTransform()->getMatrix());
+    glm::mat4 view = camera_->getTransform()->getMatrixWorldInverse();
     glm::mat4 model = matrix;
     glm::mat4 mvp = projection * view * model;
 
-    glm::mat4 projView = glm::inverse(projector_->getTransform()->getMatrix());
+    glm::mat4 projView = projector_->getTransform()->getMatrixWorldInverse();
     glm::mat4 projProj = projector_->getProjectionMatrix();
     glm::mat4 projScaleTrans = glm::translate(glm::vec3(0.5f)) *
                             glm::scale(glm::vec3(0.5f));

@@ -24,21 +24,23 @@ public:
 
   // Rotation
   glm::quat getOrientation() { return quaternion_; }
-  glm::vec3 getRotation() { return rotation_; }
 
   void rotateX(glm::float32 angle);
   void rotateY(glm::float32 angle);
   void rotateZ(glm::float32 angle);
 
-  void lookAt(glm::float32 x, glm::float32 y, glm::float32 z);
+  void setUp(glm::vec3 up) { up_ = up; }
+
+  virtual void lookAt(glm::float32 x, glm::float32 y, glm::float32 z);
 
   glm::mat4 getMatrix();
 
-private:
+protected:
+  bool matrixNeedsUpdating_;
   void rotateOnAxis(glm::float32 angle, glm::vec3 axis);
+  virtual void updateMatrix();
 
   glm::vec3 position_;
-  glm::vec3 rotation_;
   glm::vec3 scale_;
   glm::quat quaternion_;
 
