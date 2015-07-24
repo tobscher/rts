@@ -2,6 +2,7 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtx/matrix_interpolation.hpp"
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
 
@@ -94,17 +95,17 @@ void Graphics::resize(int width, int height) {
   glViewport(0, 0, width, height);
 }
 
-void Graphics::render() {
+void Graphics::render(const double alpha) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  renderScene(scene_.get());
+  renderScene(scene_.get(), alpha);
 
   if (debug_) {
-    renderScene(debug_->getScene());
+    renderScene(debug_->getScene(), alpha);
   }
 }
 
-void Graphics::renderScene(Scene* scene) {
+void Graphics::renderScene(Scene* scene, float alpha) {
   for (auto it = scene->begin(); it != scene->end(); it++) {
     auto mesh = *it;
 
@@ -123,8 +124,14 @@ void Graphics::renderScene(Scene* scene) {
       matrix = transform->getMatrix();
     }
 
+    // Camera
     glm::mat4 projection = camera_->getProjectionMatrix();
-    glm::mat4 view = camera_->getTransform()->getMatrixWorldInverse();
+
+    // Interpolate between previous and current frame for smoother transiations
+    glm::mat4 previousView = camera_->getState()->getPrevious()->getMatrixWorldInverse();
+    glm::mat4 currentView = camera_->getState()->getCurrent()->getMatrixWorldInverse();
+    glm::mat4 view = glm::interpolate(previousView, currentView, alpha);
+
     glm::mat4 model = matrix;
     glm::mat4 mvp = projection * view * model;
 

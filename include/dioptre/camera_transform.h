@@ -16,6 +16,11 @@ public:
     return matrixWorldInverse_;
   }
 
+  void setMatrix(glm::mat4 matrix) {
+    matrix_ = matrix;
+    matrixWorldInverse_ = glm::inverse(matrix);
+  }
+
 protected:
   void updateMatrix();
 

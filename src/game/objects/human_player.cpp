@@ -1,3 +1,5 @@
+#include "dioptre/locator.h"
+
 #include "human_player.h"
 #include "components/edge_scroll_component.h"
 
@@ -10,6 +12,15 @@ HumanPlayer* HumanPlayer::spawn() {
   humanPlayer->addComponent(edgeScrollComponent);
 
   return humanPlayer;
+}
+
+void HumanPlayer::makeCurrent() {
+  Object::makeCurrent();
+
+  auto graphicsService = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
+  auto camera = graphicsService->getCamera();
+
+  camera->makeCurrent();
 }
 
 } // objects

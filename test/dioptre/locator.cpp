@@ -62,7 +62,7 @@ class MockGraphics : public GraphicsInterface {
 public:
   int initialize() { return 1337; }
   void resize(int width, int height) {  }
-  void render() { }
+  void render(const double alpha) { }
   void destroy() { }
   void destroyScene(dioptre::graphics::Scene* scene) { }
   void initializeScene() {}

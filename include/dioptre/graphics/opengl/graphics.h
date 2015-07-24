@@ -37,12 +37,12 @@ public:
   /**
    * Renders the current scene graph to the screen.
    */
-  void render();
+  void render(const double alpha);
 
   /**
    * Renders the given scene graph with the current camera.
    */
-  void renderScene(Scene* scene);
+  void renderScene(Scene* scene, float alpha);
 
   /**
    * Destroys the current 3D context.

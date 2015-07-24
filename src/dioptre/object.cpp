@@ -3,7 +3,7 @@
 namespace dioptre {
 
 Object::Object(std::string name) :
-  transform_(new Transform()),
+  state_(new State<Transform>()),
   name_(name) {
   logger_ = log4cxx::Logger::getLogger(name);
 }

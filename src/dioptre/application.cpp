@@ -79,25 +79,43 @@ void Application::run() {
   graphicsService_->initializeScene();
   physicsService_->initializeWorld();
 
-  double lastTime = timeService_->getTime();
+  double previousTime = timeService_->getTime();
+  double lastTime = previousTime;
+  double accumulator = 0.0;
+  double dt = 0.01;
   int nbFrames = 0;
 
   while (!windowService_->shouldClose()) {
-    // Measure speed
     double currentTime = timeService_->getTime();
+    double elapsed = currentTime - previousTime;
     nbFrames++;
-    if (currentTime - lastTime >= 1.0) {
+
+    // Frame counter
+    if (currentTime - lastTime >= 1.0 ) {
       printf("%f ms/frame\n", 1000.0/double(nbFrames));
       nbFrames = 0;
       lastTime += 1.0;
     }
 
-    for (auto o : objects_) {
-      o->update();
+    if (elapsed > 0.25) {
+      elapsed = 0.25;
     }
 
-    physicsService_->debug();
-    graphicsService_->update();
+    previousTime = currentTime;
+    accumulator += elapsed;
+
+    while (accumulator >= dt) {
+      for (auto o : objects_) {
+        o->makeCurrent();
+        o->update();
+      }
+      physicsService_->debug();
+      accumulator -= dt;
+    }
+
+    const double alpha = accumulator / dt;
+
+    graphicsService_->render(alpha);
     windowService_->swapBuffers();
   }
 

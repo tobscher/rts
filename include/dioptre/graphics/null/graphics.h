@@ -12,7 +12,7 @@ public:
   int initialize() { return 0; }
   void initializeScene() { }
   void resize(int width, int height) { }
-  void render() { }
+  void render(const double alpha) { }
   void destroy() { }
   void destroyScene(Scene* scene) { }
 }; // Graphics

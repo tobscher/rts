@@ -33,6 +33,9 @@ public:
 
   virtual void lookAt(glm::float32 x, glm::float32 y, glm::float32 z);
 
+  virtual void setMatrix(glm::mat4 matrix) {
+    matrix_ = matrix;
+  }
   glm::mat4 getMatrix();
 
 protected:

@@ -37,7 +37,7 @@ public:
   /**
    * Should render scene graph.
    */
-  virtual void render() = 0;
+  virtual void render(const double alpha) = 0;
 
   /**
    * Updates the graphics service.

@@ -18,7 +18,6 @@ GraphicsInterface::GraphicsInterface() :
 }
 
 void GraphicsInterface::update() {
-  render();
 }
 
 Scene* GraphicsInterface::getScene() {

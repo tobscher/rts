@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "component_interface.h"
-#include "transform.h"
+#include "state.h"
 
 #include "log4cxx/logger.h"
 
@@ -21,13 +21,15 @@ public:
   template<typename T>
   T* getComponent();
 
-  Transform* getTransform() { return transform_; }
+  State<Transform>* getState();
+  Transform* getTransform() { return state_->getCurrent(); }
   std::string getName() { return name_; }
 
+  virtual void makeCurrent() { state_->makeCurrent(); }
   void update();
 
 protected:
-  Transform* transform_;
+  State<Transform>* state_;
 
   std::string name_;
   log4cxx::LoggerPtr logger_;
