@@ -1,11 +1,8 @@
 #include "dioptre/graphics/perspective_camera.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include "dioptre/math/conversion.h"
 
 #include <math.h>
-
-using dioptre::math::degToRad;
 
 namespace dioptre {
 namespace graphics {
@@ -20,7 +17,7 @@ PerspectiveCamera::PerspectiveCamera(glm::float32 fov, glm::float32 aspect, glm:
 }
 
 void PerspectiveCamera::updateProjectionMatrix() {
-  glm::float32 ymax = near_ * tan(degToRad(fov_*0.5));
+  glm::float32 ymax = near_ * tan(glm::radians(fov_*0.5));
   glm::float32 ymin = -ymax;
   glm::float32 xmin = ymin * aspect_;
   glm::float32 xmax = ymax * aspect_;
