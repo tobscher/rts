@@ -20,7 +20,7 @@ namespace opengl {
 
 // TODO(Tobscher) Take clear color from settings.
 int Graphics::initialize() {
-  glewExperimental = true; // Needed in core profile
+  glewExperimental = GL_TRUE; // Needed in core profile
   if (glewInit() != GLEW_OK) {
     fprintf(stderr, "Failed to initialize GLEW\n");
     return -1;

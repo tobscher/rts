@@ -9,17 +9,9 @@ namespace dioptre {
 class CameraTransform : public Transform {
 public:
   void lookAt(glm::float32 x, glm::float32 y, glm::float32 z);
-  glm::mat4 getMatrixWorldInverse() {
-    if (matrixNeedsUpdating_) {
-      updateMatrix();
-    }
-    return matrixWorldInverse_;
-  }
+  glm::mat4 getMatrixWorldInverse();
 
-  void setMatrix(glm::mat4 matrix) {
-    matrix_ = matrix;
-    matrixWorldInverse_ = glm::inverse(matrix);
-  }
+  void setMatrix(glm::mat4 matrix);
 
 protected:
   void updateMatrix();

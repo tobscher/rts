@@ -31,4 +31,20 @@ T* Object::getComponent() {
   return nullptr;
 }
 
+Transform* Object::getTransform() {
+  return state_->getCurrent();
+}
+
+void Object::makeCurrent() {
+  return state_->makeCurrent();
+}
+
+std::string Object::getName() {
+  return name_;
+}
+
+void Object::handleClick(glm::vec3 hitPoint) {
+  LOG4CXX_DEBUG(logger_, getName() << "; X:" << hitPoint.x << ", Y:" << hitPoint.y << "; Z:" << hitPoint.z);
+}
+
 }

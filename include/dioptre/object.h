@@ -16,17 +16,23 @@ public:
   Object(std::string name);
   ~Object();
 
+  // Components
   void addComponent(ComponentInterface* component);
 
   template<typename T>
   T* getComponent();
 
+  // State
   State<Transform>* getState();
-  Transform* getTransform() { return state_->getCurrent(); }
-  std::string getName() { return name_; }
+  Transform* getTransform();
+  virtual void makeCurrent();
 
-  virtual void makeCurrent() { state_->makeCurrent(); }
+  std::string getName();
+
   void update();
+
+  // Events
+  virtual void handleClick(glm::vec3 hitPoint);
 
 protected:
   State<Transform>* state_;

@@ -12,7 +12,7 @@ public:
   Transform();
 
   // Translation
-  glm::vec3 getPosition() { return position_; }
+  glm::vec3 getPosition();
   void setPosition(glm::float32 x, glm::float32 y, glm::float32 z);
   void translateX(glm::float32 x);
   void translateY(glm::float32 y);
@@ -23,19 +23,19 @@ public:
   void setScale(glm::float32 x, glm::float32 y, glm::float32 z);
 
   // Rotation
-  glm::quat getOrientation() { return quaternion_; }
-
+  glm::quat getOrientation();
   void rotateX(glm::float32 angle);
   void rotateY(glm::float32 angle);
   void rotateZ(glm::float32 angle);
 
-  void setUp(glm::vec3 up) { up_ = up; }
+  // Up
+  void setUp(glm::vec3 up);
 
+  // LookAt
   virtual void lookAt(glm::float32 x, glm::float32 y, glm::float32 z);
 
-  virtual void setMatrix(glm::mat4 matrix) {
-    matrix_ = matrix;
-  }
+  // Matrix
+  virtual void setMatrix(glm::mat4 matrix);
   glm::mat4 getMatrix();
 
 protected:

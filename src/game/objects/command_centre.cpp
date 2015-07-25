@@ -16,8 +16,7 @@ CommandCentre* CommandCentre::spawn() {
 
   // Material
   auto material = new dioptre::graphics::opengl::BasicMaterial();
-  dioptre::graphics::opengl::Texture* texture = dioptre::graphics::opengl::TextureFactory::getTexture("uvgrid01.dds");
-  material->setTexture(texture);
+  material->setColor(dioptre::graphics::color(0.3f, 0.3f, 0.3f));
 
   // Geometry
   auto geometry = new dioptre::graphics::opengl::BoxGeometry(5.0f, 5.0f, 5.0f);

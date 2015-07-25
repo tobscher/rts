@@ -15,12 +15,16 @@ HumanPlayer* HumanPlayer::spawn() {
 }
 
 void HumanPlayer::makeCurrent() {
-  Object::makeCurrent();
+  dioptre::Object::makeCurrent();
 
   auto graphicsService = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
   auto camera = graphicsService->getCamera();
 
   camera->makeCurrent();
+}
+
+void HumanPlayer::select(dioptre::Object* object) {
+  selectedObjects_.push_back(object);
 }
 
 } // objects

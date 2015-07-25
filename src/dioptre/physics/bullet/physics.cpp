@@ -143,10 +143,11 @@ void Physics::castRay(dioptre::mouse::Position position) {
     LOG4CXX_INFO(logger_, "Ray hit object.");
 
     auto hitPoint = rayCallback.m_hitPointWorld;
-    debug->addCross(glm::vec3(hitPoint.x(), hitPoint.y(), hitPoint.z()));
+    glm::vec3 glmHitPoint = glm::vec3(hitPoint.x(), hitPoint.y(), hitPoint.z());
+    debug->addCross(glmHitPoint);
 
     dioptre::Object* object = static_cast<dioptre::Object*>(rayCallback.m_collisionObject->getUserPointer());
-    std::cout << object->getName() << "; X:" << hitPoint.x() << ", Y:" << hitPoint.y() << "; Z:" << hitPoint.z() << std::endl;
+    object->handleClick(glmHitPoint);
   } else {
     LOG4CXX_INFO(logger_, "Ray hit background.");
   }

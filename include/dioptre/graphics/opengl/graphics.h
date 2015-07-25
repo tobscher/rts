@@ -25,7 +25,7 @@ public:
   int initialize();
 
   /**
-   * Initialzies the current scene.
+   * Initializes the current scene.
    */
   void initializeScene();
 

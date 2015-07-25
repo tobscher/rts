@@ -17,6 +17,18 @@ void CameraTransform::lookAt(glm::float32 x, glm::float32 y, glm::float32 z) {
   quaternion_ = glm::toQuat(matrix_);
 }
 
+glm::mat4 CameraTransform::getMatrixWorldInverse() {
+  if (matrixNeedsUpdating_) {
+    updateMatrix();
+  }
+  return matrixWorldInverse_;
+}
+
+void CameraTransform::setMatrix(glm::mat4 matrix) {
+  matrix_ = matrix;
+  matrixWorldInverse_ = glm::inverse(matrix);
+}
+
 void CameraTransform::updateMatrix() {
   Transform::updateMatrix();
   matrixWorldInverse_ = glm::inverse(matrix_);
