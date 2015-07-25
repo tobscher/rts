@@ -1,8 +1,6 @@
 #include "dioptre/graphics/component.h"
 #include "dioptre/locator.h"
 
-#include <iostream>
-
 namespace dioptre {
 namespace graphics {
 

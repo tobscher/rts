@@ -1,7 +1,4 @@
 #include "dioptre/graphics/debug.h"
-#include "dioptre/debug.h"
-
-#include <iostream>
 
 namespace dioptre {
 namespace graphics {
