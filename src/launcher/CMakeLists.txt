@@ -1,6 +1,18 @@
 FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
-SET (project_LIBS engine glfw ${GLFW_LIBRARIES} BulletDynamics BulletCollision LinearMath libglew_static ${ZLIB_LIBRARIES} physfs-static ${Boost_LIBRARIES})
-SET (project_BIN ${PROJECT_NAME})
+SET (
+  project_LIBS
+  rts
+  engine
+  glfw
+  ${GLFW_LIBRARIES}
+  BulletDynamics
+  BulletCollision
+  LinearMath
+  libglew_static
+  ${ZLIB_LIBRARIES}
+  physfs-static
+)
+SET (project_BIN launcher)
 
 SET (project_EXTRAS)
 
@@ -41,14 +53,14 @@ IF (APPLE)
   SET_TARGET_PROPERTIES(${project_BIN} PROPERTIES MACOSX_BUNDLE_LONG_VERSION_STRING ${APPLICATION_VERSION_STRING})
   SET_TARGET_PROPERTIES(${project_BIN} PROPERTIES MACOSX_BUNDLE_INFO_STRING ${APPLICATION_NAME})
 ELSE ()
-  ADD_CUSTOM_COMMAND(TARGET rts POST_BUILD
+  ADD_CUSTOM_COMMAND(TARGET launcher POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-      ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:rts>
+      ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:launcher>
   )
 
-  ADD_CUSTOM_COMMAND(TARGET rts POST_BUILD
+  ADD_CUSTOM_COMMAND(TARGET launcher POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-      ${CMAKE_SOURCE_DIR}/textures $<TARGET_FILE_DIR:rts>
+      ${CMAKE_SOURCE_DIR}/textures $<TARGET_FILE_DIR:launcher>
   )
 ENDIF ()
 

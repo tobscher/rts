@@ -32,5 +32,5 @@ void GLWidget::resizeGL(int width, int height)
 
 void GLWidget::paintGL()
 {
-  renderer_->render();
+  renderer_->render(1.0);
 }

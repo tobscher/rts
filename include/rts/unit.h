@@ -1,11 +1,17 @@
+#ifndef RTS_UNIT_H_
+#define RTS_UNIT_H_
+
 #include "dioptre/object.h"
 
-namespace objects {
+namespace rts {
 
 class Unit : public dioptre::Object {
 public:
   Unit() : Object("objects.unit") {}
+
   static Unit* spawn();
 };
 
-} // objects
+} // rts
+
+#endif // RTS_UNIT_H_

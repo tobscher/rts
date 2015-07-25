@@ -1,18 +1,17 @@
-#include <memory>
-
 #include "dioptre/application.h"
-#include "objects/map.h"
-#include "objects/command_centre.h"
-#include "objects/unit.h"
-#include "objects/human_player.h"
+
+#include "rts/map.h"
+#include "rts/command_centre.h"
+#include "rts/unit.h"
+#include "rts/human_player.h"
 
 int main(int argc, char *argv[]) {
   dioptre::Application application(argc, argv);
   application.initialize();
 
-  objects::Map* map(objects::Map::spawn());
-  objects::CommandCentre* commandCentre(objects::CommandCentre::spawn());
-  objects::HumanPlayer* humanPlayer(objects::HumanPlayer::spawn());
+  rts::Map* map(rts::Map::spawn());
+  rts::CommandCentre* commandCentre(rts::CommandCentre::spawn());
+  rts::HumanPlayer* humanPlayer(rts::HumanPlayer::spawn());
 
   application.addObject(map);
   application.addObject(commandCentre);
@@ -20,7 +19,7 @@ int main(int argc, char *argv[]) {
 
   // Add some units
   for (int i = 0; i < 5; i++) {
-    objects::Unit* unit(objects::Unit::spawn());
+    rts::Unit* unit(rts::Unit::spawn());
     auto transform = unit->getTransform();
 
     transform->translateX(-10 + (i * 5));

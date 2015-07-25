@@ -5,8 +5,8 @@ set -e
 echo "-- ./configure"
 ./configure
 
-echo "-- make rts"
-make rts
+echo "-- make launcher"
+make launcher
 
 echo "-- make rts-editor"
 make rts-editor

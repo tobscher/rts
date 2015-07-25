@@ -1,9 +1,9 @@
-#include "edge_scroll_component.h"
+#include "rts/components/edge_scroll_component.h"
 #include "dioptre/locator.h"
 
 #include <iostream>
 
-namespace objects {
+namespace rts {
 namespace components {
 
 EdgeScrollComponent::EdgeScrollComponent() :
@@ -52,4 +52,4 @@ void EdgeScrollComponent::update() {
 }
 
 } // components
-} // objects
+} // rts

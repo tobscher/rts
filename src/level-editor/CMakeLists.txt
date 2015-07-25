@@ -1,5 +1,12 @@
 SET (project_BIN ${PROJECT_NAME}-editor)
-SET (project_LIBS libglew_static ${ZLIB_LIBRARY} physfs-static ${OPENGL_LIBRARIES})
+SET (
+  project_LIBS
+  engine
+  libglew_static
+  ${ZLIB_LIBRARY}
+  physfs-static
+  ${OPENGL_LIBRARIES}
+)
 
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -11,6 +18,9 @@ FIND_PACKAGE(Qt5OpenGL)
 SET (project_EXTRAS)
 
 IF (APPLE)
+  FIND_LIBRARY(CORE_FOUNDATION_FRAMEWORK CoreFoundation)
+  LIST (APPEND project_LIBS ${CORE_FOUNDATION_FRAMEWORK})
+
   LIST (APPEND project_EXTRAS MACOSX_BUNDLE)
   # IF (EXISTS icon.icns)
   #   LIST (APPEND project_EXTRAS icon.icns)

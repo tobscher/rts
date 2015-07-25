@@ -1,4 +1,4 @@
-#include "unit.h"
+#include "rts/unit.h"
 
 #include "dioptre/graphics/component.h"
 #include "dioptre/graphics/opengl/basic_material.h"
@@ -7,7 +7,7 @@
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/box_shape.h"
 
-namespace objects {
+namespace rts {
 
 Unit* Unit::spawn() {
   auto unit = new Unit();
@@ -28,4 +28,4 @@ Unit* Unit::spawn() {
   return unit;
 }
 
-} // objects
+} // rts

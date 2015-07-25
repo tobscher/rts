@@ -1,6 +1,9 @@
+#ifndef RTS_COMMAND_CENTRE_H_
+#define RTS_COMMAND_CENTRE_H_
+
 #include "dioptre/object.h"
 
-namespace objects {
+namespace rts {
 
 class CommandCentre : public dioptre::Object {
 public:
@@ -8,4 +11,6 @@ public:
   static CommandCentre* spawn();
 };
 
-} // objects
+} // rts
+
+#endif // RTS_COMMAND_CENTRE_H_

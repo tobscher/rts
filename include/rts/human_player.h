@@ -1,17 +1,25 @@
+#ifndef RTS_HUMAN_PLAYER_H_
+#define RTS_HUMAN_PLAYER_H_
+
 #include "dioptre/object.h"
 
-namespace objects {
+namespace rts {
 
 class HumanPlayer : public dioptre::Object {
 public:
   HumanPlayer() : Object("ojects.human_player") {}
 
   void makeCurrent();
+
+  std::vector<dioptre::Object*> getSelectedObjects();
   void select(dioptre::Object* object);
+
   static HumanPlayer* spawn();
 
 private:
   std::vector<dioptre::Object*> selectedObjects_;
 }; // HumanPlayer
 
-} // objects
+} // rts
+
+#endif // RTS_HUMAN_PLAYER_H_

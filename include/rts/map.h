@@ -1,6 +1,9 @@
+#ifndef RTS_MAP_H_
+#define RTS_MAP_H_
+
 #include "dioptre/object.h"
 
-namespace objects {
+namespace rts {
 
 class Map : public dioptre::Object {
 public:
@@ -8,4 +11,6 @@ public:
   static Map* spawn();
 };
 
-} // objects
+} // rts
+
+#endif // RTS_MAP_H_

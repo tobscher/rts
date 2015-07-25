@@ -1,4 +1,4 @@
-#include "map.h"
+#include "rts/map.h"
 
 #include "dioptre/graphics/component.h"
 #include "dioptre/graphics/opengl/texture_factory.h"
@@ -8,7 +8,7 @@
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/box_shape.h"
 
-namespace objects {
+namespace rts {
 
 Map* Map::spawn() {
   auto material = new dioptre::graphics::opengl::MapMaterial();
@@ -34,4 +34,4 @@ Map* Map::spawn() {
   return map;
 }
 
-} // objects
+} // rts

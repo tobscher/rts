@@ -1,9 +1,9 @@
-#ifndef OBJECTS_COMPONENTS_EDGE_SCROLL_COMPONENT_H_
-#define OBJECTS_COMPONENTS_EDGE_SCROLL_COMPONENT_H_
+#ifndef RTS_COMPONENTS_EDGE_SCROLL_COMPONENT_H_
+#define RTS_COMPONENTS_EDGE_SCROLL_COMPONENT_H_
 
 #include "dioptre/component_interface.h"
 
-namespace objects {
+namespace rts {
 namespace components {
 
 class EdgeScrollComponent : public dioptre::ComponentInterface {
@@ -17,6 +17,6 @@ private:
 }; // EdgeScrollComponent
 
 } // components
-} // objects
+} // rts
 
-#endif // OBJECTS_COMPONENTS_EDGE_SCROLL_COMPONENT_H_
+#endif // RTS_COMPONENTS_EDGE_SCROLL_COMPONENT_H_

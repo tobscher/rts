@@ -1,4 +1,4 @@
-#include "command_centre.h"
+#include "rts/command_centre.h"
 
 #include "dioptre/graphics/component.h"
 #include "dioptre/graphics/opengl/basic_material.h"
@@ -8,7 +8,7 @@
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/box_shape.h"
 
-namespace objects {
+namespace rts {
 
 CommandCentre* CommandCentre::spawn() {
   auto commandCentre = new CommandCentre();
@@ -34,4 +34,4 @@ CommandCentre* CommandCentre::spawn() {
   return commandCentre;
 }
 
-} // objects
+} // rts
