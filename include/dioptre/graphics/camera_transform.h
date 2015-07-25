@@ -1,10 +1,11 @@
-#ifndef DIOPTRE_CAMERA_TRANSFORM_H_
-#define DIOPTRE_CAMERA_TRANSFORM_H_
+#ifndef DIOPTRE_GRAPHICS_CAMERA_TRANSFORM_H_
+#define DIOPTRE_GRAPHICS_CAMERA_TRANSFORM_H_
 
 #include "glm/glm.hpp"
 #include "dioptre/transform.h"
 
 namespace dioptre {
+namespace graphics {
 
 class CameraTransform : public Transform {
 public:
@@ -20,6 +21,7 @@ private:
   glm::mat4 matrixWorldInverse_;
 }; // CameraTransform
 
+} // graphics
 } // dioptre
 
-#endif // DIOPTRE_CAMERA_TRANSFORM_H_
+#endif // DIOPTRE_GRAPHICS_CAMERA_TRANSFORM_H_

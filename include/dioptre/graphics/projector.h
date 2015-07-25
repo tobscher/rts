@@ -1,7 +1,7 @@
 #ifndef DIOPTRE_GRAPHICS_PROJECTOR_H_
 #define DIOPTRE_GRAPHICS_PROJECTOR_H_
 
-#include "dioptre/camera_transform.h"
+#include "dioptre/graphics/camera_transform.h"
 
 namespace dioptre {
 namespace graphics {

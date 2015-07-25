@@ -2,7 +2,7 @@
 #define DIOPTRE_GRAPHICS_CAMERA_H_
 
 #include "dioptre/state.h"
-#include "dioptre/camera_transform.h"
+#include "dioptre/graphics/camera_transform.h"
 #include "glm/mat4x4.hpp"
 
 namespace dioptre {

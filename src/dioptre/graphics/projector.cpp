@@ -1,5 +1,5 @@
 #include "dioptre/graphics/projector.h"
-#include "dioptre/camera_transform.h"
+#include "dioptre/graphics/camera_transform.h"
 
 #include "glm/gtc/matrix_transform.hpp"
 

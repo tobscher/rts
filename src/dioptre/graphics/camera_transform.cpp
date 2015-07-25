@@ -1,4 +1,4 @@
-#include "dioptre/camera_transform.h"
+#include "dioptre/graphics/camera_transform.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/quaternion.hpp"
@@ -7,6 +7,7 @@
 #include "dioptre/debug.h"
 
 namespace dioptre {
+namespace graphics {
 
 void CameraTransform::lookAt(glm::float32 x, glm::float32 y, glm::float32 z) {
   glm::vec3 target(x, y, z);
@@ -34,4 +35,5 @@ void CameraTransform::updateMatrix() {
   matrixWorldInverse_ = glm::inverse(matrix_);
 }
 
+} // graphics
 } // dioptre

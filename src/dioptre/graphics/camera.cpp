@@ -4,7 +4,7 @@ namespace dioptre {
 namespace graphics {
 
 Camera::Camera() :
-  state_(new State<dioptre::CameraTransform>()) {
+  state_(new State<CameraTransform>()) {
 
 }
 
