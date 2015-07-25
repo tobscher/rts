@@ -3,6 +3,8 @@
 #include "rts/human_player.h"
 #include "rts/components/edge_scroll_component.h"
 
+#include <algorithm>
+
 namespace rts {
 
 HumanPlayer* HumanPlayer::spawn() {
