@@ -63,6 +63,7 @@ ADD_SUBDIRECTORY(thirdparty/glfw)
 INCLUDE_DIRECTORIES(thirdparty/glfw/include)
 
 # GLEW
+OPTION(glew-cmake_BUILD_SHARED OFF)
 ADD_SUBDIRECTORY(thirdparty/glew)
 INCLUDE_DIRECTORIES(thirdparty/glew/include)
 
