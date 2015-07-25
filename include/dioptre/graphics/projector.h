@@ -10,8 +10,8 @@ class Projector {
 public:
   Projector(glm::float32 fov, glm::float32 aspect, glm::float32 near, glm::float32 far);
 
-  glm::mat4 getProjectionMatrix() { return projectionMatrix_; }
-  CameraTransform* getTransform() { return transform_; }
+  glm::mat4 getProjectionMatrix();
+  CameraTransform* getTransform();
 
 private:
   glm::float32 fov_;

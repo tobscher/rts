@@ -18,6 +18,14 @@ Projector::Projector(glm::float32 fov, glm::float32 aspect, glm::float32 near, g
   updateProjectionMatrix();
 }
 
+glm::mat4 Projector::getProjectionMatrix() {
+  return projectionMatrix_;
+}
+
+CameraTransform* Projector::getTransform() {
+  return transform_;
+}
+
 void Projector::updateProjectionMatrix() {
   glm::float32 ymax = near_ * tan(glm::radians(fov_*0.5));
   glm::float32 ymin = -ymax;
