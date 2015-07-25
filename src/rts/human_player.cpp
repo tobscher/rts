@@ -37,4 +37,13 @@ void HumanPlayer::select(dioptre::Object* object) {
   selectedObjects_.push_back(object);
 }
 
+void HumanPlayer::unselect(dioptre::Object* object) {
+  auto it = std::find(selectedObjects_.begin(), selectedObjects_.end(), object);
+  if (it == selectedObjects_.end()) {
+    return;
+  }
+
+  selectedObjects_.erase(it);
+}
+
 } // rts

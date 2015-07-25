@@ -24,3 +24,25 @@ TEST(HumanPlayer, Select) {
   delete unit;
   delete player;
 }
+
+TEST(HumanPlayer, Unselect) {
+  dioptre::Locator::initialize();
+
+  HumanPlayer* player = HumanPlayer::spawn();
+  Unit* unit = Unit::spawn();
+
+  player->select(unit);
+
+  EXPECT_EQ(player->getSelectedObjects().size(), 1);
+
+  player->unselect(unit);
+
+  EXPECT_EQ(player->getSelectedObjects().size(), 0);
+
+  player->unselect(unit);
+
+  EXPECT_EQ(player->getSelectedObjects().size(), 0);
+
+  delete unit;
+  delete player;
+}

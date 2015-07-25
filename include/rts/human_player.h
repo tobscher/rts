@@ -13,6 +13,7 @@ public:
 
   std::vector<dioptre::Object*> getSelectedObjects();
   void select(dioptre::Object* object);
+  void unselect(dioptre::Object* object);
 
   static HumanPlayer* spawn();
 
