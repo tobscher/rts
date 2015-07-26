@@ -5,6 +5,7 @@
 #include "scene.h"
 #include "camera.h"
 #include "debug.h"
+#include "dioptre/graphics/projector.h"
 
 #include <memory>
 
@@ -73,10 +74,13 @@ public:
    * Sets the debug drawer.
    */
   void setDebug(Debug* debug) { debug_ = debug; }
+
+  void setProjector(Projector* projector);
 protected:
   std::unique_ptr<Scene> scene_;
   std::unique_ptr<Camera> camera_;
 
+  Projector* projector_;
   Debug* debug_;
 }; // GraphicsInterface
 

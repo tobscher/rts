@@ -1,4 +1,5 @@
 #include "dioptre/application.h"
+#include "dioptre/graphics/component.h"
 
 #include "rts/map.h"
 #include "rts/command_centre.h"
@@ -10,7 +11,7 @@ int main(int argc, char *argv[]) {
   application.initialize();
 
   rts::Map* map(rts::Map::spawn());
-  rts::CommandCentre* commandCentre(rts::CommandCentre::spawn());
+  rts::CommandCentre* commandCentre(rts::CommandCentre::spawn(map));
   rts::HumanPlayer* humanPlayer(rts::HumanPlayer::spawn());
 
   application.addObject(map);
@@ -19,11 +20,15 @@ int main(int argc, char *argv[]) {
 
   // Add some units
   for (int i = 0; i < 5; i++) {
-    rts::Unit* unit(rts::Unit::spawn());
+    rts::Unit* unit(rts::Unit::spawn(map));
     auto transform = unit->getTransform();
+    auto graphicsComponent = unit->getComponent<dioptre::graphics::Component>();
 
     transform->translateX(-10 + (i * 5));
     transform->translateZ(10);
+
+    graphicsComponent->getProjector()->getTransform()->translateX(-10 + (i * 5));
+    graphicsComponent->getProjector()->getTransform()->translateZ(10);
 
     application.addObject(unit);
   }

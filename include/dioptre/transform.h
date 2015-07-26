@@ -32,7 +32,8 @@ public:
   void setUp(glm::vec3 up);
 
   // LookAt
-  virtual void lookAt(glm::float32 x, glm::float32 y, glm::float32 z);
+  virtual void lookAt(glm::vec3 position);
+  void lookAt(glm::float32 x, glm::float32 y, glm::float32 z);
 
   // Matrix
   virtual void setMatrix(glm::mat4 matrix);

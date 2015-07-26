@@ -134,7 +134,11 @@ void Application::addObject(dioptre::Object* object) {
   objects_.push_back(object);
 }
 
-Application* Application::instance_ = 0;
+Application* Application::getInstance() {
+  return instance_;
+}
+
+Application* Application::instance_ = nullptr;
 
 log4cxx::LoggerPtr Application::logger_ = log4cxx::Logger::getLogger("dioptre");
 

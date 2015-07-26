@@ -7,6 +7,7 @@
 #include <glm/gtx/transform.hpp>
 
 #include "dioptre/debug.h"
+#include "dioptre/graphics/component.h"
 #include "dioptre/graphics/opengl.h"
 #include "dioptre/graphics/opengl/error.h"
 #include "dioptre/graphics/opengl/graphics.h"
@@ -45,11 +46,6 @@ int Graphics::initialize() {
   auto debug = new dioptre::graphics::opengl::Debug();
   debug->initialize();
   setDebug(debug);
-
-  projector_ = new dioptre::graphics::Projector(40.0, 1280.0/800.0, 1, 100);
-  projector_->getTransform()->setPosition(0.0, 10.0, 0.0);
-  projector_->getTransform()->setUp(glm::vec3(0.0, 0.0, -1.0));
-  projector_->getTransform()->lookAt(0.0, 0.0, 0.0);
 
   return 0;
 }
@@ -114,7 +110,7 @@ void Graphics::renderScene(Scene* scene, float alpha) {
     }
 
     glm::mat4 matrix;
-    auto component = mesh->getComponent();
+    auto component = dynamic_cast<dioptre::graphics::Component*>(mesh->getComponent());
 
     // If mesh does not have a component it's likely to not have a changed position,
     // so just use identity matrix.
@@ -135,17 +131,21 @@ void Graphics::renderScene(Scene* scene, float alpha) {
     glm::mat4 model = matrix;
     glm::mat4 mvp = projection * view * model;
 
-    glm::mat4 projView = projector_->getTransform()->getMatrixWorldInverse();
-    glm::mat4 projProj = projector_->getProjectionMatrix();
-    glm::mat4 projScaleTrans = glm::translate(glm::vec3(0.5f)) *
-                            glm::scale(glm::vec3(0.5f));
-
-    glm::mat4 projectorMatrix = projScaleTrans * projProj * projView;
-
     auto material = mesh->getMaterial();
     material->update();
     material->setMVP(model, view, mvp);
-    material->setProjection(projectorMatrix);
+
+    if (projector_ != nullptr) {
+      if (projector_->getTarget() == mesh) {
+        glm::mat4 projView = projector_->getTransform()->getMatrixWorldInverse();
+        glm::mat4 projProj = projector_->getProjectionMatrix();
+        glm::mat4 projScaleTrans = glm::translate(glm::vec3(0.5f)) *
+          glm::scale(glm::vec3(0.5f));
+
+        glm::mat4 projectorMatrix = projScaleTrans * projProj * projView;
+        material->setProjection(projectorMatrix);
+      }
+    }
 
     auto geometry = mesh->getGeometry();
     geometry->update();

@@ -22,6 +22,7 @@ public:
   virtual void destroy() = 0;
   virtual void setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) = 0;
   virtual void setProjection(glm::mat4 p) {}
+  /* virtual void projectWith(Projector* projector) {} */
 
 protected:
   log4cxx::LoggerPtr logger_;

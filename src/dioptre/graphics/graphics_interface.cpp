@@ -28,5 +28,9 @@ Camera* GraphicsInterface::getCamera() {
   return camera_.get();
 }
 
+void GraphicsInterface::setProjector(Projector* projector) {
+  projector_ = projector;
+}
+
 } // graphics
 } // dioptre

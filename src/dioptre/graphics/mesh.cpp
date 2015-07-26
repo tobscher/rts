@@ -26,5 +26,13 @@ Material* Mesh::getMaterial() {
   return material_;
 }
 
+ComponentInterface* Mesh::getComponent() {
+  return component_;
+}
+
+void Mesh::setComponent(ComponentInterface* component) {
+  component_ = component;
+}
+
 } // graphics
 } // dioptre

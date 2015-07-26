@@ -11,7 +11,10 @@ namespace graphics {
 
 void CameraTransform::lookAt(glm::float32 x, glm::float32 y, glm::float32 z) {
   glm::vec3 target(x, y, z);
+  lookAt(target);
+}
 
+void CameraTransform::lookAt(glm::vec3 target) {
   matrixWorldInverse_ = glm::lookAt(position_, target, up_);
   matrix_ = glm::inverse(matrixWorldInverse_);
 

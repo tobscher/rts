@@ -88,9 +88,13 @@ glm::mat4 Transform::getMatrix() {
   return matrix_;
 }
 
+void Transform::lookAt(glm::vec3 target) {
+  matrix_ = glm::lookAt(position_, target, up_);
+}
+
 void Transform::lookAt(glm::float32 x, glm::float32 y, glm::float32 z) {
   glm::vec3 target(x, y, z);
-  matrix_ = glm::lookAt(position_, target, up_);
+  lookAt(target);
 }
 
 void Transform::rotateOnAxis(glm::float32 angle, glm::vec3 axis) {

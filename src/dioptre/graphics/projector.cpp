@@ -9,6 +9,7 @@ namespace dioptre {
 namespace graphics {
 
 Projector::Projector(glm::float32 fov, glm::float32 aspect, glm::float32 near, glm::float32 far) :
+  target_(nullptr),
   fov_(fov),
   aspect_(aspect),
   near_(near),
@@ -33,6 +34,14 @@ void Projector::updateProjectionMatrix() {
   glm::float32 xmax = ymax * aspect_;
 
   projectionMatrix_ = glm::frustum(xmin, xmax, ymin, ymax, near_, far_);
+}
+
+Mesh* Projector::getTarget() {
+  return target_;
+}
+
+void Projector::setTarget(Mesh* target) {
+  target_ = target;
 }
 
 } // graphics

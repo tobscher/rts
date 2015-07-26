@@ -19,8 +19,16 @@ public:
   // Components
   void addComponent(ComponentInterface* component);
 
-  template<typename T>
-  T* getComponent();
+  template <typename T>
+  T* getComponent() {
+    for (auto component : components_) {
+      if (dynamic_cast<T*>(component) != nullptr) {
+        return (T*)component;
+      }
+    }
+
+    return nullptr;
+  }
 
   // State
   State<Transform>* getState();

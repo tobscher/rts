@@ -44,6 +44,19 @@ public:
    */
   void addObject(dioptre::Object* object);
 
+  template <typename T>
+  T* getObject() {
+    for (auto object : objects_) {
+      if (dynamic_cast<T*>(object) != nullptr) {
+        return (T*)object;
+      }
+    }
+
+    return nullptr;
+  }
+
+  static Application* getInstance();
+
 private:
   bool isRunning_;
 

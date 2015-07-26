@@ -2,10 +2,12 @@
 #define DIOPTRE_GRAPHICS_PROJECTOR_H_
 
 #include "dioptre/graphics/camera_transform.h"
+#include "dioptre/graphics/mesh.h"
 
 namespace dioptre {
 namespace graphics {
 
+class Component;
 class Projector {
 public:
   Projector(glm::float32 fov, glm::float32 aspect, glm::float32 near, glm::float32 far);
@@ -13,7 +15,12 @@ public:
   glm::mat4 getProjectionMatrix();
   CameraTransform* getTransform();
 
+  Mesh* getTarget();
+  void setTarget(Mesh* mesh);
+
 private:
+  Mesh* target_;
+
   glm::float32 fov_;
   glm::float32 aspect_;
   glm::float32 near_;

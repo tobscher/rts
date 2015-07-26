@@ -1,5 +1,7 @@
 #include "dioptre/graphics/map_material.h"
 
+#include <iostream>
+
 namespace dioptre {
 namespace graphics {
 

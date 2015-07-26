@@ -14,6 +14,7 @@ public:
   std::vector<dioptre::Object*> getSelectedObjects();
   void select(dioptre::Object* object);
   void unselect(dioptre::Object* object);
+  void clearSelection();
 
   static HumanPlayer* spawn();
 

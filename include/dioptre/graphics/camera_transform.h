@@ -9,7 +9,9 @@ namespace graphics {
 
 class CameraTransform : public Transform {
 public:
+  void lookAt(glm::vec3 target);
   void lookAt(glm::float32 x, glm::float32 y, glm::float32 z);
+
   glm::mat4 getMatrixWorldInverse();
 
   void setMatrix(glm::mat4 matrix);

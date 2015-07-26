@@ -25,12 +25,6 @@ void Object::update() {
   }
 }
 
-// TODO(Tobscher): Implement this method.
-template <typename T>
-T* Object::getComponent() {
-  return nullptr;
-}
-
 Transform* Object::getTransform() {
   return state_->getCurrent();
 }
