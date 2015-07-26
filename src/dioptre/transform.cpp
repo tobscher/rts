@@ -101,7 +101,7 @@ void Transform::rotateOnAxis(glm::float32 angle, glm::vec3 axis) {
   glm::quat q = glm::angleAxis(angle, axis);
 
   quaternion_ *= q;
-  matrix_ *= glm::toMat4(q);
+  matrixNeedsUpdating_ = true;
 }
 
 void Transform::updateMatrix() {

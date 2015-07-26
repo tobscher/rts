@@ -13,7 +13,7 @@ GraphicsInterface::GraphicsInterface() :
 {
   auto transform = camera_->getTransform();
 
-  transform->setPosition(0,100,25);
+  transform->setPosition(0,100,15);
   transform->lookAt(0.0f, 0.0f, 0.0f);
 }
 

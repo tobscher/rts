@@ -31,8 +31,8 @@ Unit* Unit::spawn(Map* map) {
   auto mesh = new dioptre::graphics::Mesh(geometry, building);
 
   // Projector
-  auto projector = new dioptre::graphics::Projector(40.0, 1280.0/800.0, 1, 100);
-  projector->getTransform()->setPosition(0.0, 10.0, 0.0);
+  auto projector = new dioptre::graphics::Projector(40.0, 1.0, 1, 100);
+  projector->getTransform()->setPosition(0.0, 5.0, 0.0);
   projector->getTransform()->setUp(glm::vec3(0.0, 0.0, -1.0));
   projector->getTransform()->lookAt(unit->getTransform()->getPosition());
   projector->setTarget(map->getComponent<dioptre::graphics::Component>()->getMesh());

@@ -36,7 +36,7 @@ void MapMaterial::initialize() {
     glTexture_->initialize();
   }
 
-  projectedTexture_ = dioptre::graphics::opengl::TextureFactory::getTexture("selection.dds");
+  projectedTexture_ = dioptre::graphics::opengl::TextureFactory::getTexture("selection-round.png");
   projectedTexture_->setWrapS(GL_CLAMP_TO_BORDER);
   projectedTexture_->setWrapT(GL_CLAMP_TO_BORDER);
   projectedTexture_->initialize();
