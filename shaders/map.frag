@@ -38,7 +38,7 @@ void main() {
     MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
     MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
 
-  vec3 projected = vec3(textureProj(ProjectorTex, ProjTexCoord).rgb);
+  vec4 projected = textureProj(ProjectorTex, ProjTexCoord);
 
-  color = color + projected * 0.5;
+  color = mix(color, projected.rgb, projected.a);
 }
