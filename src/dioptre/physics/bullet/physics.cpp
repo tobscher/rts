@@ -144,7 +144,7 @@ void Physics::castRay(dioptre::mouse::Position position) {
 
     auto hitPoint = rayCallback.m_hitPointWorld;
     glm::vec3 glmHitPoint = glm::vec3(hitPoint.x(), hitPoint.y(), hitPoint.z());
-    debug->addCross(glmHitPoint);
+    /* debug->addCross(glmHitPoint); */
 
     dioptre::Object* object = static_cast<dioptre::Object*>(rayCallback.m_collisionObject->getUserPointer());
     object->handleClick(glmHitPoint);
