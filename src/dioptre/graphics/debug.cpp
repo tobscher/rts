@@ -3,8 +3,7 @@
 namespace dioptre {
 namespace graphics {
 
-Debug::Debug() :
-  scene_(new Scene()) {
+Debug::Debug(Camera* camera) : Layer(new Scene(), camera) {
 
 }
 

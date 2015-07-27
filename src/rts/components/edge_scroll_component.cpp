@@ -18,7 +18,8 @@ void EdgeScrollComponent::update() {
   auto windowService = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
   auto mouseService = dioptre::Locator::getInstance<dioptre::mouse::MouseInterface>(dioptre::Module::M_MOUSE);
   auto graphicsService = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
-  auto camera = graphicsService->getCamera();
+  auto layer = graphicsService->getLayer(0);
+  auto camera = layer->getCamera();
 
   auto size = windowService->getSize();
   auto position = mouseService->getPosition();

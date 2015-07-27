@@ -108,8 +108,9 @@ void Physics::castRay(dioptre::mouse::Position position) {
   LOG4CXX_INFO(logger_, "Casting ray at:" << position.x << "x" << position.y);
 
   auto graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
-  auto debug = graphics->getDebug();
-  auto camera = graphics->getCamera();
+  auto debug = (dioptre::graphics::Debug*)graphics->getLayer(1);
+  auto layer = graphics->getLayer(0);
+  auto camera = layer->getCamera();
   auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
   auto size = window->getSize();
 
@@ -155,7 +156,7 @@ void Physics::castRay(dioptre::mouse::Position position) {
 
 void Physics::debug() {
   auto graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
-  auto debug = graphics->getDebug();
+  auto debug = (dioptre::graphics::Debug*)graphics->getLayer(1);
 
   if (debug) {
     debug->reset();

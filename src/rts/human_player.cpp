@@ -22,7 +22,8 @@ void HumanPlayer::makeCurrent() {
   dioptre::Object::makeCurrent();
 
   auto graphicsService = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
-  auto camera = graphicsService->getCamera();
+  auto layer = graphicsService->getLayer(0);
+  auto camera = layer->getCamera();
 
   camera->makeCurrent();
 }

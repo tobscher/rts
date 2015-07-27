@@ -8,10 +8,10 @@ namespace window {
  * Size stores the window size.
  */
 struct Size {
-  int width;
-  int height;
+  double width;
+  double height;
 
-  Size(int width, int height) :
+  Size(double width, double height) :
     width(width),
     height(height)
   {

@@ -22,14 +22,11 @@ Map* Map::spawn() {
 
   // Extract this into level loading once levels are available
   Map* map = new Map();
-  std::cout << "2" << std::endl;
 
   // Graphics Component
   auto mesh = new dioptre::graphics::Mesh(geometry, material);
   auto visual = new dioptre::graphics::Component(mesh);
   map->addComponent(visual);
-
-  std::cout << "3" << std::endl;
 
   auto shape = new dioptre::physics::bullet::BoxShape(128.0f, 0.5f, 128.0f);
   auto rigidBody = new dioptre::physics::RigidBody(shape);

@@ -11,8 +11,10 @@ Component::Component(Mesh* mesh) :
 {
   mesh->setComponent(this);
 
+  // TODO(tobscher) on initialize
   auto graphicsService = dioptre::Locator::getInstance<GraphicsInterface>(dioptre::Module::M_GRAPHICS);
-  auto scene = graphicsService->getScene();
+  auto layer = graphicsService->getLayer(0);
+  auto scene = layer->getScene();
   scene->add(mesh);
 }
 

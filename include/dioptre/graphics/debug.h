@@ -4,30 +4,26 @@
 #include "glm/vec3.hpp"
 #include "dioptre/graphics/debug_material.h"
 #include "dioptre/graphics/geometry.h"
-#include "dioptre/graphics/scene.h"
+#include "dioptre/graphics/layer.h"
 
 #include <memory>
 
 namespace dioptre {
 namespace graphics {
 
-class Debug {
+class Debug : public Layer {
 public:
-  Debug();
+  Debug(Camera* camera);
   virtual ~Debug() {}
 
   virtual int initialize() = 0;
   void reset();
   void destroy();
 
-  Scene* getScene() { return scene_.get(); }
-
   void addLine(glm::vec3 from, glm::vec3 to);
   void addCross(glm::vec3 point);
 
 protected:
-  std::unique_ptr<Scene> scene_;
-
   DebugMaterial* material_;
   Geometry* lines_;
   Geometry* crosses_;

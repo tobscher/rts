@@ -2,9 +2,8 @@
 #define DIOPTRE_GRAPHICS_GRAPHICS_INTERFACE_H_
 
 #include "dioptre/module.h"
-#include "scene.h"
-#include "camera.h"
-#include "debug.h"
+#include "dioptre/graphics/layer.h"
+#include "dioptre/graphics/debug.h"
 #include "dioptre/graphics/projector.h"
 
 #include <memory>
@@ -18,7 +17,7 @@ namespace graphics {
 class GraphicsInterface : public Module {
 public:
   GraphicsInterface();
-  virtual ~GraphicsInterface() { if (debug_) delete debug_; }
+  virtual ~GraphicsInterface() {}
 
   /**
    * Should initialize graphics context.
@@ -46,16 +45,6 @@ public:
   void update();
 
   /**
-   * Returns the scene that's used.
-   */
-  Scene* getScene();
-
-  /**
-   * Returns the camera that's used.
-   */
-  Camera* getCamera();
-
-  /**
    * Should destroy the window.
    */
   virtual void destroy() = 0;
@@ -65,23 +54,14 @@ public:
    */
   virtual void destroyScene(Scene* scene) = 0;
 
-  /**
-   * Returns the debug object.
-   */
-  Debug* getDebug() { return debug_; }
-
-  /**
-   * Sets the debug drawer.
-   */
-  void setDebug(Debug* debug) { debug_ = debug; }
-
   void setProjector(Projector* projector);
+
+  Layer* getLayer(unsigned int index);
+  void addLayer(Layer* layer);
 protected:
-  std::unique_ptr<Scene> scene_;
-  std::unique_ptr<Camera> camera_;
+  std::vector<dioptre::graphics::Layer*> layers_;
 
   Projector* projector_;
-  Debug* debug_;
 }; // GraphicsInterface
 
 } // graphics

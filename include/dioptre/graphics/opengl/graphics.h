@@ -4,7 +4,6 @@
 #include <map>
 
 #include "dioptre/graphics/opengl.h"
-#include "dioptre/graphics/opengl/debug_material.h"
 #include "dioptre/graphics/opengl/geometry.h"
 #include "dioptre/graphics/graphics_interface.h"
 #include "dioptre/window/window_interface.h"
@@ -41,7 +40,7 @@ public:
   /**
    * Renders the given scene graph with the current camera.
    */
-  void renderScene(Scene* scene, float alpha);
+  void renderScene(Scene* scene, Camera* camera, float alpha);
 
   /**
    * Destroys the current 3D context.

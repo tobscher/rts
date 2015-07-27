@@ -4,6 +4,7 @@
 
 #include "dioptre/application.h"
 #include "dioptre/locator.h"
+#include "dioptre/graphics/perspective_camera.h"
 
 #include "keyboard/handlers/exit_game.h"
 
@@ -65,6 +66,23 @@ int Application::initialize() {
   mouseService_->initialize();
   timeService_->initialize();
   physicsService_->initialize();
+
+  auto windowSize = windowService_->getSize();
+
+  auto camera = new dioptre::graphics::PerspectiveCamera(
+      28.0, // field of view
+      windowSize.width / windowSize.height, // aspect ratio
+      1, // near
+      1000 // far
+  );
+  auto transform = camera->getTransform();
+
+  transform->setPosition(0,100,15);
+  transform->lookAt(0.0f, 0.0f, 0.0f);
+
+  auto scene = new dioptre::graphics::Scene();
+  auto mainLayer = new dioptre::graphics::Layer(scene, camera);
+  graphicsService_->addLayer(mainLayer);
 
   return 0;
 }

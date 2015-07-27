@@ -6,6 +6,10 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
+Debug::Debug(Camera* camera) : dioptre::graphics::Debug(camera) {
+
+}
+
 int Debug::initialize() {
   material_ = new dioptre::graphics::opengl::DebugMaterial();
   material_->setColor(dioptre::graphics::color(1.0f, 0.0f, 0.0f));

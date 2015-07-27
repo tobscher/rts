@@ -43,17 +43,23 @@ int Graphics::initialize() {
 
   LOG4CXX_INFO(logger_, "Vertex array: " << vertexArrayId_);
 
-  auto debug = new dioptre::graphics::opengl::Debug();
-  debug->initialize();
-  setDebug(debug);
-
   return 0;
 }
 
 void Graphics::initializeScene() {
   LOG4CXX_INFO(logger_, "Scene initialization started.");
-  for (auto it = scene_->begin(); it != scene_->end(); it++) {
-    initializeMesh(*it);
+
+  auto mainLayer = layers_[0];
+  auto debug = new dioptre::graphics::opengl::Debug(mainLayer->getCamera());
+  debug->initialize();
+  addLayer(debug);
+
+  for (auto layer : layers_) {
+    auto scene = layer->getScene();
+
+    for (auto it = scene->begin(); it != scene->end(); it++) {
+      initializeMesh(*it);
+    }
   }
   LOG4CXX_INFO(logger_, "Scene initialization finished.");
 }
@@ -94,14 +100,12 @@ void Graphics::resize(int width, int height) {
 void Graphics::render(const double alpha) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  renderScene(scene_.get(), alpha);
-
-  if (debug_) {
-    renderScene(debug_->getScene(), alpha);
+  for (auto layer : layers_) {
+    renderScene(layer->getScene(), layer->getCamera(), alpha);
   }
 }
 
-void Graphics::renderScene(Scene* scene, float alpha) {
+void Graphics::renderScene(Scene* scene, Camera* camera, float alpha) {
   for (auto it = scene->begin(); it != scene->end(); it++) {
     auto mesh = *it;
 
@@ -121,11 +125,11 @@ void Graphics::renderScene(Scene* scene, float alpha) {
     }
 
     // Camera
-    glm::mat4 projection = camera_->getProjectionMatrix();
+    glm::mat4 projection = camera->getProjectionMatrix();
 
     // Interpolate between previous and current frame for smoother transiations
-    glm::mat4 previousView = camera_->getState()->getPrevious()->getMatrixWorldInverse();
-    glm::mat4 currentView = camera_->getState()->getCurrent()->getMatrixWorldInverse();
+    glm::mat4 previousView = camera->getState()->getPrevious()->getMatrixWorldInverse();
+    glm::mat4 currentView = camera->getState()->getCurrent()->getMatrixWorldInverse();
     glm::mat4 view = glm::interpolate(previousView, currentView, alpha);
 
     glm::mat4 model = matrix;
@@ -153,10 +157,8 @@ void Graphics::renderScene(Scene* scene, float alpha) {
 }
 
 void Graphics::destroy() {
-  destroyScene(scene_.get());
-
-  if (debug_) {
-    destroyScene(debug_->getScene());
+  for (auto layer : layers_) {
+    destroyScene(layer->getScene());
   }
 
   TextureFactory::cleanUp();
