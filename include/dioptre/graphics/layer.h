@@ -4,6 +4,8 @@
 #include "dioptre/graphics/scene.h"
 #include "dioptre/graphics/camera.h"
 
+#include <memory>
+
 namespace dioptre {
 namespace graphics {
 
