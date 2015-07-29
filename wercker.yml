@@ -2,6 +2,11 @@ box: tobscher/rts:0.0.5
 build:
   steps:
     - script:
+        name: initialize git submodules
+        code: |
+          cd ..
+          git submodule update --init --recursive
+    - script:
         name: "configure"
         code: ./configure
     - script:
