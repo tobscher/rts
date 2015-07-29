@@ -8,6 +8,7 @@ build:
 
 install:
   - git config --global url."https://".insteadOf git://
+  - git config --global url."https://".insteadOf git@github.com:
   - git submodule update --init --recursive
 
 before_build:
