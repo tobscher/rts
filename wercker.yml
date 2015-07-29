@@ -1,4 +1,4 @@
-box: tobscher/rts@0.2.1
+box: tobscher/rts@0.2.2
 build:
   steps:
     - script:
