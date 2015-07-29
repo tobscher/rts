@@ -7,7 +7,7 @@ build:
   project: launcher.vcxproj
 
 install:
-  - git config --global url."https://github.com".insteadOf "git@github.com:"
+  - git config --global url."https://github.com/".insteadOf "git@github.com:"
   - git submodule update --init --recursive
 
 before_build:
