@@ -3,7 +3,7 @@ build:
   steps:
     - script:
         name: add github.com to known_hosts
-        code: ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+        code: mkdir -p ~/.ssh; ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     - script:
         name: initialize git submodules
         code: git submodule update --init --recursive

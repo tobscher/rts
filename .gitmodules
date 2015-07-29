@@ -10,9 +10,6 @@
 [submodule "thirdparty/googletest"]
 	path = thirdparty/googletest
 	url = https://git.chromium.org/git/external/googletest.git
-[submodule "thirdparty/SOIL"]
-	path = thirdparty/SOIL
-	url = git@github.com:kbranigan/Simple-OpenGL-Image-Library.git
 [submodule "thirdparty/bullet"]
 	path = thirdparty/bullet
 	url = git@github.com:bulletphysics/bullet3.git
