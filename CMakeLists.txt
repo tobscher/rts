@@ -18,6 +18,12 @@ SET (APPLICATION_VENDOR_NAME "Tobias Haar")
 SET (APPLICATION_VENDOR_URL "github.com/tobscher")
 SET (APPLICATION_ID "${APPLICATION_VENDOR_ID}.${PROJECT_NAME}")
 SET(BUILD_UNIT_TESTS OFF CACHE BOOL "")
+SET(BUILD_BULLET3 OFF CACHE BOOL "")
+SET(BUILD_CPU_DEMOS OFF CACHE BOOL "")
+SET(BUILD_BULLET2_DEMOS OFF CACHE BOOL "")
+SET(BUILD_OPENGL3_DEMOS OFF CACHE BOOL "")
+SET(BUILD_EXTRAS OFF CACHE BOOL "")
+SET(PHYSFS_INTERNAL_ZLIB ON CACHE BOOL "")
 
 # Activate C++ 11
 IF(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
@@ -45,6 +51,25 @@ LIST (APPEND CMAKE_PREFIX_PATH "${MAINFOLDER}/thirdparty")
 SET (CMAKE_MODULE_PATH "${MAINFOLDER}/tools/share/cmake")
 INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
 LINK_DIRECTORIES(${MAINFOLDER}/lib)
+
+# Include overrides
+INCLUDE(c_flag_overrides)
+INCLUDE(cxx_flag_overrides)
+
+IF(MSVC)
+  MESSAGE("Overriding existing compiler flags")
+  set(CompilerFlags
+    CMAKE_CXX_FLAGS
+    CMAKE_CXX_FLAGS_DEBUG
+    CMAKE_CXX_FLAGS_RELEASE
+    CMAKE_C_FLAGS
+    CMAKE_C_FLAGS_DEBUG
+    CMAKE_C_FLAGS_RELEASE
+  )
+  foreach(CompilerFlag ${CompilerFlags})
+    string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
+  endforeach()
+ENDIF(MSVC)
 
 # Find pkg-config
 FIND_PACKAGE(PkgConfig)
@@ -80,10 +105,9 @@ INCLUDE_DIRECTORIES(thirdparty/SOIL2/src/SOIL2)
 ADD_SUBDIRECTORY(thirdparty/bullet)
 INCLUDE_DIRECTORIES(thirdparty/bullet/src)
 
-# Log4Cxx
-FIND_PACKAGE (Log4Cxx REQUIRED)
-INCLUDE_DIRECTORIES(${Log4Cxx_INCLUDE_DIRS})
-LINK_DIRECTORIES(${Log4Cxx_LIBRARY_DIRS})
+# spdlog
+INCLUDE_DIRECTORIES(thirdparty/spdlog/include)
+
 
 # googletest
 ADD_SUBDIRECTORY(thirdparty/googletest)

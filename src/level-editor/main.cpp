@@ -6,9 +6,6 @@
 #include "dioptre/module.h"
 #include "dioptre/graphics/opengl/graphics.h"
 
-#include <log4cxx/consoleappender.h>
-#include <log4cxx/patternlayout.h>
-
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
@@ -21,9 +18,6 @@ int main(int argc, char *argv[])
   /* glFormat.setSampleBuffers( true ); */
 
   QSurfaceFormat::setDefaultFormat(glFormat);
-
-  log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
-  rootlogger->addAppender(new log4cxx::ConsoleAppender(new log4cxx::PatternLayout("%d [%-5p] %c - %m%n")));
 
   dioptre::Locator::initialize();
   dioptre::Locator::provide(dioptre::Module::M_GRAPHICS, new dioptre::graphics::opengl::Graphics());

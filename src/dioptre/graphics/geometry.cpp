@@ -6,7 +6,7 @@ namespace graphics {
 Geometry::Geometry() :
   isInitialized_(false),
   isDirty_(false) {
-  logger_ = log4cxx::Logger::getLogger("dioptre.geometry");
+  logger_ = spdlog::get("dioptre");
 }
 
 std::vector<glm::vec3> Geometry::getData() {

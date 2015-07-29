@@ -3,11 +3,12 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "component_interface.h"
 #include "state.h"
 
-#include "log4cxx/logger.h"
+#include "spdlog/spdlog.h"
 
 namespace dioptre {
 
@@ -49,7 +50,7 @@ protected:
   std::string name_;
   bool isInitialized_;
 
-  log4cxx::LoggerPtr logger_;
+  std::shared_ptr<spdlog::logger> logger_;
 
 private:
   std::vector<ComponentInterface*> components_;

@@ -41,13 +41,13 @@ int Graphics::initialize() {
 
   check_gl_error();
 
-  LOG4CXX_INFO(logger_, "Vertex array: " << vertexArrayId_);
+  logger_->info("Vertex array: ") << vertexArrayId_;
 
   return 0;
 }
 
 void Graphics::initializeScene() {
-  LOG4CXX_INFO(logger_, "Scene initialization started.");
+  logger_->info("Scene initialization started.");
 
   auto mainLayer = layers_[0];
   auto debug = new dioptre::graphics::opengl::Debug(mainLayer->getCamera());
@@ -61,13 +61,13 @@ void Graphics::initializeScene() {
       initializeMesh(*it);
     }
   }
-  LOG4CXX_INFO(logger_, "Scene initialization finished.");
+  logger_->info("Scene initialization finished.");
 }
 
 void Graphics::initializeMesh(Mesh* mesh) {
   if (mesh->isInitialized()) return;
 
-  LOG4CXX_INFO(logger_, "Initializing mesh...");
+  logger_->info("Initializing mesh...");
 
   // Initialize material
   auto material = mesh->getMaterial();
@@ -76,18 +76,18 @@ void Graphics::initializeMesh(Mesh* mesh) {
     material->setIsInitialized(true);
   }
 
-  LOG4CXX_INFO(logger_, "Initialized material...");
+  logger_->info("Initialized material...");
 
   auto geometry = mesh->getGeometry();
   if (!geometry->isInitialized()) {
-    LOG4CXX_INFO(logger_, "Geometry not initialized.");
+    logger_->info("Geometry not initialized.");
     geometry->initialize();
     geometry->setIsInitialized(true);
   } else {
-    LOG4CXX_INFO(logger_, "Geometry already initialized.");
+    logger_->info("Geometry already initialized.");
   }
 
-  LOG4CXX_INFO(logger_, "Initialized geometry...");
+  logger_->info("Initialized geometry...");
 
   mesh->setIsInitialized(true);
 }
@@ -176,11 +176,11 @@ void Graphics::destroyScene(Scene* scene) {
 void Graphics::destroyMesh(Mesh* mesh) {
   auto geometry = mesh->getGeometry();
   geometry->destroy();
-  LOG4CXX_DEBUG(logger_, "Geometry destroyed");
+  logger_->debug("Geometry destroyed");
 
   auto material = mesh->getMaterial();
   material->destroy();
-  LOG4CXX_DEBUG(logger_, "Material destroyed");
+  logger_->debug("Material destroyed");
 }
 
 } // opengl

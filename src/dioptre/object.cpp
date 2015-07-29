@@ -6,7 +6,7 @@ Object::Object(std::string name) :
   state_(new State<Transform>()),
   name_(name),
   isInitialized_(false) {
-  logger_ = log4cxx::Logger::getLogger(name);
+  logger_ = spdlog::get("dioptre");
 }
 
 Object::~Object() {
@@ -55,7 +55,7 @@ bool Object::getIsInitialized() {
 }
 
 void Object::handleClick(glm::vec3 hitPoint) {
-  LOG4CXX_DEBUG(logger_, getName() << "; X:" << hitPoint.x << ", Y:" << hitPoint.y << "; Z:" << hitPoint.z);
+  logger_->debug(getName()) << "; X:" << hitPoint.x << ", Y:" << hitPoint.y << "; Z:" << hitPoint.z;
 }
 
 }

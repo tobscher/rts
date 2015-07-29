@@ -3,7 +3,8 @@
 
 #include <memory>
 #include <vector>
-#include <log4cxx/logger.h>
+
+#include "spdlog/spdlog.h"
 
 #include "object.h"
 #include "graphics/graphics_interface.h"
@@ -87,7 +88,7 @@ private:
   std::vector<dioptre::Object*> objects_;
 
   static Application* instance_;
-  static log4cxx::LoggerPtr logger_;
+  static std::shared_ptr<spdlog::logger> logger_;
 }; // Application
 
 } // dioptre

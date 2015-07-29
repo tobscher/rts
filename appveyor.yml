@@ -1,0 +1,22 @@
+version: 1.0.0.{build}
+
+environment:
+  P: "c:/projects/rts"
+  CMAKE_PREFIX_PATH: "C:\\Qt\\5.5\\msvc2013_64"
+
+platform: x64
+configuration: Release
+
+init:
+  - git config --global core.autocrlf input
+
+build:
+  project: rts.sln
+
+install:
+  - git config --global url."https://github.com/".insteadOf "git@github.com:"
+  - git submodule update --init --recursive
+
+before_build:
+  - echo Running cmake...
+  - cmake -G "Visual Studio 12 Win64" -D RTS_EDITOR_POST_BUILD=Off .

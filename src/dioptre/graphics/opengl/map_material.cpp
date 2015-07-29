@@ -31,7 +31,7 @@ void MapMaterial::initialize() {
 	programId_ = shader->getProgram();
 
   if (texture_ != nullptr) {
-    LOG4CXX_INFO(logger_, "Initializing texture...");
+    logger_->info("Initializing texture...");
     glTexture_ = (Texture*)texture_;
     glTexture_->initialize();
   }

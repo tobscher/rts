@@ -2,8 +2,9 @@
 #define DIOTRE_GRAPHICS_GEOMETRY_H_
 
 #include <vector>
+#include <memory>
 #include "glm/glm.hpp"
-#include "log4cxx/logger.h"
+#include "spdlog/spdlog.h"
 
 namespace dioptre {
 namespace graphics {
@@ -35,7 +36,7 @@ public:
   virtual void destroy() = 0;
 
 protected:
-  log4cxx::LoggerPtr logger_;
+  std::shared_ptr<spdlog::logger> logger_;
 
   bool isDirty_;
 

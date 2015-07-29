@@ -119,47 +119,47 @@ static const int kModifierTable[] = {
 
 static const int kLookup[8] = { 0, 1, 2, 3, -4, -3, -2, -1 };
 
-static inline etc1_byte clamp(int x) {
+static __inline etc1_byte clamp(int x) {
     return (etc1_byte) (x >= 0 ? (x < 255 ? x : 255) : 0);
 }
 
 static
-inline int convert4To8(int b) {
+__inline int convert4To8(int b) {
     int c = b & 0xf;
     return (c << 4) | c;
 }
 
 static
-inline int convert5To8(int b) {
+__inline int convert5To8(int b) {
     int c = b & 0x1f;
     return (c << 3) | (c >> 2);
 }
 
 static
-inline int convert6To8(int b) {
+__inline int convert6To8(int b) {
     int c = b & 0x3f;
     return (c << 2) | (c >> 4);
 }
 
 static
-inline int divideBy255(int d) {
+__inline int divideBy255(int d) {
     return (d + 128 + (d >> 8)) >> 8;
 }
 
 static
-inline int convert8To4(int b) {
+__inline int convert8To4(int b) {
 	//int c = b & 0xff;
     return divideBy255(b * 15);
 }
 
 static
-inline int convert8To5(int b) {
+__inline int convert8To5(int b) {
 	//int c = b & 0xff;
     return divideBy255(b * 31);
 }
 
 static
-inline int convertDiff(int base, int diff) {
+__inline int convertDiff(int base, int diff) {
     return convert5To8((0x1f & base) + kLookup[0x7 & diff]);
 }
 
@@ -239,7 +239,7 @@ typedef struct {
 } etc_compressed;
 
 static
-inline void take_best(etc_compressed* a, const etc_compressed* b) {
+__inline void take_best(etc_compressed* a, const etc_compressed* b) {
     if (a->score > b->score) {
         *a = *b;
     }
@@ -294,7 +294,7 @@ void etc_average_colors_subblock(const etc1_byte* pIn, etc1_uint32 inMask,
 }
 
 static
-inline int square(int x) {
+__inline int square(int x) {
     return x * x;
 }
 
