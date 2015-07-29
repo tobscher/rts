@@ -9,7 +9,7 @@
 	url = git@github.com:g-truc/glm.git
 [submodule "thirdparty/googletest"]
 	path = thirdparty/googletest
-	url = https://git.chromium.org/git/external/googletest.git
+	url = https://chromium.googlesource.com/external/googletest
 [submodule "thirdparty/bullet"]
 	path = thirdparty/bullet
 	url = git@github.com:bulletphysics/bullet3.git
