@@ -1,0 +1,12 @@
+.git/*
+.idea/*
+.vagrant/*
+bin/*
+build/*
+debug/*
+lib/*
+thirdparty/*
+
+_builds/*
+_projects/*
+_steps/*

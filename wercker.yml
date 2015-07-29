@@ -1,6 +1,21 @@
-box: tobscher/rts@0.2.2
+box: tobscher/rts:0.0.5
 build:
   steps:
     - script:
-        name: "Run tests"
-        code: ./scripts/tests
+        name: "configure"
+        code: ./configure
+    - script:
+        name: "make engine"
+        code: make engine
+    - script:
+        name: "make rts"
+        code: make rts
+    - script:
+        name: "make launcher"
+        code: make launcher
+    - script:
+        name: "make rts-editor"
+        code: make rts-editor
+    - script:
+        name: "make check"
+        code: make check
