@@ -24,6 +24,7 @@ TARGET_LINK_LIBRARIES(
 INCLUDE_DIRECTORIES(
   ${gtest_SOURCE_DIR}/include
   "${MAINFOLDER}/src"
+  "${MAINFOLDER}/test/support"
 )
 
 ADD_CUSTOM_TARGET(check ALL ${test_BIN} DEPENDS ${test_BIN} COMMENT "Executing unit tests..." VERBATIM SOURCES ${test_SRCS})

@@ -4,7 +4,8 @@ namespace dioptre {
 
 Object::Object(std::string name) :
   state_(new State<Transform>()),
-  name_(name) {
+  name_(name),
+  isInitialized_(false) {
   logger_ = log4cxx::Logger::getLogger(name);
 }
 
@@ -17,6 +18,18 @@ Object::~Object() {
 void Object::addComponent(ComponentInterface* component) {
   component->setObject(this);
   components_.push_back(component);
+}
+
+int Object::initialize() {
+  if (isInitialized_) return 0;
+
+  for (auto component : components_) {
+    component->initialize();
+  }
+
+  isInitialized_ = true;
+
+  return 0;
 }
 
 void Object::update() {
@@ -35,6 +48,10 @@ void Object::makeCurrent() {
 
 std::string Object::getName() {
   return name_;
+}
+
+bool Object::getIsInitialized() {
+  return isInitialized_;
 }
 
 void Object::handleClick(glm::vec3 hitPoint) {

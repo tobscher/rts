@@ -6,13 +6,13 @@
 #include <log4cxx/logger.h>
 
 #include "object.h"
-#include "graphics/opengl/graphics.h"
-#include "window/glfw/window.h"
-#include "keyboard/glfw/keyboard.h"
-#include "filesystem/physfs/filesystem.h"
-#include "mouse/glfw/mouse.h"
-#include "time/glfw/time.h"
-#include "physics/bullet/physics.h"
+#include "graphics/graphics_interface.h"
+#include "window/window_interface.h"
+#include "keyboard/keyboard_interface.h"
+#include "filesystem/filesystem_interface.h"
+#include "mouse/mouse_interface.h"
+#include "time/time_interface.h"
+#include "physics/physics_interface.h"
 
 namespace dioptre {
 
@@ -22,6 +22,16 @@ namespace dioptre {
 class Application {
 public:
   Application(int argc, char *argv[]);
+  Application(int argc, char *argv[],
+      dioptre::window::WindowInterface* windowService,
+      dioptre::graphics::GraphicsInterface* graphicsService,
+      dioptre::keyboard::KeyboardInterface* keyboardService,
+      dioptre::filesystem::FilesystemInterface* filesystemService,
+      dioptre::mouse::MouseInterface* mouseService,
+      dioptre::time::TimeInterface* timeService,
+      dioptre::physics::PhysicsInterface* physicsService
+  );
+
   ~Application();
 
   /**
@@ -33,6 +43,11 @@ public:
    * Initializes the application.
    */
   int initialize();
+
+  /**
+   * Returns the status whether the application has been initialized.
+   */
+  bool getIsInitialized();
 
   /**
    * Runs the game loop.
@@ -59,14 +74,15 @@ public:
 
 private:
   bool isRunning_;
+  bool isInitialized_;
 
-  std::unique_ptr<dioptre::window::glfw::Window> windowService_;
-  std::unique_ptr<dioptre::graphics::opengl::Graphics> graphicsService_;
-  std::unique_ptr<dioptre::keyboard::glfw::Keyboard> keyboardService_;
-  std::unique_ptr<dioptre::filesystem::physfs::Filesystem> filesystemService_;
-  std::unique_ptr<dioptre::mouse::glfw::Mouse> mouseService_;
-  std::unique_ptr<dioptre::time::glfw::Time> timeService_;
-  std::unique_ptr<dioptre::physics::bullet::Physics> physicsService_;
+  std::unique_ptr<dioptre::window::WindowInterface> windowService_;
+  std::unique_ptr<dioptre::graphics::GraphicsInterface> graphicsService_;
+  std::unique_ptr<dioptre::keyboard::KeyboardInterface> keyboardService_;
+  std::unique_ptr<dioptre::filesystem::FilesystemInterface> filesystemService_;
+  std::unique_ptr<dioptre::mouse::MouseInterface> mouseService_;
+  std::unique_ptr<dioptre::time::TimeInterface> timeService_;
+  std::unique_ptr<dioptre::physics::PhysicsInterface> physicsService_;
 
   std::vector<dioptre::Object*> objects_;
 

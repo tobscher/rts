@@ -16,4 +16,16 @@ Object* ComponentInterface::getObject() {
   return object_;
 }
 
+int ComponentInterface::initialize() {
+  if (isInitialized_) return 0;
+
+  isInitialized_ = true;
+
+  return 0;
+}
+
+bool ComponentInterface::getIsInitialized() {
+  return isInitialized_;
+}
+
 }

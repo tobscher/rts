@@ -11,7 +11,7 @@ namespace null {
 
 class Filesystem : public dioptre::filesystem::FilesystemInterface {
 public:
-  virtual ~Filesystem();
+  virtual ~Filesystem() {}
 
   // Module
   int initialize() { return 0; }

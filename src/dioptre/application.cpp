@@ -14,13 +14,36 @@
 namespace dioptre {
 
 Application::Application(int argc, char *argv[]) :
-  windowService_(new dioptre::window::glfw::Window()),
-  graphicsService_(new dioptre::graphics::opengl::Graphics()),
-  keyboardService_(new dioptre::keyboard::glfw::Keyboard()),
-  filesystemService_(new dioptre::filesystem::physfs::Filesystem()),
-  mouseService_(new dioptre::mouse::glfw::Mouse()),
-  timeService_(new dioptre::time::glfw::Time()),
-  physicsService_(new dioptre::physics::bullet::Physics())
+  Application(argc, argv,
+      new dioptre::window::null::Window(),
+      new dioptre::graphics::null::Graphics(),
+      new dioptre::keyboard::null::Keyboard(),
+      new dioptre::filesystem::null::Filesystem(),
+      new dioptre::mouse::null::Mouse(),
+      new dioptre::time::null::Time(),
+      new dioptre::physics::null::Physics()
+  )
+{
+}
+
+Application::Application(int argc, char *argv[],
+    dioptre::window::WindowInterface* windowService,
+    dioptre::graphics::GraphicsInterface* graphicsService,
+    dioptre::keyboard::KeyboardInterface* keyboardService,
+    dioptre::filesystem::FilesystemInterface* filesystemService,
+    dioptre::mouse::MouseInterface* mouseService,
+    dioptre::time::TimeInterface* timeService,
+    dioptre::physics::PhysicsInterface* physicsService
+  ) :
+  isRunning_(false),
+  isInitialized_(false),
+  windowService_(windowService),
+  graphicsService_(graphicsService),
+  keyboardService_(keyboardService),
+  filesystemService_(filesystemService),
+  mouseService_(mouseService),
+  timeService_(timeService),
+  physicsService_(physicsService)
 {
   // Enforce singleton property
   if (instance_) {
@@ -38,6 +61,8 @@ Application::~Application() {
   for (auto o : objects_) {
     delete o;
   }
+
+  instance_ = nullptr;
 }
 
 bool Application::isRunning() {
@@ -45,6 +70,8 @@ bool Application::isRunning() {
 }
 
 int Application::initialize() {
+  if (isInitialized_) return 0;
+
   // Configure the logging mechanism
   log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
   rootlogger->addAppender(new log4cxx::ConsoleAppender(new log4cxx::PatternLayout("%d [%-5p] %c - %m%n")));
@@ -77,14 +104,24 @@ int Application::initialize() {
   );
   auto transform = camera->getTransform();
 
-  transform->setPosition(0,100,15);
+  transform->setPosition(0,38,5);
   transform->lookAt(0.0f, 0.0f, 0.0f);
 
   auto scene = new dioptre::graphics::Scene();
   auto mainLayer = new dioptre::graphics::Layer(scene, camera);
   graphicsService_->addLayer(mainLayer);
 
+  for (auto object : objects_) {
+    object->initialize();
+  }
+
+  isInitialized_ = true;
+
   return 0;
+}
+
+bool Application::getIsInitialized() {
+  return isInitialized_;
 }
 
 void Application::run() {

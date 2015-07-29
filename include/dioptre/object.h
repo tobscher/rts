@@ -30,22 +30,25 @@ public:
     return nullptr;
   }
 
+  virtual int initialize();
+
   // State
   State<Transform>* getState();
   Transform* getTransform();
   virtual void makeCurrent();
 
   std::string getName();
+  bool getIsInitialized();
 
   void update();
 
   // Events
   virtual void handleClick(glm::vec3 hitPoint);
-
 protected:
   State<Transform>* state_;
-
   std::string name_;
+  bool isInitialized_;
+
   log4cxx::LoggerPtr logger_;
 
 private:

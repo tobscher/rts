@@ -1,4 +1,13 @@
 #include "dioptre/application.h"
+
+#include "dioptre/graphics/opengl/graphics.h"
+#include "dioptre/window/glfw/window.h"
+#include "dioptre/keyboard/glfw/keyboard.h"
+#include "dioptre/filesystem/physfs/filesystem.h"
+#include "dioptre/mouse/glfw/mouse.h"
+#include "dioptre/time/glfw/time.h"
+#include "dioptre/physics/bullet/physics.h"
+
 #include "dioptre/graphics/component.h"
 
 #include "rts/map.h"
@@ -7,7 +16,23 @@
 #include "rts/human_player.h"
 
 int main(int argc, char *argv[]) {
-  dioptre::Application application(argc, argv);
+  auto window = new dioptre::window::glfw::Window();
+  auto graphics = new dioptre::graphics::opengl::Graphics();
+  auto keyboard = new dioptre::keyboard::glfw::Keyboard();
+  auto filesystem = new dioptre::filesystem::physfs::Filesystem();
+  auto mouse = new dioptre::mouse::glfw::Mouse();
+  auto time = new dioptre::time::glfw::Time();
+  auto physics = new dioptre::physics::bullet::Physics();
+
+  dioptre::Application application(argc, argv,
+      window,
+      graphics,
+      keyboard,
+      filesystem,
+      mouse,
+      time,
+      physics
+  );
   application.initialize();
 
   rts::Map* map(rts::Map::spawn());
