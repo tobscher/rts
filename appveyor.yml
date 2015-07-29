@@ -6,6 +6,9 @@ configuration: Release
 build:
   project: launcher.vcxproj
 
+install:
+  - git submodule update --init --recursive
+
 before_build:
   - echo Running cmake...
   - cmake -G "Visual Studio 12 Win64"
