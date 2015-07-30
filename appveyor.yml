@@ -13,8 +13,8 @@ install:
   - git config --global url."https://github.com/".insteadOf "git@github.com:"
   - git submodule update --init --recursive
   - nuget install log4cxx
-  - tree /a
+  - tree /a /f
 
 before_build:
   - echo Running cmake...
-  - cmake -G "Visual Studio 12 Win64"
+  - cmake -G "Visual Studio 12 Win64" -D Log4Cxx_LIBRARY="./log4cxx.0.10.0/lib"
