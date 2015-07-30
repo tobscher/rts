@@ -13,7 +13,6 @@ install:
   - git config --global url."https://github.com/".insteadOf "git@github.com:"
   - git submodule update --init --recursive
   - nuget install log4cxx
-  - nuget install zlib
 
 before_build:
   - echo Running cmake...
