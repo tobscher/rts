@@ -1,7 +1,7 @@
 version: 1.0.0.{build}
 
 environment:
-  CMAKE_PREFIX_PATH: "C:\Qt\5.5\msvc2013_64"
+  CMAKE_PREFIX_PATH: "C:\\Qt\\5.5\\msvc2013_64"
 
 platform: x64
 configuration: Release
@@ -12,6 +12,7 @@ build:
 install:
   - git config --global url."https://github.com/".insteadOf "git@github.com:"
   - git submodule update --init --recursive
+  - nuget install log4cxx
 
 before_build:
   - echo Running cmake...
