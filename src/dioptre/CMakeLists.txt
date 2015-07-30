@@ -8,7 +8,6 @@ SET (
   BulletDynamics
   BulletCollision
   LinearMath
-  ${ZLIB_LIBRARY}
   physfs-static
   ${Log4Cxx_LIBRARIES}
 )

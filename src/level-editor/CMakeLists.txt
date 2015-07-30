@@ -3,7 +3,6 @@ SET (
   project_LIBS
   engine
   libglew_static
-  ${ZLIB_LIBRARY}
   physfs-static
   ${OPENGL_LIBRARIES}
 )

@@ -9,7 +9,6 @@ SET (
   BulletCollision
   LinearMath
   libglew_static
-  ${ZLIB_LIBRARIES}
   physfs-static
   gtest_main
 )
