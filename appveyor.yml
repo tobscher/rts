@@ -7,13 +7,14 @@ platform: x64
 configuration: Release
 
 build:
-  project: launcher.vcxproj
+  project: rts.vcxproj
 
 install:
   - git config --global url."https://github.com/".insteadOf "git@github.com:"
   - git submodule update --init --recursive
   - nuget install log4cxx
   - nuget install zlib
+  - dir
 
 before_build:
   - echo Running cmake...
