@@ -7,7 +7,7 @@ platform: x64
 configuration: Release
 
 build:
-  project: INSTALL.vcxproj
+  project: rts.sln
 
 install:
   - git config --global url."https://github.com/".insteadOf "git@github.com:"
