@@ -14,8 +14,8 @@ install:
   - git submodule update --init --recursive
   - nuget install log4cxx
   - nuget install zlib
-  - dir
 
 before_build:
   - echo Running cmake...
   - cmake -G "Visual Studio 12 Win64" -D Log4Cxx_LIBRARY="./log4cxx.0.10.0/lib" -D Log4Cxx_INCLUDE_DIR="./log4cxx.0.10.0" -D ZLIB_LIBRARY="./zlib-1.2.8.8/lib" -D ZLIB_INCLUDE_DIR="./zlib-1.2.8.8" .
+  - dir
