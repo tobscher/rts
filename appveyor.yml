@@ -13,13 +13,14 @@ install:
   - git config --global url."https://github.com/".insteadOf "git@github.com:"
   - git submodule update --init --recursive
   - nuget install log4cxx
+  - cd thirdparty
   - ps: Start-FileDownload 'http://mirror.vorboss.net/apache/apr/apr-1.5.2-win32-src.zip'
   - ps: Start-FileDownload 'http://mirror.vorboss.net/apache/apr/apr-util-1.5.4-win32-src.zip'
   - unzip apr-1.5.2-win32-src.zip
   - rename apr-1.5.2 apr
   - unzip apr-util-1.5.4-win32-src.zip
-  - rename apr-util-1.5.4-win32-src apr-util
-  - cd apache-log4cxx-0.10.0
+  - rename apr-util-1.5.4 apr-util
+  - cd log4cxx
   - configure
   - configure-aprutil
 
