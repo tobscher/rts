@@ -20,6 +20,7 @@ install:
   - rename apr-1.5.2 apr
   - unzip apr-util-1.5.4-win32-src.zip
   - rename apr-util-1.5.4 apr-util
+  - tree /a
   - cd log4cxx
   - configure
   - configure-aprutil
