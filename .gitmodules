@@ -16,3 +16,9 @@
 [submodule "thirdparty/log4cxx"]
 	path = thirdparty/log4cxx
 	url = git@github.com:apache/log4cxx.git
+[submodule "thirdparty/apr"]
+	path = thirdparty/apr
+	url = git@github.com:apache/apr.git
+[submodule "thirdparty/apr-util"]
+	path = thirdparty/apr-util
+	url = git@github.com:apache/apr-util.git
