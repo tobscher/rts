@@ -6,6 +6,9 @@ environment:
 platform: x64
 configuration: Release
 
+init:
+  - git config --global core.autocrlf input
+
 build:
   project: rts.sln
 
