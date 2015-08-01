@@ -1,6 +1,7 @@
 version: 1.0.0.{build}
 
 environment:
+  P: "c:/projects/rts"
   CMAKE_PREFIX_PATH: "C:\\Qt\\5.5\\msvc2013_64"
 
 platform: x64
@@ -20,5 +21,6 @@ install:
   - configure
 
 before_build:
+  - cd %P%
   - echo Running cmake...
   - cmake -G "Visual Studio 12 Win64" -D Log4Cxx_LIBRARY="C:\projects\rts\log4cxx.0.10.0\lib" -D Log4Cxx_INCLUDE_DIR="C:\projects\rts\thirdparty\log4cxx\src\main\include" .
