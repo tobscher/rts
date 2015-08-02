@@ -9,7 +9,7 @@ SET (
   BulletCollision
   LinearMath
   physfs-static
-  ${Log4Cxx_LIBRARIES}
+  ${Log4Cxx_LIBRARY}
 )
 
 ADD_LIBRARY(

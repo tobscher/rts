@@ -5,6 +5,7 @@ SET (
   libglew_static
   physfs-static
   ${OPENGL_LIBRARIES}
+  ${Log4Cxx_LIBRARY}
 )
 
 SET(CMAKE_INCLUDE_CURRENT_DIR ON)
