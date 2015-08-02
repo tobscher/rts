@@ -19,4 +19,4 @@ install:
 
 before_build:
   - echo Running cmake...
-  - cmake -G "Visual Studio 12 Win64" -D Log4Cxx_LIBRARY="C:\projects\rts\thirdparty\log4cxx\msw\64\release\log4cxx.lib" -D Log4Cxx_INCLUDE_DIR="C:\projects\rts\thirdparty\log4cxx\include" .
+  - cmake -G "Visual Studio 10 2010 Win64" -D Log4Cxx_LIBRARY="C:\projects\rts\thirdparty\log4cxx\msw\64\release\log4cxx.lib" -D Log4Cxx_INCLUDE_DIR="C:\projects\rts\thirdparty\log4cxx\include" .
