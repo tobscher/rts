@@ -56,6 +56,21 @@ LINK_DIRECTORIES(${MAINFOLDER}/lib)
 INCLUDE(c_flag_overrides)
 INCLUDE(cxx_flag_overrides)
 
+IF(MSVC)
+  MESSAGE("Overriding existing compiler flags")
+  set(CompilerFlags
+    CMAKE_CXX_FLAGS
+    CMAKE_CXX_FLAGS_DEBUG
+    CMAKE_CXX_FLAGS_RELEASE
+    CMAKE_C_FLAGS
+    CMAKE_C_FLAGS_DEBUG
+    CMAKE_C_FLAGS_RELEASE
+  )
+  foreach(CompilerFlag ${CompilerFlags})
+    string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
+  endforeach()
+ENDIF(MSVC)
+
 # Find pkg-config
 FIND_PACKAGE(PkgConfig)
 
