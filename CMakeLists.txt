@@ -52,6 +52,10 @@ SET (CMAKE_MODULE_PATH "${MAINFOLDER}/tools/share/cmake")
 INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
 LINK_DIRECTORIES(${MAINFOLDER}/lib)
 
+# Include overrides
+INCLUDE(c_flag_overrides)
+INCLUDE(cxx_flag_overrides)
+
 # Find pkg-config
 FIND_PACKAGE(PkgConfig)
 
