@@ -16,11 +16,7 @@ build:
 install:
   - git config --global url."https://github.com/".insteadOf "git@github.com:"
   - git submodule update --init --recursive
-  - nuget install log4cxx
-  - cd thirdparty\log4cxx
-  - configure
 
 before_build:
-  - cd %P%
   - echo Running cmake...
-  - cmake -G "Visual Studio 12 Win64" -D Log4Cxx_LIBRARY="C:\projects\rts\log4cxx.0.10.0\lib" -D Log4Cxx_INCLUDE_DIR="C:\projects\rts\thirdparty\log4cxx\src\main\include" .
+  - cmake -G "Visual Studio 12 Win64" -D Log4Cxx_LIBRARY="C:\projects\rts\thirdparty\log4cxx\msw\64\release\log4cxx.lib" -D Log4Cxx_INCLUDE_DIR="C:\projects\rts\thirdparty\log4cxx\include" .
