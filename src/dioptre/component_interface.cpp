@@ -4,7 +4,8 @@
 namespace dioptre {
 
 ComponentInterface::ComponentInterface(std::string name) :
-  name_(name) {
+  name_(name),
+  isInitialized_(false) {
   logger_ = spdlog::get("dioptre");
 }
 
