@@ -23,13 +23,13 @@ int Physics::initialize() {
   debugDrawer_->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
   dynamicsWorld_->setDebugDrawer(debugDrawer_.get());
 
-  LOG4CXX_INFO(logger_, "Bullet engine initialized.");
+  logger_->info("Bullet engine initialized.");
 
   return 0;
 }
 
 void Physics::initializeWorld() {
-  LOG4CXX_INFO(logger_, "Initializing physics world.");
+  logger_->info("Initializing physics world.");
   for (auto it = world_->begin(); it != world_->end(); it++) {
     initializeRigidBody(*it);
   }
@@ -47,7 +47,7 @@ void Physics::initializeRigidBody(dioptre::physics::RigidBody* body) {
   auto inertia = body->getInertia();
   auto mass = body->getMass();
 
-  LOG4CXX_INFO(logger_, "Initializing rigid body." << object->getName());
+  logger_->info("Initializing rigid body.") << object->getName();
 
   btDefaultMotionState* motionstate = new btDefaultMotionState(btTransform(
     btQuaternion(orientation.x, orientation.y, orientation.z, orientation.w),
@@ -105,7 +105,7 @@ void ScreenPosToWorldRay(
 }
 
 void Physics::castRay(dioptre::mouse::Position position) {
-  LOG4CXX_INFO(logger_, "Casting ray at:" << position.x << "x" << position.y);
+  logger_->info("Casting ray at:") << position.x << "x" << position.y;
 
   auto graphics = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
   auto debug = (dioptre::graphics::Debug*)graphics->getLayer(1);
@@ -141,7 +141,7 @@ void Physics::castRay(dioptre::mouse::Position position) {
                           rayCallback);
 
   if (rayCallback.hasHit()) {
-    LOG4CXX_INFO(logger_, "Ray hit object.");
+    logger_->info("Ray hit object.");
 
     auto hitPoint = rayCallback.m_hitPointWorld;
     glm::vec3 glmHitPoint = glm::vec3(hitPoint.x(), hitPoint.y(), hitPoint.z());
@@ -150,7 +150,7 @@ void Physics::castRay(dioptre::mouse::Position position) {
     dioptre::Object* object = static_cast<dioptre::Object*>(rayCallback.m_collisionObject->getUserPointer());
     object->handleClick(glmHitPoint);
   } else {
-    LOG4CXX_INFO(logger_, "Ray hit background.");
+    logger_->info("Ray hit background.");
   }
 }
 

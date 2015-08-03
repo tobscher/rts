@@ -1,7 +1,7 @@
 #ifndef DIOPTRE_MODULE_H_
 #define DIOPTRE_MODULE_H_
 
-#include "log4cxx/logger.h"
+#include "spdlog/spdlog.h"
 #include <string>
 
 namespace dioptre {
@@ -27,7 +27,7 @@ public:
 
 protected:
   std::string name_;
-  log4cxx::LoggerPtr logger_;
+  std::shared_ptr<spdlog::logger> logger_;
 };
 
 }

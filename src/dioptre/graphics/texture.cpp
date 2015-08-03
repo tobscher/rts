@@ -15,7 +15,7 @@ Texture::Texture(std::string image) :
   imagePath_(image),
   repeat_(glm::vec2(1,1)) {
 
-  logger_ = log4cxx::Logger::getLogger("dioptre.texture");
+  logger_ = spdlog::get("dioptre");
 
   auto filesystem = dioptre::Locator::getInstance<dioptre::filesystem::FilesystemInterface>(dioptre::Module::M_FILESYSTEM);
   auto size = filesystem->getSize(image);
@@ -35,7 +35,7 @@ Texture::Texture(std::string image) :
     throw std::runtime_error(exception.str());
   }
 
-  LOG4CXX_INFO(logger_, "Texture loaded: " << image << "; Size: " << width_ << "x" << height_);
+  logger_->info("Texture loaded: ") << image << "; Size: " << width_ << "x" << height_;
 
   delete buffer;
 }

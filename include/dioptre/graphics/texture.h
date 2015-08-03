@@ -2,9 +2,10 @@
 #define DIOPTRE_GRAPHICS_TEXTURE_H_
 
 #include <string>
+#include <memory>
 
 #include "glm/vec2.hpp"
-#include "log4cxx/logger.h"
+#include "spdlog/spdlog.h"
 
 namespace dioptre {
 namespace graphics {
@@ -23,7 +24,7 @@ public:
   void setRepeat(glm::vec2 repeat);
 
 protected:
-  log4cxx::LoggerPtr logger_;
+  std::shared_ptr<spdlog::logger> logger_;
 
   unsigned char* image_;
 

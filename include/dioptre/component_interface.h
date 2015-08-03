@@ -2,8 +2,9 @@
 #define DIOPTRE_COMPONENT_INTERFACE_H_
 
 #include <string>
+#include <memory>
 
-#include "log4cxx/logger.h"
+#include "spdlog/spdlog.h"
 
 namespace dioptre {
 
@@ -24,7 +25,7 @@ protected:
   std::string name_;
   bool isInitialized_;
 
-  log4cxx::LoggerPtr logger_;
+  std::shared_ptr<spdlog::logger> logger_;
 
 private:
   Object* object_;

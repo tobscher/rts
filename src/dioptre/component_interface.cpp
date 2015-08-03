@@ -5,7 +5,7 @@ namespace dioptre {
 
 ComponentInterface::ComponentInterface(std::string name) :
   name_(name) {
-  logger_ = log4cxx::Logger::getLogger(name);
+  logger_ = spdlog::get("dioptre");
 }
 
 void ComponentInterface::setObject(Object* object) {

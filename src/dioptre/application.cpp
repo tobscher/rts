@@ -8,9 +8,6 @@
 
 #include "keyboard/handlers/exit_game.h"
 
-#include <log4cxx/consoleappender.h>
-#include <log4cxx/patternlayout.h>
-
 namespace dioptre {
 
 Application::Application(int argc, char *argv[]) :
@@ -57,7 +54,7 @@ Application::Application(int argc, char *argv[],
 }
 
 Application::~Application() {
-  LOG4CXX_INFO(logger_, "Cleaning up objects");
+  logger_->info("Cleaning up objects");
   for (auto o : objects_) {
     delete o;
   }
@@ -71,10 +68,6 @@ bool Application::isRunning() {
 
 int Application::initialize() {
   if (isInitialized_) return 0;
-
-  // Configure the logging mechanism
-  log4cxx::LoggerPtr rootlogger = log4cxx::Logger::getRootLogger();
-  rootlogger->addAppender(new log4cxx::ConsoleAppender(new log4cxx::PatternLayout("%d [%-5p] %c - %m%n")));
 
   // Initialize services
   dioptre::Locator::initialize();
@@ -195,6 +188,6 @@ Application* Application::getInstance() {
 
 Application* Application::instance_ = nullptr;
 
-log4cxx::LoggerPtr Application::logger_ = log4cxx::Logger::getLogger("dioptre");
+std::shared_ptr<spdlog::logger> Application::logger_ = spdlog::stdout_logger_mt("dioptre");
 
 } // dioptre

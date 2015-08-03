@@ -10,7 +10,6 @@ SET (
   LinearMath
   libglew_static
   physfs-static
-  ${Log4Cxx_LIBRARY}
 )
 SET (project_BIN launcher)
 

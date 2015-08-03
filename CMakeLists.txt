@@ -105,10 +105,9 @@ INCLUDE_DIRECTORIES(thirdparty/SOIL2/src/SOIL2)
 ADD_SUBDIRECTORY(thirdparty/bullet)
 INCLUDE_DIRECTORIES(thirdparty/bullet/src)
 
-# Log4Cxx
-FIND_PACKAGE (Log4Cxx REQUIRED)
-INCLUDE_DIRECTORIES(${Log4Cxx_INCLUDE_DIR})
-LINK_DIRECTORIES(${Log4Cxx_LIBRARY})
+# spdlog
+INCLUDE_DIRECTORIES(thirdparty/spdlog/include)
+
 
 # googletest
 ADD_SUBDIRECTORY(thirdparty/googletest)

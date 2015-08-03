@@ -5,7 +5,7 @@ namespace graphics {
 
 Material::Material() :
   isInitialized_(false) {
-  logger_ = log4cxx::Logger::getLogger("dioptre.material");
+  logger_ = spdlog::get("dioptre");
 }
 
 bool Material::isInitialized() {

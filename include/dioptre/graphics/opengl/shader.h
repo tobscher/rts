@@ -2,11 +2,12 @@
 #define DIOPTRE_GRAPHICS_OPENGL_SHADER_H_
 
 #include <string>
+#include <memory>
 
 #include "dioptre/graphics/opengl.h"
 #include "dioptre/graphics/opengl/shader_features.h"
 
-#include "log4cxx/logger.h"
+#include "spdlog/spdlog.h"
 
 namespace dioptre {
 namespace graphics {
@@ -36,7 +37,7 @@ private:
   bool compileShader(std::string shaderCode, GLuint& shaderId);
   GLuint linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId);
 
-  static log4cxx::LoggerPtr logger_;
+  static std::shared_ptr<spdlog::logger> logger_;
 }; // Shader
 
 } // opengl

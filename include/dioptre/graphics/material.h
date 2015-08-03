@@ -1,8 +1,10 @@
 #ifndef DIOTRE_GRAPHICS_MATERIAL_H_
 #define DIOTRE_GRAPHICS_MATERIAL_H_
 
+#include <memory>
+
 #include "glm/glm.hpp"
-#include "log4cxx/logger.h"
+#include "spdlog/spdlog.h"
 
 namespace dioptre {
 namespace graphics {
@@ -22,10 +24,9 @@ public:
   virtual void destroy() = 0;
   virtual void setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) = 0;
   virtual void setProjection(glm::mat4 p) {}
-  /* virtual void projectWith(Projector* projector) {} */
 
 protected:
-  log4cxx::LoggerPtr logger_;
+  std::shared_ptr<spdlog::logger> logger_;
 
 private:
   bool isInitialized_;

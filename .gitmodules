@@ -13,3 +13,6 @@
 [submodule "thirdparty/bullet"]
 	path = thirdparty/bullet
 	url = git@github.com:bulletphysics/bullet3.git
+[submodule "thirdparty/spdlog"]
+	path = thirdparty/spdlog
+	url = git@github.com:gabime/spdlog.git
