@@ -11,7 +11,7 @@ build:
         code: ./configure
     - script:
         name: make engine
-        code: make engine
+        code: make -j 4 engine
     - script:
         name: make rts
         code: make rts
