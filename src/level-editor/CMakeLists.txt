@@ -1,3 +1,5 @@
+OPTION(RTS_EDITOR_POST_BUILD "Perform post build tasks." ON)
+
 SET (project_BIN ${PROJECT_NAME}-editor)
 SET (
   project_LIBS
@@ -42,24 +44,30 @@ TARGET_LINK_LIBRARIES(
   Qt5::OpenGL
 )
 
-# Copy shaders
-ADD_CUSTOM_COMMAND(TARGET rts-editor PRE_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:rts-editor>
-)
+IF(RTS_EDITOR_POST_BUILD)
+  MESSAGE("Post build steps enabled.")
 
-# Copy Qt files
-IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-	SET(QT_BIN_DIR ${Qt5Core_DIR}/../../../bin)
-  ADD_CUSTOM_COMMAND(TARGET rts-editor PRE_BUILD
-	  COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/Qt5Widgetsd.dll $<TARGET_FILE_DIR:rts-editor>
-	  COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/Qt5Guid.dll $<TARGET_FILE_DIR:rts-editor>
-	  COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/Qt5Cored.dll $<TARGET_FILE_DIR:rts-editor>
-	  COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/icuin53.dll $<TARGET_FILE_DIR:rts-editor>
-	  COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/icuuc53.dll $<TARGET_FILE_DIR:rts-editor>
-	  COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/icudt53.dll $<TARGET_FILE_DIR:rts-editor>
-	)
-ENDIF()
+  # Copy shaders
+  ADD_CUSTOM_COMMAND(TARGET rts-editor POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+      ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:rts-editor>
+  )
+
+  # Copy Qt files
+  IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    SET(QT_BIN_DIR ${Qt5Core_DIR}/../../../bin)
+    ADD_CUSTOM_COMMAND(TARGET rts-editor POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/Qt5Widgetsd.dll $<TARGET_FILE_DIR:rts-editor>
+      COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/Qt5Guid.dll $<TARGET_FILE_DIR:rts-editor>
+      COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/Qt5Cored.dll $<TARGET_FILE_DIR:rts-editor>
+      COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/icuin53.dll $<TARGET_FILE_DIR:rts-editor>
+      COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/icuuc53.dll $<TARGET_FILE_DIR:rts-editor>
+      COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/icudt53.dll $<TARGET_FILE_DIR:rts-editor>
+    )
+  ENDIF()
+ELSE(RTS_EDITOR_POST_BUILD)
+  MESSAGE("Skip post build steps.")
+ENDIF(RTS_EDITOR_POST_BUILD)
 
 IF (APPLE)
   # SET_TARGET_PROPERTIES(${project_BIN} PROPERTIES MACOSX_BUNDLE_ICON_FILE "icon.icns")
