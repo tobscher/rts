@@ -43,7 +43,7 @@ TARGET_LINK_LIBRARIES(
 )
 
 # Copy shaders
-ADD_CUSTOM_COMMAND(TARGET rts-editor POST_BUILD
+ADD_CUSTOM_COMMAND(TARGET rts-editor PRE_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:rts-editor>
 )
@@ -51,7 +51,7 @@ ADD_CUSTOM_COMMAND(TARGET rts-editor POST_BUILD
 # Copy Qt files
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 	SET(QT_BIN_DIR ${Qt5Core_DIR}/../../../bin)
-	ADD_CUSTOM_COMMAND(TARGET rts-editor POST_BUILD
+  ADD_CUSTOM_COMMAND(TARGET rts-editor PRE_BUILD
 	  COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/Qt5Widgetsd.dll $<TARGET_FILE_DIR:rts-editor>
 	  COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/Qt5Guid.dll $<TARGET_FILE_DIR:rts-editor>
 	  COMMAND ${CMAKE_COMMAND} -E copy ${QT_BIN_DIR}/Qt5Cored.dll $<TARGET_FILE_DIR:rts-editor>
