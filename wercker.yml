@@ -14,13 +14,13 @@ build:
         code: make -j 4 engine
     - script:
         name: make rts
-        code: make rts
+        code: make -j 4 rts
     - script:
         name: make launcher
-        code: make launcher
+        code: make -j 4 launcher
     - script:
         name: make rts-editor
-        code: make rts-editor
+        code: make -j 4 rts-editor
     - script:
         name: make check
-        code: make check
+        code: make -j 4 check
