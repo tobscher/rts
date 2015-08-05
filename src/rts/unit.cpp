@@ -21,18 +21,18 @@ void Unit::handleClick(glm::vec3 hitPoint) {
 
 Unit* Unit::spawn(Map* map) {
   auto unit = new Unit();
-  unit->getTransform()->translateY(3.5);
+  unit->getTransform()->translateY(1.0);
 
   auto building = new dioptre::graphics::opengl::BasicMaterial();
   building->setColor(dioptre::graphics::color(0.7f, 0.7f, 0.7f));
-  auto geometry = new dioptre::graphics::opengl::BoxGeometry(2.0f, 5.0f, 2.0f);
+  auto geometry = new dioptre::graphics::opengl::BoxGeometry(1.0f * cellSize, 2.0f, 1.0f * cellSize);
 
   // Mesh
   auto mesh = new dioptre::graphics::Mesh(geometry, building);
 
   // Projector
   auto projector = new dioptre::graphics::Projector(40.0, 1.0, 1, 100);
-  projector->getTransform()->setPosition(0.0, 5.0, 0.0);
+  projector->getTransform()->setPosition(0.0, 3.0, 0.0);
   projector->getTransform()->setUp(glm::vec3(0.0, 0.0, -1.0));
   projector->getTransform()->lookAt(unit->getTransform()->getPosition());
   projector->setTarget(map->getComponent<dioptre::graphics::Component>()->getMesh());
@@ -41,7 +41,7 @@ Unit* Unit::spawn(Map* map) {
   visual->setProjector(projector);
   unit->addComponent(visual);
 
-  auto shape = new dioptre::physics::bullet::BoxShape(1.0f, 2.5f, 1.0f);
+  auto shape = new dioptre::physics::bullet::BoxShape(0.5f * cellSize, 1.0f, 0.5f * cellSize);
   auto rigidBody = new dioptre::physics::RigidBody(shape);
   auto physics = new dioptre::physics::Component(rigidBody);
   unit->addComponent(physics);

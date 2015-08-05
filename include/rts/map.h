@@ -5,11 +5,13 @@
 
 namespace rts {
 
+const double cellSize = 1.0;
+
 class Map : public dioptre::Object {
 public:
   Map() : Object("objects.map") {}
   static Map* spawn();
-};
+}; // Map
 
 } // rts
 

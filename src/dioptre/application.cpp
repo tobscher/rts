@@ -69,6 +69,8 @@ bool Application::isRunning() {
 int Application::initialize() {
   if (isInitialized_) return 0;
 
+  logger_->set_level(spdlog::level::debug);
+
   // Initialize services
   dioptre::Locator::initialize();
   dioptre::Locator::provide(Module::M_WINDOW, windowService_.get());
@@ -140,7 +142,7 @@ void Application::run() {
 
     // Frame counter
     if (currentTime - lastTime >= 1.0 ) {
-      printf("%f ms/frame\n", 1000.0/double(nbFrames));
+      logger_->debug("{} ms/frame", 1000.0/double(nbFrames));
       nbFrames = 0;
       lastTime += 1.0;
     }

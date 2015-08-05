@@ -49,11 +49,11 @@ int main(int argc, char *argv[]) {
     auto transform = unit->getTransform();
     auto graphicsComponent = unit->getComponent<dioptre::graphics::Component>();
 
-    transform->translateX(-30 + (i * 15));
-    transform->translateZ(10);
+    transform->translateX(-10 + (i * 5));
+    transform->translateZ(5);
 
-    graphicsComponent->getProjector()->getTransform()->translateX(-30 + (i * 15));
-    graphicsComponent->getProjector()->getTransform()->translateZ(10);
+    graphicsComponent->getProjector()->getTransform()->translateX(-10 + (i * 5));
+    graphicsComponent->getProjector()->getTransform()->translateZ(5);
 
     application.addObject(unit);
   }

@@ -12,7 +12,7 @@ public:
   void handleClick(glm::vec3 hitPoint);
 
   static Unit* spawn(Map* map);
-};
+}; // Unit
 
 } // rts
 

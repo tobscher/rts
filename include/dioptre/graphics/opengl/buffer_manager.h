@@ -4,6 +4,9 @@
 #include "dioptre/graphics/opengl.h"
 #include "dioptre/graphics/geometry.h"
 
+#include <memory>
+#include "spdlog/spdlog.h"
+
 namespace dioptre {
 namespace graphics {
 namespace opengl {
@@ -29,6 +32,8 @@ public:
   void destroyNormalBuffer();
 
 private:
+  std::shared_ptr<spdlog::logger> logger_;
+
   dioptre::graphics::Geometry* geometry_;
 
   bool vertexBufferInitialized_;

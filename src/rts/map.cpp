@@ -18,7 +18,10 @@ Map* Map::spawn() {
   texture->setRepeat(glm::vec2(15,15));
   material->setTexture(texture);
 
-  auto geometry = new dioptre::graphics::opengl::BoxGeometry(256.0f,1.0f,256.0f);
+  auto width = 128.0 * cellSize;
+  auto height = 128.0 * cellSize;
+
+  auto geometry = new dioptre::graphics::opengl::BoxGeometry(width,1.0f,height);
 
   // Extract this into level loading once levels are available
   Map* map = new Map();
@@ -28,7 +31,7 @@ Map* Map::spawn() {
   auto visual = new dioptre::graphics::Component(mesh);
   map->addComponent(visual);
 
-  auto shape = new dioptre::physics::bullet::BoxShape(128.0f, 0.5f, 128.0f);
+  auto shape = new dioptre::physics::bullet::BoxShape(width/2.0, 0.5f, height/2.0);
   auto rigidBody = new dioptre::physics::RigidBody(shape);
   auto physics = new dioptre::physics::Component(rigidBody);
   map->addComponent(physics);

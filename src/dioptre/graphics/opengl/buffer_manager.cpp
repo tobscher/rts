@@ -12,7 +12,7 @@ BufferManager::BufferManager(dioptre::graphics::Geometry* geometry) :
   uVBufferInitialized_(false),
   normalBufferInitialized_(false)
 {
-
+  logger_ = spdlog::get("dioptre");
 }
 
 void BufferManager::initializeVertexBuffer() {
@@ -26,7 +26,7 @@ void BufferManager::initializeVertexBuffer() {
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * bufferData.size(), &bufferData[0], GL_STATIC_DRAW);
 
-  std::cout << "Vertex Buffer: " << vertexBuffer_ << std::endl;
+  logger_->debug("Vertex Buffer: ") << vertexBuffer_;
 
   // check OpenGL error
   check_gl_error();
@@ -44,7 +44,7 @@ void BufferManager::initializeUVBuffer() {
   glBindBuffer(GL_ARRAY_BUFFER, uvBuffer_);
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * uvBufferData.size(), &uvBufferData[0], GL_STATIC_DRAW);
 
-  std::cout << "UV Buffer: " << uvBuffer_ << std::endl;
+  logger_->debug("UV Buffer: ") << uvBuffer_;
 
   // check OpenGL error
   check_gl_error();
@@ -62,7 +62,7 @@ void BufferManager::initializeNormalBuffer() {
   glBindBuffer(GL_ARRAY_BUFFER, normalBuffer_);
   glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * normalBufferData.size(), &normalBufferData[0], GL_STATIC_DRAW);
 
-  std::cout << "Normal Buffer: " << normalBuffer_ << std::endl;
+  logger_->debug("Normal Buffer: ") << normalBuffer_;
 
   // check OpenGL error
   check_gl_error();
