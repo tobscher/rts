@@ -1,4 +1,3 @@
-#include <iostream>
 #include <GLFW/glfw3.h>
 
 #include "dioptre/window/glfw/window.h"
@@ -37,7 +36,7 @@ int Window::initialize() {
   /* glfwWindow_ = glfwCreateWindow(glfwVideoMode_->width, glfwVideoMode_->height, "RTS", nullptr, nullptr); */
   glfwWindow_ = glfwCreateWindow(glfwVideoMode_->width, glfwVideoMode_->height, "RTS", glfwMonitor_, nullptr);
   if (glfwWindow_ == NULL) {
-    fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible.\n");
+    logger_->error("Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible.");
     glfwTerminate();
     return -1;
   }
