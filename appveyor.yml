@@ -10,8 +10,9 @@ configuration: Release
 init:
   - git config --global core.autocrlf input
 
-build:
-  project: rts.sln
+build_script:
+  - cd build
+  - msbuild rts.sln /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 install:
   - git config --global url."https://github.com/".insteadOf "git@github.com:"
