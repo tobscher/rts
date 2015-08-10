@@ -18,7 +18,8 @@ Application::Application(int argc, char *argv[]) :
       new dioptre::filesystem::null::Filesystem(),
       new dioptre::mouse::null::Mouse(),
       new dioptre::time::null::Time(),
-      new dioptre::physics::null::Physics()
+      new dioptre::physics::null::Physics(),
+      new dioptre::font::null::Font()
   )
 {
 }
@@ -30,7 +31,8 @@ Application::Application(int argc, char *argv[],
     dioptre::filesystem::FilesystemInterface* filesystemService,
     dioptre::mouse::MouseInterface* mouseService,
     dioptre::time::TimeInterface* timeService,
-    dioptre::physics::PhysicsInterface* physicsService
+    dioptre::physics::PhysicsInterface* physicsService,
+    dioptre::font::FontInterface* fontService
   ) :
   isRunning_(false),
   isInitialized_(false),
@@ -40,7 +42,8 @@ Application::Application(int argc, char *argv[],
   filesystemService_(filesystemService),
   mouseService_(mouseService),
   timeService_(timeService),
-  physicsService_(physicsService)
+  physicsService_(physicsService),
+  fontService_(fontService)
 {
   // Enforce singleton property
   if (instance_) {
@@ -80,6 +83,7 @@ int Application::initialize() {
   dioptre::Locator::provide(Module::M_MOUSE, mouseService_.get());
   dioptre::Locator::provide(Module::M_TIME, timeService_.get());
   dioptre::Locator::provide(Module::M_PHYSICS, physicsService_.get());
+  dioptre::Locator::provide(Module::M_FONT, fontService_.get());
 
   windowService_->initialize();
   graphicsService_->initialize();
@@ -88,6 +92,7 @@ int Application::initialize() {
   mouseService_->initialize();
   timeService_->initialize();
   physicsService_->initialize();
+  fontService_->initialize();
 
   auto windowSize = windowService_->getSize();
 
@@ -176,6 +181,7 @@ void Application::run() {
   mouseService_->destroy();
   timeService_->destroy();
   physicsService_->destroy();
+  fontService_->destroy();
 
   isRunning_ = false;
 }

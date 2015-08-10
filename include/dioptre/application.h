@@ -14,6 +14,7 @@
 #include "mouse/mouse_interface.h"
 #include "time/time_interface.h"
 #include "physics/physics_interface.h"
+#include "font/font_interface.h"
 
 namespace dioptre {
 
@@ -30,7 +31,8 @@ public:
       dioptre::filesystem::FilesystemInterface* filesystemService,
       dioptre::mouse::MouseInterface* mouseService,
       dioptre::time::TimeInterface* timeService,
-      dioptre::physics::PhysicsInterface* physicsService
+      dioptre::physics::PhysicsInterface* physicsService,
+      dioptre::font::FontInterface* fontService
   );
 
   ~Application();
@@ -84,6 +86,7 @@ private:
   std::unique_ptr<dioptre::mouse::MouseInterface> mouseService_;
   std::unique_ptr<dioptre::time::TimeInterface> timeService_;
   std::unique_ptr<dioptre::physics::PhysicsInterface> physicsService_;
+  std::unique_ptr<dioptre::font::FontInterface> fontService_;
 
   std::vector<dioptre::Object*> objects_;
 

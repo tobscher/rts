@@ -3,6 +3,9 @@
 
 #include "dioptre/font/font_interface.h"
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 namespace dioptre {
 namespace font {
 namespace freetype {
@@ -12,8 +15,11 @@ public:
   virtual ~Font() {}
 
   // Module
-  int initialize() { return 0; }
-  void destroy() { }
+  int initialize();
+  void destroy();
+
+private:
+  FT_Library ft;
 }; // Font
 
 } // freetype
