@@ -119,6 +119,11 @@ SET(PHYSFS_BUILD_TEST OFF CACHE BOOL "" FORCE)
 ADD_SUBDIRECTORY(thirdparty/physfs)
 INCLUDE_DIRECTORIES(thirdparty/physfs)
 
+# freetype2
+OPTION(PHYSFS_BUILD_DIST OFF)
+ADD_SUBDIRECTORY(thirdparty/freetype2)
+INCLUDE_DIRECTORIES(thirdparty/freetype2/include)
+
 #
 # Configure Files
 #
