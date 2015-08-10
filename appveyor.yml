@@ -19,6 +19,5 @@ install:
 
 before_build:
   - echo Running cmake...
-  - mkdir build
   - cd build
-  - cmake -G "Visual Studio 12 Win64" -D RTS_EDITOR_POST_BUILD=Off .
+  - cmake -G "Visual Studio 12 Win64" -D RTS_EDITOR_POST_BUILD=Off ..
