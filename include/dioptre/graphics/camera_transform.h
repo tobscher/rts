@@ -14,7 +14,7 @@ public:
 
   glm::mat4 getMatrixWorldInverse();
 
-  void setMatrix(glm::mat4 matrix);
+  void setMatrix(glm::mat4 &matrix);
 
 protected:
   void updateMatrix();

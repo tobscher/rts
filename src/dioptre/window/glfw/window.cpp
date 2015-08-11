@@ -33,6 +33,8 @@ int Window::initialize() {
   glfwWindowHint(GLFW_REFRESH_RATE, glfwVideoMode_->refreshRate);
   glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, 1);
 
+  logger_->info("Creating window of size: ") << glfwVideoMode_->width << "x" << glfwVideoMode_->height;
+
   // Open a window and create its OpenGL context
   /* glfwWindow_ = glfwCreateWindow(glfwVideoMode_->width, glfwVideoMode_->height, "RTS", nullptr, nullptr); */
   glfwWindow_ = glfwCreateWindow(glfwVideoMode_->width, glfwVideoMode_->height, "RTS", glfwMonitor_, nullptr);

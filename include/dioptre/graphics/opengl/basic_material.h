@@ -18,7 +18,7 @@ public:
   void update();
   void destroy();
 
-  void setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp);
+  void setMVP(glm::mat4 &m, glm::mat4 &v, glm::mat4 &mvp);
 
 protected:
   GLuint programId_;

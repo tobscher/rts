@@ -28,7 +28,7 @@ glm::mat4 CameraTransform::getMatrixWorldInverse() {
   return matrixWorldInverse_;
 }
 
-void CameraTransform::setMatrix(glm::mat4 matrix) {
+void CameraTransform::setMatrix(glm::mat4 &matrix) {
   matrix_ = matrix;
   matrixWorldInverse_ = glm::inverse(matrix);
 }

@@ -65,7 +65,7 @@ void MapMaterial::update() {
   check_gl_error();
 }
 
-void MapMaterial::setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) {
+void MapMaterial::setMVP(glm::mat4 &m, glm::mat4 &v, glm::mat4 &mvp) {
   if (matrixLocation_ == -1) {
     matrixLocation_ = glGetUniformLocation(programId_, "M");
   }

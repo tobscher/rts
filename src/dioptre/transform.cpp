@@ -77,7 +77,7 @@ void Transform::setUp(glm::vec3 up) {
   up_ = up;
 }
 
-void Transform::setMatrix(glm::mat4 matrix) {
+void Transform::setMatrix(glm::mat4 &matrix) {
   matrix_ = matrix;
 }
 

@@ -36,7 +36,7 @@ public:
   void lookAt(glm::float32 x, glm::float32 y, glm::float32 z);
 
   // Matrix
-  virtual void setMatrix(glm::mat4 matrix);
+  virtual void setMatrix(glm::mat4 &matrix);
   glm::mat4 getMatrix();
 
 protected:

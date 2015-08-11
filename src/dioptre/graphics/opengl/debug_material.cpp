@@ -41,7 +41,7 @@ void DebugMaterial::update() {
   check_gl_error();
 }
 
-void DebugMaterial::setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) {
+void DebugMaterial::setMVP(glm::mat4 &m, glm::mat4 &v, glm::mat4 &mvp) {
   if (matrixViewProjectionLocation_ == -1) {
     matrixViewProjectionLocation_ = glGetUniformLocation(programId_, "MVP");
   }

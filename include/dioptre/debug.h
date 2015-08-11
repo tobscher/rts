@@ -28,7 +28,7 @@ inline void debug(const std::map<Key, T> m) {
   std::cout << "]" << std::endl;
 }
 
-inline void debug(glm::mat4x4 m) {
+inline void debug(glm::mat4x4 &m) {
   for (unsigned i = 0; i < 4; i++) {
     std::cout << "[" << m[0][i] << " " << m[1][i] << " " << m[2][i] << " " << m[3][i] << "]" << std::endl;
   }
