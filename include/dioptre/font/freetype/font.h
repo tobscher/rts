@@ -18,8 +18,10 @@ public:
   int initialize();
   void destroy();
 
+  FT_Library getLibrary();
+
 private:
-  FT_Library ft;
+  FT_Library library_;
 }; // Font
 
 } // freetype

@@ -13,6 +13,7 @@ class Geometry {
 public:
   Geometry();
   virtual ~Geometry() {}
+  std::vector<glm::vec4> getCombinedData();
   std::vector<glm::vec3> getData();
   std::vector<glm::vec2> getUVData();
   std::vector<glm::vec3> getNormalData();
@@ -20,10 +21,12 @@ public:
   bool isInitialized();
   void setIsInitialized(bool value);
 
+  void addCombined(glm::vec4 combined);
   void addVertex(glm::vec3 vertex);
   void addUV(glm::vec2 uv);
   void addNormal(glm::vec3 normal);
 
+  void clearCombined();
   void clearVertices();
   void clearUVs();
   void clearNormals();
@@ -40,6 +43,7 @@ protected:
 
   bool isDirty_;
 
+  std::vector<glm::vec4> combined_;
   std::vector<glm::vec3> vertices_;
   std::vector<glm::vec2> uvs_;
   std::vector<glm::vec3> normals_;

@@ -8,11 +8,31 @@ namespace opengl {
 
 BufferManager::BufferManager(dioptre::graphics::Geometry* geometry) :
   geometry_(geometry),
+  combinedBufferInitialized_(false),
   vertexBufferInitialized_(false),
   uVBufferInitialized_(false),
   normalBufferInitialized_(false)
 {
   logger_ = spdlog::get("dioptre");
+}
+
+void BufferManager::initializeCombinedBuffer() {
+  if (combinedBufferInitialized_) return;
+  auto bufferData = geometry_->getCombinedData();
+
+  if (bufferData.size() == 0) return;
+
+  // Initialize geometry
+  glGenBuffers(1, &combinedBuffer_);
+  glBindBuffer(GL_ARRAY_BUFFER, combinedBuffer_);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * bufferData.size(), &bufferData[0], GL_DYNAMIC_DRAW);
+
+  logger_->debug("Combined Buffer: ") << combinedBuffer_;
+
+  // check OpenGL error
+  check_gl_error();
+
+  combinedBufferInitialized_ = true;
 }
 
 void BufferManager::initializeVertexBuffer() {
@@ -68,6 +88,34 @@ void BufferManager::initializeNormalBuffer() {
   check_gl_error();
 
   normalBufferInitialized_ = true;
+}
+
+void BufferManager::setCombinedBuffer() {
+  auto data = geometry_->getCombinedData();
+
+  if (data.size() == 0) {
+    return;
+  }
+
+  if (!combinedBufferInitialized_) {
+    initializeCombinedBuffer();
+  } else if (geometry_->getIsDirty()) {
+    glBindBuffer(GL_ARRAY_BUFFER, combinedBuffer_);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * data.size(), &data[0], GL_DYNAMIC_DRAW);
+  }
+
+  // 1st attribute buffer : vertices
+  glEnableVertexAttribArray(0);
+  glBindBuffer(GL_ARRAY_BUFFER, combinedBuffer_);
+  glVertexAttribPointer(
+     0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+     4,                  // size
+     GL_FLOAT,           // type
+     GL_FALSE,           // normalized?
+     0,                  // stride
+     (void*)0            // array buffer offset
+  );
+  check_gl_error();
 }
 
 void BufferManager::setVertexBuffer() {
@@ -133,6 +181,11 @@ void BufferManager::setNormalBuffer() {
   );
 }
 
+void BufferManager::disableCombinedBuffer() {
+  if (!combinedBufferInitialized_) return;
+  glDisableVertexAttribArray(0);
+}
+
 void BufferManager::disableVertexBuffer() {
   if (!vertexBufferInitialized_) return;
   glDisableVertexAttribArray(0);
@@ -146,6 +199,11 @@ void BufferManager::disableUVBuffer() {
 void BufferManager::disableNormalBuffer() {
   if (!normalBufferInitialized_) return;
   glDisableVertexAttribArray(2);
+}
+
+void BufferManager::destroyCombinedBuffer() {
+  if (!combinedBufferInitialized_) return;
+  glDeleteBuffers(1, &combinedBuffer_);
 }
 
 void BufferManager::destroyVertexBuffer() {

@@ -15,6 +15,7 @@
 #include "rts/command_centre.h"
 #include "rts/unit.h"
 #include "rts/human_player.h"
+#include "rts/text.h"
 
 int main(int argc, char *argv[]) {
   auto window = new dioptre::window::glfw::Window();
@@ -41,10 +42,12 @@ int main(int argc, char *argv[]) {
   rts::Map* map(rts::Map::spawn());
   rts::CommandCentre* commandCentre(rts::CommandCentre::spawn(map));
   rts::HumanPlayer* humanPlayer(rts::HumanPlayer::spawn());
+  rts::Text* text(rts::Text::spawn());
 
   application.addObject(map);
   application.addObject(commandCentre);
   application.addObject(humanPlayer);
+  application.addObject(text);
 
   // Add some units
   for (int i = 0; i < 5; i++) {

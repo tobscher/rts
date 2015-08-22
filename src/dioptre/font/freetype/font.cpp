@@ -5,7 +5,7 @@ namespace font {
 namespace freetype {
 
 int Font::initialize() {
-  if (FT_Init_FreeType(&ft)) {
+  if (FT_Init_FreeType(&library_)) {
     logger_->error("Could not init freetype library");
     return -1;
   }
@@ -13,8 +13,12 @@ int Font::initialize() {
   return 0;
 }
 
+FT_Library Font::getLibrary() {
+  return library_;
+}
+
 void Font::destroy() {
-  FT_Done_FreeType(ft);
+  FT_Done_FreeType(library_);
 }
 
 } // freetype

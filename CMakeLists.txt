@@ -116,13 +116,11 @@ ADD_SUBDIRECTORY(thirdparty/googletest)
 OPTION(PHYSFS_BUILD_SHARED FALSE)
 OPTION(PHYSFS_BUILD_DOCS OFF)
 SET(PHYSFS_BUILD_TEST OFF CACHE BOOL "" FORCE)
+OPTION(PHYSFS_BUILD_DIST OFF)
 ADD_SUBDIRECTORY(thirdparty/physfs)
 INCLUDE_DIRECTORIES(thirdparty/physfs)
 
-# freetype2
-OPTION(PHYSFS_BUILD_DIST OFF)
-ADD_SUBDIRECTORY(thirdparty/freetype2)
-INCLUDE_DIRECTORIES(thirdparty/freetype2/include)
+FIND_PACKAGE(freetype REQUIRED)
 
 #
 # Configure Files
@@ -150,6 +148,9 @@ FILE (GLOB_RECURSE shader_SRCS shaders/*.frag shaders/*.vert)
 
 # textures
 FILE (GLOB_RECURSE texture_SRCS textures/*.jpg textures/*.png textures/*.dds)
+
+# fonts
+FILE (GLOB_RECURSE font_SRCS fonts/*.ttf)
 
 #
 # Add Build Targets

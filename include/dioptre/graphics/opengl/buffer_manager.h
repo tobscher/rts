@@ -15,18 +15,22 @@ class BufferManager {
 public:
   BufferManager(dioptre::graphics::Geometry* geometry);
 
+  void initializeCombinedBuffer();
   void initializeVertexBuffer();
   void initializeUVBuffer();
   void initializeNormalBuffer();
 
+  void setCombinedBuffer();
   void setVertexBuffer();
   void setUVBuffer();
   void setNormalBuffer();
 
+  void disableCombinedBuffer();
   void disableVertexBuffer();
   void disableUVBuffer();
   void disableNormalBuffer();
 
+  void destroyCombinedBuffer();
   void destroyVertexBuffer();
   void destroyUVBuffer();
   void destroyNormalBuffer();
@@ -36,10 +40,12 @@ private:
 
   dioptre::graphics::Geometry* geometry_;
 
+  bool combinedBufferInitialized_;
   bool vertexBufferInitialized_;
   bool uVBufferInitialized_;
   bool normalBufferInitialized_;
 
+  GLuint combinedBuffer_;
   GLuint vertexBuffer_;
   GLuint uvBuffer_;
   GLuint normalBuffer_;

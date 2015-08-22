@@ -2,7 +2,8 @@
 #include "physfs.h"
 #include "dioptre/debug.h"
 
-#include <iostream>
+#include <exception>
+#include <stdexcept>
 
 namespace dioptre {
 namespace filesystem {
@@ -56,6 +57,11 @@ int Filesystem::read(std::string file, void* buffer, int size) {
 
   auto read = PHYSFS_read(fileHandle, buffer, 1, size);
   PHYSFS_close(fileHandle);
+
+  if (read == -1) {
+    std::string error(PHYSFS_getLastError());
+    throw std::runtime_error(error);
+  }
 
   return read;
 }

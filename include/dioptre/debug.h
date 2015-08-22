@@ -38,6 +38,10 @@ inline void debug(glm::vec3 v) {
   std::cout << "[" << "X:" << v.x << "; Y:" << v.y << "; Z:" << v.z << "]" << std::endl;
 }
 
+inline void debug(glm::vec4 v) {
+  std::cout << "[" << "X:" << v.x << "; Y:" << v.y << "; Z:" << v.z << "; W:" << v.w << "]" << std::endl;
+}
+
 template <typename T>
 inline void debug(const T x) {
   std::cout << x << std::endl;

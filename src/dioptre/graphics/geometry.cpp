@@ -9,6 +9,10 @@ Geometry::Geometry() :
   logger_ = spdlog::get("dioptre");
 }
 
+std::vector<glm::vec4> Geometry::getCombinedData() {
+  return combined_;
+}
+
 std::vector<glm::vec3> Geometry::getData() {
   return vertices_;
 }
@@ -19,6 +23,11 @@ std::vector<glm::vec2> Geometry::getUVData() {
 
 std::vector<glm::vec3> Geometry::getNormalData() {
   return normals_;
+}
+
+void Geometry::addCombined(glm::vec4 combined) {
+  combined_.push_back(combined);
+  isDirty_ = true;
 }
 
 void Geometry::addVertex(glm::vec3 vertex) {
@@ -33,6 +42,11 @@ void Geometry::addUV(glm::vec2 uv) {
 
 void Geometry::addNormal(glm::vec3 normal) {
   normals_.push_back(normal);
+  isDirty_ = true;
+}
+
+void Geometry::clearCombined() {
+  combined_.clear();
   isDirty_ = true;
 }
 

@@ -33,6 +33,13 @@ std::string Shader::readShaderContent(string file) {
   auto filesystem = dioptre::Locator::getInstance<dioptre::filesystem::FilesystemInterface>(dioptre::Module::M_FILESYSTEM);
   auto data = filesystem->readAll(file);
 
+  if (data.size() == 0) {
+    std::string error("Unable to load shader:");
+    error.append(file);
+
+    throw std::runtime_error(error);
+  }
+
   return data;
 }
 
