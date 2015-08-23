@@ -14,6 +14,8 @@ public:
   Atlas(dioptre::font::Face* face, int size);
   ~Atlas() {}
 
+  int getSize();
+
   virtual int initialize() = 0;
 
   unsigned int width_;  // width of texture

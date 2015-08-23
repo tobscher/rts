@@ -6,6 +6,8 @@
 #include "dioptre/graphics/opengl/shader_factory.h"
 #include "dioptre/graphics/opengl/error.h"
 
+#include "dioptre/locator.h"
+
 namespace dioptre {
 namespace graphics {
 namespace opengl {
@@ -13,6 +15,7 @@ namespace opengl {
 TextMaterial::TextMaterial(dioptre::graphics::opengl::Atlas* atlas) :
   atlas_(atlas),
   diffuseLocation_(-1),
+  windowSizeLocation_(-1),
   matrixViewProjectionLocation_(-1) {
 
 }
@@ -39,6 +42,14 @@ void TextMaterial::update() {
     diffuseLocation_ = glGetUniformLocation(programId_, "diffuse");
   }
   glUniform3fv(diffuseLocation_, 1, glm::value_ptr(color_));
+
+  if (windowSizeLocation_ == -1) {
+    windowSizeLocation_ = glGetUniformLocation(programId_, "windowSize");
+  }
+
+  auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
+  glm::vec2 size(window->getSize().width, window->getSize().height);
+  glUniform2fv(windowSizeLocation_, 1, glm::value_ptr(size));
 
   atlas_->updateGL(programId_);
 }

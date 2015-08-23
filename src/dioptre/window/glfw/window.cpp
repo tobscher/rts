@@ -69,7 +69,10 @@ GLFWwindow* Window::GetWindow() {
 }
 
 Size Window::getSize() {
-  return Size(glfwVideoMode_->width, glfwVideoMode_->height);
+  int width, height;
+  glfwGetWindowSize(glfwWindow_, &width, &height);
+
+  return Size(width, height);
 }
 
 } // glfw

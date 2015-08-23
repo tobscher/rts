@@ -26,6 +26,7 @@ protected:
   GLuint programId_;
 
   GLint diffuseLocation_;
+  GLint windowSizeLocation_;
   GLint matrixViewProjectionLocation_;
 }; // TextMaterial
 

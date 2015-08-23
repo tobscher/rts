@@ -1,6 +1,7 @@
 #include "dioptre/graphics/opengl/text_geometry.h"
 #include "dioptre/graphics/opengl.h"
 #include "dioptre/graphics/opengl/error.h"
+#include "dioptre/locator.h"
 #include "dioptre/debug.h"
 
 using dioptre::graphics::opengl::BufferManager;
@@ -22,31 +23,29 @@ void TextGeometry::initialize() {
     atlas_->initialize();
   }
 
-  // Use window service
-  float sx = 2.0 / 1280.0;
-  float sy = 2.0 / 800.0;
+  float x = position_.x;
+  float y = position_.y;
 
-  float x = position_.x * sx;
-  float y = position_.y * sy;
-
-  std::cout << "Render text at: " << x << "x" << y << std::endl;
+  auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
 
   const uint8_t *p;
   for (p = (const uint8_t *)text_.c_str(); *p; p++) {
 
     /* Calculate the vertex and texture coordinates */
-    float x2 = x + atlas_->c[*p].bl * sx;
-    float y2 = -y - atlas_->c[*p].bt * sy;
-    float w = atlas_->c[*p].bw * sx;
-    float h = atlas_->c[*p].bh * sy;
+    float x2 = x + atlas_->c[*p].bl;
+    float y2 = -y - atlas_->c[*p].bt;
+    float w = atlas_->c[*p].bw;
+    float h = atlas_->c[*p].bh;
 
     /* Advance the cursor to the start of the next character */
-    x += atlas_->c[*p].ax * sx;
-    y += atlas_->c[*p].ay * sy;
+    x += atlas_->c[*p].ax;
+    y += atlas_->c[*p].ay;
 
     /* Skip glyphs that have no pixels */
     if (!w || !h)
       continue;
+
+    y2 -= window->getSize().height - atlas_->getSize();
 
     addCombined(glm::vec4{x2,     -y2,     atlas_->c[*p].tx, atlas_->c[*p].ty});
     addCombined(glm::vec4{x2 + w, -y2,     atlas_->c[*p].tx + atlas_->c[*p].bw / atlas_->width_, atlas_->c[*p].ty});

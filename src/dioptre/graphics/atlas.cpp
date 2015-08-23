@@ -9,5 +9,9 @@ Atlas::Atlas(dioptre::font::Face* face, int size) :
 
 }
 
+int Atlas::getSize() {
+  return size_;
+}
+
 } // graphics
 } // dioptre

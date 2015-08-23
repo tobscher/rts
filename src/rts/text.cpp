@@ -14,7 +14,7 @@ Text* Text::spawn() {
   auto material = new dioptre::graphics::opengl::TextMaterial(atlas);
   material->setColor(dioptre::graphics::color(1.0f, 1.0f, 1.0f));
 
-  auto geometry = new dioptre::graphics::opengl::TextGeometry("This is text.", glm::vec2(300,300), atlas);
+  auto geometry = new dioptre::graphics::opengl::TextGeometry("This is text.", glm::vec2(10,10), atlas);
 
   Text* text = new Text();
 
