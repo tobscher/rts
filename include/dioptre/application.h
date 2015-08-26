@@ -73,6 +73,16 @@ public:
     return nullptr;
   }
 
+  Object* getObjectByName(std::string name) {
+    for (auto object : objects_) {
+      if (object->getName() == name) {
+        return object;
+      }
+    }
+
+    return nullptr;
+  }
+
   static Application* getInstance();
 
 private:
