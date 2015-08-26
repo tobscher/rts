@@ -28,8 +28,6 @@ Face::Face(std::string fontFile) :
   }
 
   glyphSlot_ = new GlyphSlot(face_->glyph);
-
-  delete buffer;
 }
 
 int Face::loadChar(int i) {
