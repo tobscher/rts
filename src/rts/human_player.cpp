@@ -52,6 +52,8 @@ void HumanPlayer::select(dioptre::Object* object) {
 
   // TODO(Tobscher) Extract this
   auto application = dioptre::Application::getInstance();
+  if (application == nullptr) return;
+
   auto text = application->getObject<rts::Text>();
   auto textComponent = text->getComponent<dioptre::graphics::Component>();
   auto mesh = textComponent->getMesh();
