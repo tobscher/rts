@@ -19,11 +19,11 @@ public:
 
   void setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp);
   void setProjection(glm::mat4 p);
-  /* void projectWith(Projector* projector); */
 
 protected:
   GLuint programId_;
 
+  GLint diffuseLocation_;
   GLint lightPositionLocation_;
   GLint matrixLocation_;
   GLint viewLocation_;

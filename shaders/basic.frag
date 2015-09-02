@@ -15,9 +15,6 @@ out vec3 color;
   uniform sampler2D textureSampler;
 #endif
 
-// Projection
-in vec4 ProjTexCoord;
-
 uniform mat4 MV;
 uniform vec3 LightPosition_worldspace;
 

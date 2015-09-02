@@ -157,6 +157,9 @@ void Graphics::renderScene(Scene* scene, Camera* camera, float alpha) {
 
     auto geometry = mesh->getGeometry();
     geometry->update();
+
+    // Not dirty anymore
+    geometry->setIsDirty(false);
   }
 }
 

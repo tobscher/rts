@@ -14,9 +14,10 @@ namespace rts {
 
 Map* Map::spawn() {
   auto material = new dioptre::graphics::opengl::MapMaterial();
-  dioptre::graphics::opengl::Texture* texture = dioptre::graphics::opengl::TextureFactory::getTexture("ground.dds");
-  texture->setRepeat(glm::vec2(15,15));
-  material->setTexture(texture);
+  material->setColor(dioptre::graphics::color(0.51, 0.65, 0.22));
+  /* dioptre::graphics::opengl::Texture* texture = dioptre::graphics::opengl::TextureFactory::getTexture("ground.dds"); */
+  /* texture->setRepeat(glm::vec2(15,15)); */
+  /* material->setTexture(texture); */
 
   auto width = 128.0 * cellSize;
   auto height = 128.0 * cellSize;

@@ -5,10 +5,15 @@ in vec3 Normal_cameraspace;
 in vec3 EyeDirection_cameraspace;
 in vec3 LightDirection_cameraspace;
 
+#ifdef USE_COLOR
+  uniform vec3 diffuse;
+#endif
 out vec3 color;
 
-in vec2 UV;
-uniform sampler2D textureSampler;
+#ifdef USE_TEXTURE
+  in vec2 UV;
+  uniform sampler2D textureSampler;
+#endif
 
 // Projection
 in vec4 ProjTexCoord;
@@ -19,8 +24,13 @@ uniform vec3 LightPosition_worldspace;
 uniform sampler2D ProjectorTex;
 
 void main() {
+#ifdef USE_COLOR
+  vec3 MaterialDiffuseColor = vec3(diffuse);
+#endif
 
+#ifdef USE_TEXTURE
   vec3 MaterialDiffuseColor = vec3(texture(textureSampler, UV).rgb);
+#endif
 
   vec3 LightColor = vec3(1,1,1);
   float LightPower = 8000.0f;

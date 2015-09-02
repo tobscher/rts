@@ -11,10 +11,14 @@ class MapMaterial : public Material {
 public:
   virtual ~MapMaterial() {}
 
+  void setColor(color color);
+  color getColor();
+
   void setTexture(dioptre::graphics::Texture* texture);
   dioptre::graphics::Texture* getTexture();
 
 protected:
+  color color_;
   dioptre::graphics::Texture* texture_;
 }; // MapMaterial
 

@@ -14,16 +14,20 @@ namespace opengl {
 
 class TextGeometry : public dioptre::graphics::TextGeometry {
 public:
-  TextGeometry(std::string text, glm::vec2 position, dioptre::graphics::opengl::Atlas* atlas);
+  TextGeometry(std::string text, dioptre::graphics::opengl::Atlas* atlas);
 
   void initialize();
   void update();
   void destroy();
 
+  void setText(std::string text);
+
+
 private:
   std::unique_ptr<dioptre::graphics::opengl::BufferManager> bufferManager_;
-
   dioptre::graphics::opengl::Atlas* atlas_;
+
+  void calculate();
 }; // TextGeometry
 
 } // opengl

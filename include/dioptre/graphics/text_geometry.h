@@ -3,17 +3,20 @@
 
 #include "geometry.h"
 
+#include <string>
+
 namespace dioptre {
 namespace graphics {
 
 class TextGeometry : public Geometry {
 public:
-  TextGeometry(std::string text, glm::vec2 position);
+  TextGeometry(std::string text);
   virtual ~TextGeometry() {}
+
+  virtual void setText(std::string text);
 
 protected:
   std::string text_;
-  glm::vec2 position_;
 
 }; // TextGeometry
 

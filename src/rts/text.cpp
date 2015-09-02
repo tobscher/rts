@@ -8,19 +8,20 @@
 namespace rts {
 
 Text* Text::spawn() {
-  auto fontFace = new dioptre::font::freetype::Face("FreeSans.ttf");
-  auto atlas = new dioptre::graphics::opengl::Atlas(fontFace, 48);
+  auto fontFace = new dioptre::font::freetype::Face("Oswald-Regular.ttf");
+  auto atlas = new dioptre::graphics::opengl::Atlas(fontFace, 36);
 
   auto material = new dioptre::graphics::opengl::TextMaterial(atlas);
   material->setColor(dioptre::graphics::color(1.0f, 1.0f, 1.0f));
 
-  auto geometry = new dioptre::graphics::opengl::TextGeometry("This is text.", glm::vec2(10,10), atlas);
+  auto geometry = new dioptre::graphics::opengl::TextGeometry("", atlas);
 
   Text* text = new Text();
+  text->getTransform()->setPosition(520,50,0);
 
   // Graphics Component
   auto mesh = new dioptre::graphics::Mesh(geometry, material);
-  auto visual = new dioptre::graphics::Component(mesh);
+  auto visual = new dioptre::graphics::Component(mesh, 1);
   text->addComponent(visual);
 
   return text;

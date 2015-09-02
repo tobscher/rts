@@ -1,7 +1,10 @@
+#include "dioptre/application.h"
 #include "dioptre/locator.h"
 #include "dioptre/graphics/component.h"
+#include "dioptre/graphics/text_geometry.h"
 
 #include "rts/human_player.h"
+#include "rts/text.h"
 #include "rts/components/edge_scroll_component.h"
 
 #include <algorithm>
@@ -46,6 +49,14 @@ void HumanPlayer::select(dioptre::Object* object) {
   }
 
   selectedObjects_.push_back(object);
+
+  // TODO(Tobscher) Extract this
+  auto application = dioptre::Application::getInstance();
+  auto text = application->getObject<rts::Text>();
+  auto textComponent = text->getComponent<dioptre::graphics::Component>();
+  auto mesh = textComponent->getMesh();
+  auto geometry = (dioptre::graphics::TextGeometry*)mesh->getGeometry();
+  geometry->setText(object->getName());
 }
 
 void HumanPlayer::unselect(dioptre::Object* object) {

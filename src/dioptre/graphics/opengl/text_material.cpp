@@ -55,10 +55,10 @@ void TextMaterial::update() {
 }
 
 void TextMaterial::setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) {
-  /* if (matrixViewProjectionLocation_ == -1) { */
-  /*   matrixViewProjectionLocation_ = glGetUniformLocation(programId_, "MVP"); */
-  /* } */
-  /* glUniformMatrix4fv(matrixViewProjectionLocation_, 1, GL_FALSE, &mvp[0][0]); */
+  if (matrixViewProjectionLocation_ == -1) {
+    matrixViewProjectionLocation_ = glGetUniformLocation(programId_, "MVP");
+  }
+  glUniformMatrix4fv(matrixViewProjectionLocation_, 1, GL_FALSE, &mvp[0][0]);
 }
 
 void TextMaterial::destroy() {

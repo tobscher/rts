@@ -15,6 +15,7 @@ namespace opengl {
 
 MapMaterial::MapMaterial() :
   dioptre::graphics::MapMaterial(),
+  diffuseLocation_(-1),
   lightPositionLocation_(-1),
   matrixLocation_(-1),
   viewLocation_(-1),
@@ -25,6 +26,12 @@ MapMaterial::MapMaterial() :
 
 void MapMaterial::initialize() {
   ShaderFeatures features(FeatureNone);
+
+  if (texture_ == nullptr) {
+    features = features | FeatureColor;
+  } else {
+    features = features | FeatureTexture;
+  }
 
   // Use material
   dioptre::graphics::opengl::Shader* shader = dioptre::graphics::opengl::ShaderFactory::getShader(features, "map.vert", "map.frag");
@@ -48,7 +55,12 @@ void MapMaterial::initialize() {
 void MapMaterial::update() {
   glUseProgram(programId_);
 
-  if (texture_ != nullptr) {
+  if (texture_ == nullptr) {
+    if (diffuseLocation_ == -1) {
+      diffuseLocation_ = glGetUniformLocation(programId_, "diffuse");
+    }
+    glUniform3fv(diffuseLocation_, 1, glm::value_ptr(color_));
+  } else {
     glTexture_->updateGL(programId_, "textureSampler", true);
   }
 

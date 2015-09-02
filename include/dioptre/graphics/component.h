@@ -11,7 +11,7 @@ namespace graphics {
 
 class Component : public dioptre::ComponentInterface {
 public:
-  Component(Mesh* mesh);
+  Component(Mesh* mesh, int layerIndex = 0);
   ~Component();
 
   void update();

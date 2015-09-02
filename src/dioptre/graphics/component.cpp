@@ -4,7 +4,7 @@
 namespace dioptre {
 namespace graphics {
 
-Component::Component(Mesh* mesh) :
+Component::Component(Mesh* mesh, int layerIndex) :
   ComponentInterface("dioptre.graphics.component"),
   mesh_(mesh),
   projector_(nullptr)
@@ -13,7 +13,7 @@ Component::Component(Mesh* mesh) :
 
   // TODO(tobscher) on initialize
   auto graphicsService = dioptre::Locator::getInstance<GraphicsInterface>(dioptre::Module::M_GRAPHICS);
-  auto layer = graphicsService->getLayer(0);
+  auto layer = graphicsService->getLayer(layerIndex);
   auto scene = layer->getScene();
   scene->add(mesh);
 }
@@ -34,9 +34,6 @@ Projector* Component::getProjector() {
 }
 
 void Component::setProjector(Projector* projector) {
-  auto graphicsService = dioptre::Locator::getInstance<GraphicsInterface>(dioptre::Module::M_GRAPHICS);
-  graphicsService->setProjector(projector);
-
   projector_ = projector;
 }
 

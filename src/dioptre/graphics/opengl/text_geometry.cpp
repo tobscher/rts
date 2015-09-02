@@ -11,8 +11,8 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
-TextGeometry::TextGeometry(std::string text, glm::vec2 position, Atlas* atlas) :
-  dioptre::graphics::TextGeometry(text, position),
+TextGeometry::TextGeometry(std::string text, Atlas* atlas) :
+  dioptre::graphics::TextGeometry(text),
   atlas_(atlas)
 {
   bufferManager_ = std::unique_ptr<BufferManager>(new BufferManager(this));
@@ -23,8 +23,14 @@ void TextGeometry::initialize() {
     atlas_->initialize();
   }
 
-  float x = position_.x;
-  float y = position_.y;
+  calculate();
+
+  bufferManager_->initializeCombinedBuffer();
+}
+
+void TextGeometry::calculate() {
+  float x = 0.0;
+  float y = 0.0;
 
   auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
 
@@ -45,8 +51,6 @@ void TextGeometry::initialize() {
     if (!w || !h)
       continue;
 
-    y2 -= window->getSize().height - atlas_->getSize();
-
     addCombined(glm::vec4{x2,     -y2,     atlas_->c[*p].tx, atlas_->c[*p].ty});
     addCombined(glm::vec4{x2 + w, -y2,     atlas_->c[*p].tx + atlas_->c[*p].bw / atlas_->width_, atlas_->c[*p].ty});
     addCombined(glm::vec4{x2,     -y2 - h, atlas_->c[*p].tx, atlas_->c[*p].ty + atlas_->c[*p].bh / atlas_->height_});
@@ -54,8 +58,6 @@ void TextGeometry::initialize() {
     addCombined(glm::vec4{x2,     -y2 - h, atlas_->c[*p].tx, atlas_->c[*p].ty + atlas_->c[*p].bh / atlas_->height_});
     addCombined(glm::vec4{x2 + w, -y2 - h, atlas_->c[*p].tx + atlas_->c[*p].bw / atlas_->width_, atlas_->c[*p].ty + atlas_->c[*p].bh / atlas_->height_});
   }
-
-  bufferManager_->initializeCombinedBuffer();
 }
 
 void TextGeometry::update() {
@@ -68,6 +70,13 @@ void TextGeometry::update() {
 
 void TextGeometry::destroy() {
   bufferManager_->destroyVertexBuffer();
+}
+
+void TextGeometry::setText(std::string text) {
+  dioptre::graphics::TextGeometry::setText(text);
+
+  clearCombined();
+  calculate();
 }
 
 } // opengl

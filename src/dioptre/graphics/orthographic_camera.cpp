@@ -7,7 +7,13 @@
 namespace dioptre {
 namespace graphics {
 
-OrthographicCamera::OrthographicCamera(glm::float32 left, glm::float32 right, glm::float32 bottom, glm::float32 top, glm::float32 near, glm::float32 far) :
+OrthographicCamera::OrthographicCamera(
+    glm::float32 left,
+    glm::float32 right,
+    glm::float32 bottom,
+    glm::float32 top,
+    glm::float32 near,
+    glm::float32 far) :
   left_(left),
   right_(right),
   bottom_(bottom),
@@ -19,7 +25,12 @@ OrthographicCamera::OrthographicCamera(glm::float32 left, glm::float32 right, gl
 }
 
 void OrthographicCamera::updateProjectionMatrix() {
-  projectionMatrix_ = glm::ortho(left_, right_, bottom_, top_, near_, far_);
+  auto dx = (right_ - left_) / 2;
+  auto dy = (top_ - bottom_) / 2;
+  auto cx = (right_ + left_) / 2;
+  auto cy = (top_ + bottom_) / 2;
+
+  projectionMatrix_ = glm::ortho(cx - dx, cx + dx, cy + dy, cy - dy, near_, far_);
 }
 
 } // graphics

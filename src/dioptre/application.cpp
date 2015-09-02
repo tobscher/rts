@@ -4,6 +4,7 @@
 #include "dioptre/application.h"
 #include "dioptre/locator.h"
 #include "dioptre/graphics/perspective_camera.h"
+#include "dioptre/graphics/orthographic_camera.h"
 
 #include "keyboard/handlers/exit_game.h"
 
@@ -95,11 +96,12 @@ int Application::initialize() {
 
   auto windowSize = windowService_->getSize();
 
+  // Add main layer
   auto camera = new dioptre::graphics::PerspectiveCamera(
       28.0, // field of view
       windowSize.width / windowSize.height, // aspect ratio
-      1, // near
-      1000 // far
+      1.0, // near
+      1000.0 // far
   );
   auto transform = camera->getTransform();
 
@@ -109,6 +111,12 @@ int Application::initialize() {
   auto scene = new dioptre::graphics::Scene();
   auto mainLayer = new dioptre::graphics::Layer(scene, camera);
   graphicsService_->addLayer(mainLayer);
+
+  // Add HUD layer
+  auto hudCamera = new dioptre::graphics::OrthographicCamera(0.0f, (float)windowSize.width, (float)windowSize.height, 0.0f, -1000.0, 1000.0);
+  auto hudScene = new dioptre::graphics::Scene();
+  auto hudLayer = new dioptre::graphics::Layer(hudScene, hudCamera);
+  graphicsService_->addLayer(hudLayer);
 
   for (auto object : objects_) {
     object->initialize();
