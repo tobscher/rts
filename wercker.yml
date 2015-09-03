@@ -1,4 +1,4 @@
-box: tobscher/rts:0.0.6
+box: tobscher/rts:0.0.7
 build:
   steps:
     - script:
