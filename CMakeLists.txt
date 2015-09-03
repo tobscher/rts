@@ -120,7 +120,7 @@ OPTION(PHYSFS_BUILD_DIST OFF)
 ADD_SUBDIRECTORY(thirdparty/physfs)
 INCLUDE_DIRECTORIES(thirdparty/physfs)
 
-FIND_PACKAGE(freetype REQUIRED)
+FIND_PACKAGE(Freetype REQUIRED)
 
 #
 # Configure Files

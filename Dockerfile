@@ -30,4 +30,4 @@ ENV CMAKE_PREFIX_PATH /opt/qt54
 RUN apt-get install -y doxygen
 
 RUN apt-get install -y git
-RUN apt-get install -y freetype*
+RUN apt-get install -y libfreetype6 libfreetype6-dev
