@@ -9,7 +9,7 @@ SET (
   BulletCollision
   LinearMath
   physfs-static
-  Freetype
+  freetype
 )
 
 ADD_LIBRARY(
