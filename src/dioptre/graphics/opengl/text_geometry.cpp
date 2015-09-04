@@ -32,8 +32,6 @@ void TextGeometry::calculate() {
   float x = 0.0;
   float y = 0.0;
 
-  auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
-
   const uint8_t *p;
   for (p = (const uint8_t *)text_.c_str(); *p; p++) {
 

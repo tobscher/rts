@@ -12,8 +12,8 @@ namespace opengl {
 Atlas::Atlas(dioptre::font::Face* face, int size) :
   dioptre::graphics::Atlas(face, size),
   isInitialized_(false),
-  textureLocation_(-1),
-  index_(dioptre::graphics::opengl::Texture::getNextIndex())
+  index_(dioptre::graphics::opengl::Texture::getNextIndex()),
+  textureLocation_(-1)
 {
   // Move this to initialize method
   face_->setSize(0, size);
@@ -50,7 +50,6 @@ Atlas::Atlas(dioptre::font::Face* face, int size) :
 
   width_ = std::max(width_, roww);
   height_ += rowh;
-
 }
 
 int Atlas::initialize() {
