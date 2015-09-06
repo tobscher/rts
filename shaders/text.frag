@@ -9,5 +9,7 @@ uniform vec3 diffuse;
 out vec4 color;
 
 void main() {
-  color = vec4(1, 1, 1, texture(tex, texpos).r) * vec4(diffuse, 1.0);
+  /* color = texture(tex, texpos) * vec4(1.0,0.0,0.0,1.0); */
+  color = texture(tex, texpos);
+  /* color = vec4(1.0,0.0,0.0,1.0); */
 }

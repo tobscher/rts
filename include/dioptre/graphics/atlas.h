@@ -39,8 +39,12 @@ public:
   unsigned char* getImage();
   unsigned char* getDescription();
 
-  std::string getFamily();
+  int getWidth();
   int getHeight();
+  int getComponents();
+
+  std::string getFamily();
+  int getFontHeight();
   std::string getStyle();
   int getSize();
   Char getChar(char c);
@@ -52,8 +56,12 @@ protected:
   unsigned char* image_;
   unsigned char* description_;
 
-  std::string family_;
+  int width_;
   int height_;
+  int components_;
+
+  std::string family_;
+  int fontHeight_;
   std::string style_;
   int size_;
   std::map<char, Char> charMap_;

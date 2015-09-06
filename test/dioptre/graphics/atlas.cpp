@@ -21,8 +21,11 @@ TEST(Atlas, Description) {
   EXPECT_EQ(atlas.initialize(), 0);
   EXPECT_TRUE(atlas.getImage() != nullptr);
   EXPECT_TRUE(atlas.getDescription() != nullptr);
+  EXPECT_EQ(atlas.getWidth(), 256);
+  EXPECT_EQ(atlas.getHeight(), 128);
+  EXPECT_EQ(atlas.getComponents(), 4);
   EXPECT_EQ(atlas.getFamily(), "Open Sans");
-  EXPECT_EQ(atlas.getHeight(), 26);
+  EXPECT_EQ(atlas.getFontHeight(), 26);
   EXPECT_EQ(atlas.getStyle(), "Regular");
   EXPECT_EQ(atlas.getSize(), 14);
 

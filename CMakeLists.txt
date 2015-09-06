@@ -155,7 +155,7 @@ FILE (GLOB_RECURSE shader_SRCS shaders/*.frag shaders/*.vert)
 FILE (GLOB_RECURSE texture_SRCS textures/*.jpg textures/*.png textures/*.dds)
 
 # fonts
-FILE (GLOB_RECURSE font_SRCS fonts/*.ttf)
+FILE (GLOB_RECURSE font_SRCS fonts/*.PNG fonts/*.xml)
 
 #
 # Add Build Targets

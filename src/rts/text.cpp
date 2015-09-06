@@ -12,7 +12,7 @@ Text* Text::spawn() {
   auto material = new dioptre::graphics::opengl::TextMaterial(atlas);
   material->setColor(dioptre::graphics::color(1.0f, 1.0f, 1.0f));
 
-  auto geometry = new dioptre::graphics::opengl::TextGeometry("", atlas);
+  auto geometry = new dioptre::graphics::opengl::TextGeometry("A B C D E F G", atlas);
 
   Text* text = new Text();
   text->getTransform()->setPosition(520,50,0);

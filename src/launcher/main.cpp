@@ -7,7 +7,6 @@
 #include "dioptre/mouse/glfw/mouse.h"
 #include "dioptre/time/glfw/time.h"
 #include "dioptre/physics/bullet/physics.h"
-#include "dioptre/font/freetype/font.h"
 
 #include "dioptre/graphics/component.h"
 
@@ -25,7 +24,6 @@ int main(int argc, char *argv[]) {
   auto mouse = new dioptre::mouse::glfw::Mouse();
   auto time = new dioptre::time::glfw::Time();
   auto physics = new dioptre::physics::bullet::Physics();
-  auto font = new dioptre::font::freetype::Font();
 
   dioptre::Application application(argc, argv,
       window,
@@ -34,8 +32,7 @@ int main(int argc, char *argv[]) {
       filesystem,
       mouse,
       time,
-      physics,
-      font
+      physics
   );
   application.initialize();
 

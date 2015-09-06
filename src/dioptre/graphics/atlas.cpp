@@ -2,6 +2,7 @@
 #include "dioptre/locator.h"
 
 #include "pugixml.hpp"
+#include "SOIL2.h"
 
 namespace dioptre {
 namespace graphics {
@@ -11,8 +12,11 @@ Atlas::Atlas(std::string file, std::string descriptionFile) :
   descriptionFile_(descriptionFile),
   image_(nullptr),
   description_(nullptr),
-  family_(""),
+  width_(-1),
   height_(-1),
+  components_(-1),
+  family_(""),
+  fontHeight_(-1),
   style_(""),
   size_(-1)
 {
@@ -29,8 +33,21 @@ int Atlas::initialize() {
 void Atlas::loadImage() {
   auto filesystem = dioptre::Locator::getInstance<dioptre::filesystem::FilesystemInterface>(dioptre::Module::M_FILESYSTEM);
   auto size = filesystem->getSize(file_);
-  image_ = new unsigned char[size];
-  filesystem->read(file_, image_, size);
+  unsigned char* buffer = new unsigned char[size];
+  filesystem->read(file_, buffer, size);
+
+  // Load texture from image path
+  image_ = SOIL_load_image_from_memory(buffer, size, &width_, &height_, &components_, SOIL_LOAD_RGBA);
+
+  if (image_ == nullptr) {
+    std::stringstream exception;
+    exception << "Error: "
+              << SOIL_last_result();
+
+    throw std::runtime_error(exception.str());
+  }
+
+  /* logger_->info("Atlas loaded: ") << file_ << "; Size: " << width_ << "x" << height_; */
 }
 
 void Atlas::loadDescription() {
@@ -45,7 +62,7 @@ void Atlas::loadDescription() {
   pugi::xml_node font = doc.child("Font");
 
   family_ = font.attribute("family").value();
-  height_ = atoi(font.attribute("height").value());
+  fontHeight_ = atoi(font.attribute("height").value());
   style_ = font.attribute("style").value();
   size_ = atoi(font.attribute("size").value());
 
@@ -83,12 +100,24 @@ unsigned char* Atlas::getDescription() {
   return description_;
 }
 
+int Atlas::getHeight() {
+  return height_;
+}
+
+int Atlas::getWidth() {
+  return width_;
+}
+
+int Atlas::getComponents() {
+  return components_;
+}
+
 std::string Atlas::getFamily() {
   return family_;
 }
 
-int Atlas::getHeight() {
-  return height_;
+int Atlas::getFontHeight() {
+  return fontHeight_;
 }
 
 std::string Atlas::getStyle() {

@@ -29,33 +29,37 @@ void TextGeometry::initialize() {
 }
 
 void TextGeometry::calculate() {
-  /* float x = 0.0; */
-  /* float y = 0.0; */
+  float x = 0.0;
+  float y = 0.0;
 
-  /* const uint8_t *p; */
-  /* for (p = (const uint8_t *)text_.c_str(); *p; p++) { */
+  auto width = (float)atlas_->getWidth();
+  auto height = (float)atlas_->getHeight();
 
-  /*   /1* Calculate the vertex and texture coordinates *1/ */
-  /*   float x2 = x + atlas_->c[*p].bl; */
-  /*   float y2 = -y - atlas_->c[*p].bt; */
-  /*   float w = atlas_->c[*p].bw; */
-  /*   float h = atlas_->c[*p].bh; */
+  for (auto it = text_.begin(); it != text_.end(); it++) {
+    auto charDescription = atlas_->getChar(*it);
 
-  /*   /1* Advance the cursor to the start of the next character *1/ */
-  /*   x += atlas_->c[*p].ax; */
-  /*   y += atlas_->c[*p].ay; */
+    /* Calculate the vertex and texture coordinates */
+    float x2 = x + charDescription.offsetX;
+    float y2 = -y + charDescription.offsetY;
+    float w = charDescription.placeW;
+    float h = charDescription.placeH;
 
-  /*   /1* Skip glyphs that have no pixels *1/ */
-  /*   if (!w || !h) */
-  /*     continue; */
+    x += charDescription.width;
 
-  /*   addCombined(glm::vec4{x2,     -y2,     atlas_->c[*p].tx, atlas_->c[*p].ty}); */
-  /*   addCombined(glm::vec4{x2 + w, -y2,     atlas_->c[*p].tx + atlas_->c[*p].bw / atlas_->width_, atlas_->c[*p].ty}); */
-  /*   addCombined(glm::vec4{x2,     -y2 - h, atlas_->c[*p].tx, atlas_->c[*p].ty + atlas_->c[*p].bh / atlas_->height_}); */
-  /*   addCombined(glm::vec4{x2 + w, -y2,     atlas_->c[*p].tx + atlas_->c[*p].bw / atlas_->width_, atlas_->c[*p].ty}); */
-  /*   addCombined(glm::vec4{x2,     -y2 - h, atlas_->c[*p].tx, atlas_->c[*p].ty + atlas_->c[*p].bh / atlas_->height_}); */
-  /*   addCombined(glm::vec4{x2 + w, -y2 - h, atlas_->c[*p].tx + atlas_->c[*p].bw / atlas_->width_, atlas_->c[*p].ty + atlas_->c[*p].bh / atlas_->height_}); */
-  /* } */
+    /* Skip glyphs that have no pixels */
+    if (!w || !h)
+      continue;
+
+    auto tx = charDescription.placeX / width;
+    auto ty = charDescription.placeY / height;
+
+    addCombined(glm::vec4{x2,     -y2,     tx, ty});
+    addCombined(glm::vec4{x2 + w, -y2,     tx + charDescription.placeW / width, ty});
+    addCombined(glm::vec4{x2,     -y2 - h, tx, ty + charDescription.placeH / height});
+    addCombined(glm::vec4{x2 + w, -y2,     tx + charDescription.placeW / width, ty});
+    addCombined(glm::vec4{x2,     -y2 - h, tx, ty + charDescription.placeH / height});
+    addCombined(glm::vec4{x2 + w, -y2 - h, tx + charDescription.placeW / width, ty + charDescription.placeH / height});
+  }
 }
 
 void TextGeometry::update() {
