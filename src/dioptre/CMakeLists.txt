@@ -10,6 +10,7 @@ SET (
   LinearMath
   physfs-static
   freetype
+  pugixml
 )
 
 ADD_LIBRARY(

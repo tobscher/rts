@@ -1,43 +1,66 @@
 #ifndef DIOPTRE_GRAPHICS_ATLAS_H_
 #define DIOPTRE_GRAPHICS_ATLAS_H_
 
-#include "dioptre/font/face.h"
+#include <string>
+#include <map>
 
 namespace dioptre {
 namespace graphics {
 
 class Atlas {
-// Maximum texture width
-#define MAXWIDTH 1024
+
+struct Char {
+  int placeX;
+  int placeY;
+  int placeW;
+  int placeH;
+
+  int width;
+  int offsetX;
+  int offsetY;
+
+  Char() :
+    placeX(0),
+    placeY(0),
+    placeW(0),
+    placeH(0),
+    width(0),
+    offsetX(0),
+    offsetY(0) {
+  }
+};
 
 public:
-  Atlas(dioptre::font::Face* face, int size);
+  Atlas(std::string file, std::string descriptionFile);
   ~Atlas() {}
 
+  virtual int initialize();
+
+  unsigned char* getImage();
+  unsigned char* getDescription();
+
+  std::string getFamily();
+  int getHeight();
+  std::string getStyle();
   int getSize();
-
-  virtual int initialize() = 0;
-
-  unsigned int width_;  // width of texture
-  unsigned int height_; // height of texture
-
-  struct {
-    float ax; // advanced.x
-    float ay; // advanced.y
-
-    float bw; // bitmap.width
-    float bh; // bitmap.height
-
-    float bl; // bitmap.left
-    float bt; // bitmap.top
-
-    float tx; // x offset of glyph in texture coordinates
-    float ty; // y offset of glyph in texture coordinates
-  } c[128];   // character information
+  Char getChar(char c);
 
 protected:
-  dioptre::font::Face* face_;
+  std::string file_;
+  std::string descriptionFile_;
+
+  unsigned char* image_;
+  unsigned char* description_;
+
+  std::string family_;
+  int height_;
+  std::string style_;
   int size_;
+  std::map<char, Char> charMap_;
+
+private:
+  void loadImage();
+  void loadDescription();
 }; // Atlas
 
 } // graphics

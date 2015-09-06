@@ -8,7 +8,6 @@
 #include "dioptre/mouse/mouse_interface.h"
 #include "dioptre/time/time_interface.h"
 #include "dioptre/physics/physics_interface.h"
-#include "dioptre/font/font_interface.h"
 
 using dioptre::window::WindowInterface;
 using dioptre::graphics::GraphicsInterface;
@@ -16,7 +15,6 @@ using dioptre::keyboard::KeyboardInterface;
 using dioptre::mouse::MouseInterface;
 using dioptre::time::TimeInterface;
 using dioptre::physics::PhysicsInterface;
-using dioptre::font::FontInterface;
 
 TEST(Locator, DefaultWindow) {
   dioptre::Locator::initialize();
@@ -58,13 +56,6 @@ TEST(Locator, DefaultPhysics) {
   PhysicsInterface* physics= dioptre::Locator::getInstance<PhysicsInterface>(dioptre::Module::M_PHYSICS);
 
   EXPECT_EQ(physics->initialize(), 0);
-}
-
-TEST(Locator, DefaultFont) {
-  dioptre::Locator::initialize();
-  FontInterface* font= dioptre::Locator::getInstance<FontInterface>(dioptre::Module::M_FONT);
-
-  EXPECT_EQ(font->initialize(), 0);
 }
 
 class MockGraphics : public GraphicsInterface {

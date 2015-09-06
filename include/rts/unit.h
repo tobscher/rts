@@ -3,15 +3,23 @@
 
 #include "dioptre/object.h"
 #include "rts/map.h"
+#include "rts/selector.h"
+
+#include <memory>
 
 namespace rts {
 
 class Unit : public dioptre::Object {
 public:
-  Unit() : Object("objects.unit") {}
+  Unit();
   void handleClick(glm::vec3 hitPoint);
 
+  Selector* getSelector();
+
   static Unit* spawn(Map* map);
+
+private:
+  std::unique_ptr<Selector> selector_;
 }; // Unit
 
 } // rts

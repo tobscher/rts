@@ -3,13 +3,11 @@
 #include "dioptre/graphics/component.h"
 #include "dioptre/graphics/opengl/text_material.h"
 #include "dioptre/graphics/opengl/text_geometry.h"
-#include "dioptre/font/freetype/face.h"
 
 namespace rts {
 
 Text* Text::spawn() {
-  auto fontFace = new dioptre::font::freetype::Face("Oswald-Regular.ttf");
-  auto atlas = new dioptre::graphics::opengl::Atlas(fontFace, 36);
+  auto atlas = new dioptre::graphics::opengl::Atlas("open_sans_regular_14.PNG", "open_sans_regular_14.xml");
 
   auto material = new dioptre::graphics::opengl::TextMaterial(atlas);
   material->setColor(dioptre::graphics::color(1.0f, 1.0f, 1.0f));

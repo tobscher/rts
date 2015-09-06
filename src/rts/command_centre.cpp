@@ -11,16 +11,18 @@
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/box_shape.h"
 
-#include <iostream>
-
 namespace rts {
 
+CommandCentre::CommandCentre() : Object("objects.command_centre") {
+  selector_ = std::unique_ptr<rts::Selector>(new rts::Selector(this));
+}
+
 void CommandCentre::handleClick(glm::vec3 hitPoint) {
-  // Extract to selection class
-  auto application = dioptre::Application::getInstance();
-  auto humanPlayer = application->getObject<rts::HumanPlayer>();
-  humanPlayer->clearSelection();
-  humanPlayer->select(this);
+  selector_->select();
+}
+
+Selector* CommandCentre::getSelector() {
+  return selector_.get();
 }
 
 CommandCentre* CommandCentre::spawn(Map* map) {
@@ -37,16 +39,12 @@ CommandCentre* CommandCentre::spawn(Map* map) {
   // Mesh
   auto mesh = new dioptre::graphics::Mesh(geometry, material);
 
-  // Projector
-  auto projector = new dioptre::graphics::Projector(40.0, 1.0, 1, 100);
-  projector->getTransform()->setPosition(0.0, 12.0, 0.0);
-  projector->getTransform()->setUp(glm::vec3(0.0, 0.0, -1.0));
-  projector->getTransform()->lookAt(commandCentre->getTransform()->getPosition());
-  projector->setTarget(map->getComponent<dioptre::graphics::Component>()->getMesh());
-
+  // Visual component
   auto visual = new dioptre::graphics::Component(mesh);
-  visual->setProjector(projector);
   commandCentre->addComponent(visual);
+
+  // Selector
+  commandCentre->getSelector()->setTarget(map, 12.0);
 
   auto shape = new dioptre::physics::bullet::BoxShape(2.5f * cellSize, 0.5f, 2.5f * cellSize);
   auto rigidBody = new dioptre::physics::RigidBody(shape);

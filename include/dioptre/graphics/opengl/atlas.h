@@ -10,7 +10,7 @@ namespace opengl {
 
 class Atlas : public dioptre::graphics::Atlas {
 public:
-  Atlas(dioptre::font::Face* face, int size);
+  Atlas(std::string file, std::string descriptionFile);
   ~Atlas();
 
   int initialize();

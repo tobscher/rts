@@ -26,6 +26,7 @@ void Filesystem::registerFromArgs(char *argv[]) {
 }
 
 void Filesystem::registerPath(std::string path) {
+  logger_->debug("Path registered: ") << path;
   PHYSFS_addToSearchPath(path.c_str(), 1);
 }
 
