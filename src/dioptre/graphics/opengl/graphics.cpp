@@ -34,7 +34,7 @@ int Graphics::initialize() {
   glEnable(GL_DEPTH_TEST);
 
   // Accept fragment if it closer to the camera than the former one
-  glDepthFunc(GL_LESS);
+  glDepthFunc(GL_LEQUAL);
 
   // Enable blending for textures with alpha channel
   glEnable(GL_BLEND);
