@@ -3,6 +3,7 @@
 #include "dioptre/graphics/atlas.h"
 #include "dioptre/locator.h"
 #include "dioptre/filesystem/physfs/filesystem.h"
+#include <string>
 
 TEST(Atlas, Description) {
   char empty[1] = {0};
@@ -15,6 +16,10 @@ TEST(Atlas, Description) {
 
   filesystem->initialize();
   filesystem->registerFromArgs(argv);
+
+  // Add test directory to lookup path
+  std::string s(__FILE__);
+  filesystem->registerPath(s.substr(0, s.length() - 26));
 
   dioptre::graphics::Atlas atlas("fixtures/fonts/open_sans_regular_14.PNG", "fixtures/fonts/open_sans_regular_14.xml");
 
