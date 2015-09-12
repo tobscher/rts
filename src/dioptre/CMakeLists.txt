@@ -9,7 +9,6 @@ SET (
   BulletCollision
   LinearMath
   physfs-static
-  freetype
   pugixml
 )
 

@@ -10,7 +10,6 @@ SET (
   LinearMath
   libglew_static
   physfs-static
-  freetype
 )
 SET (project_BIN launcher)
 
