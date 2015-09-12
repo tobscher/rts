@@ -15,7 +15,7 @@ public:
   PhysicsInterface();
   virtual ~PhysicsInterface() {}
 
-  World* getWorld() { return world_.get(); }
+  World *getWorld() { return world_.get(); }
 
   virtual void simulate() = 0;
   virtual void initializeWorld() = 0;

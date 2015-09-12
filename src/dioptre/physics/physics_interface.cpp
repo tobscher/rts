@@ -3,11 +3,8 @@
 namespace dioptre {
 namespace physics {
 
-PhysicsInterface::PhysicsInterface() :
-  Module("dioptre.physics"),
-  world_(new World()) {
-
-}
+PhysicsInterface::PhysicsInterface()
+    : Module("dioptre.physics"), world_(new World()) {}
 
 } // physics
 } // dioptre

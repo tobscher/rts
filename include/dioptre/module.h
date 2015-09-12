@@ -16,7 +16,7 @@ public:
     M_MOUSE,
     M_TIME,
     M_PHYSICS,
-    M_FONT,
+    M_AI,
     M_MAX_ENUM
   };
 
