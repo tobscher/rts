@@ -119,10 +119,6 @@ OPTION(PHYSFS_BUILD_DIST OFF)
 ADD_SUBDIRECTORY(thirdparty/physfs)
 INCLUDE_DIRECTORIES(thirdparty/physfs)
 
-# freetype
-ADD_SUBDIRECTORY(thirdparty/freetype2)
-INCLUDE_DIRECTORIES(thirdparty/freetype2/include)
-
 # pugixml
 ADD_SUBDIRECTORY(thirdparty/pugixml/scripts)
 INCLUDE_DIRECTORIES(thirdparty/pugixml/src)
