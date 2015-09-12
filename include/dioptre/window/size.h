@@ -11,11 +11,7 @@ struct Size {
   double width;
   double height;
 
-  Size(double width, double height) :
-    width(width),
-    height(height)
-  {
-  }
+  Size(double width, double height) : width(width), height(height) {}
 };
 
 } // window

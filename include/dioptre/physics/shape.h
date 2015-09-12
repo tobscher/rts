@@ -4,12 +4,11 @@
 namespace dioptre {
 namespace physics {
 
-enum ShapeType {
-  SHAPE_BOX
-};
+enum ShapeType { SHAPE_BOX };
 
 class Shape {
 public:
+  virtual ~Shape() {}
   virtual ShapeType getShapeType() = 0;
 
 private:

@@ -9,13 +9,13 @@ namespace physics {
 
 class Component : public dioptre::ComponentInterface {
 public:
-  Component(RigidBody* rigidBody);
+  explicit Component(RigidBody *rigidBody);
   ~Component();
 
   void update();
 
 private:
-  RigidBody* rigidBody_;
+  RigidBody *rigidBody_;
 };
 
 } // physics

@@ -10,7 +10,7 @@ namespace graphics {
 
 class TextGeometry : public Geometry {
 public:
-  TextGeometry(std::string text);
+  explicit TextGeometry(std::string text);
   virtual ~TextGeometry() {}
 
   virtual void setText(std::string text);

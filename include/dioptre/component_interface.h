@@ -11,13 +11,13 @@ namespace dioptre {
 class Object;
 class ComponentInterface {
 public:
-  ComponentInterface(std::string name);
+  explicit ComponentInterface(std::string name);
   virtual ~ComponentInterface() {}
 
   virtual int initialize();
   virtual void update() = 0;
-  void setObject(Object* object);
-  Object* getObject();
+  void setObject(Object *object);
+  Object *getObject();
 
   bool getIsInitialized();
 
@@ -28,7 +28,7 @@ protected:
   std::shared_ptr<spdlog::logger> logger_;
 
 private:
-  Object* object_;
+  Object *object_;
 }; // ComponentInterface
 
 } // dioptre

@@ -13,7 +13,7 @@ namespace opengl {
 
 class Geometry : public dioptre::graphics::Geometry {
 public:
-  Geometry(GLenum drawMode);
+  explicit Geometry(GLenum drawMode);
 
   void initialize();
   void update();

@@ -10,6 +10,7 @@ namespace dioptre {
 class Transform {
 public:
   Transform();
+  virtual ~Transform() {}
 
   // Translation
   glm::vec3 getPosition();

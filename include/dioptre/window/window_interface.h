@@ -14,7 +14,7 @@ namespace window {
 class WindowInterface : public Module {
 public:
   WindowInterface() : Module("dioptre.window") {}
-  virtual ~WindowInterface() { }
+  virtual ~WindowInterface() {}
 
   /**
    * Should indicate whether the windows should be closed.

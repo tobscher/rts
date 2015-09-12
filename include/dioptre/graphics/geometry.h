@@ -13,6 +13,7 @@ class Geometry {
 public:
   Geometry();
   virtual ~Geometry() {}
+
   std::vector<glm::vec4> getCombinedData();
   std::vector<glm::vec3> getData();
   std::vector<glm::vec2> getUVData();

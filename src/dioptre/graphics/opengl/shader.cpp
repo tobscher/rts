@@ -15,14 +15,9 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
-Shader::Shader(ShaderFeatures features) :
-  loaded_(false),
-  features_(features) {
-}
+Shader::Shader(ShaderFeatures features) : loaded_(false), features_(features) {}
 
-Shader::~Shader() {
-  glDeleteProgram(programId_);
-}
+Shader::~Shader() { glDeleteProgram(programId_); }
 
 /**
  * Reads the content of the given file.
@@ -30,7 +25,9 @@ Shader::~Shader() {
 std::string Shader::readShaderContent(string file) {
   Shader::logger_->info("Loading shader: ") << file;
 
-  auto filesystem = dioptre::Locator::getInstance<dioptre::filesystem::FilesystemInterface>(dioptre::Module::M_FILESYSTEM);
+  auto filesystem =
+      dioptre::Locator::getInstance<dioptre::filesystem::FilesystemInterface>(
+          dioptre::Module::M_FILESYSTEM);
   auto data = filesystem->readAll(file);
 
   if (data.size() == 0) {
@@ -46,12 +43,12 @@ std::string Shader::readShaderContent(string file) {
 /**
  * Compiles the given shader code
  */
-bool Shader::compileShader(string shaderCode, GLuint& shaderId) {
+bool Shader::compileShader(string shaderCode, GLuint &shaderId) {
   Shader::logger_->info("Compiling shader");
 
   // compile
-  char const * shaderSourcePointer = shaderCode.c_str();
-  glShaderSource(shaderId, 1, &shaderSourcePointer , NULL);
+  char const *shaderSourcePointer = shaderCode.c_str();
+  glShaderSource(shaderId, 1, &shaderSourcePointer, nullptr);
   glCompileShader(shaderId);
 
   // check
@@ -61,7 +58,8 @@ bool Shader::compileShader(string shaderCode, GLuint& shaderId) {
   glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &infoLogLength);
   if (infoLogLength > 0) {
     std::vector<char> shaderErrorMessage(infoLogLength + 1);
-    glGetShaderInfoLog(shaderId, infoLogLength, NULL, &shaderErrorMessage[0]);
+    glGetShaderInfoLog(shaderId, infoLogLength, nullptr,
+                       &shaderErrorMessage[0]);
 
     Shader::logger_->error(&shaderErrorMessage[0]);
     return false;
@@ -73,7 +71,7 @@ bool Shader::compileShader(string shaderCode, GLuint& shaderId) {
 /**
  * Links the vertex shader and fragment shader.
  */
-GLuint Shader::linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId) {
+GLuint Shader::linkShader(GLuint &vertexShaderId, GLuint fragmentShaderId) {
   Shader::logger_->info("Linking program...");
 
   GLuint programId = glCreateProgram();
@@ -88,7 +86,8 @@ GLuint Shader::linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId) {
   glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &infoLogLength);
   if (infoLogLength > 0) {
     std::vector<char> programErrorMessage(infoLogLength + 1);
-    glGetProgramInfoLog(programId, infoLogLength, NULL, &programErrorMessage[0]);
+    glGetProgramInfoLog(programId, infoLogLength, nullptr,
+                        &programErrorMessage[0]);
     Shader::logger_->error(&programErrorMessage[0]);
   }
 
@@ -139,7 +138,8 @@ string Shader::applyFeatures(string code) {
   return code;
 }
 
-std::shared_ptr<spdlog::logger> Shader::logger_ = spdlog::stdout_logger_mt("dioptre.shader");
+std::shared_ptr<spdlog::logger> Shader::logger_ =
+    spdlog::stdout_logger_mt("dioptre.shader");
 
 } // opengl
 } // graphics

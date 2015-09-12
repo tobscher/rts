@@ -20,7 +20,7 @@ public:
     M_MAX_ENUM
   };
 
-  Module(std::string name);
+  explicit Module(std::string name);
   virtual ~Module() {}
 
   virtual int initialize() = 0;
@@ -30,7 +30,6 @@ protected:
   std::string name_;
   std::shared_ptr<spdlog::logger> logger_;
 };
-
 }
 
 #endif

@@ -18,14 +18,14 @@ class ShaderFactory;
  * Loads and links shader program for the given file path.
  */
 class Shader {
-friend class ShaderFactory;
+  friend class ShaderFactory;
 
 public:
   ~Shader();
   GLuint getProgram() { return programId_; }
 
 private:
-  Shader(ShaderFeatures features);
+  explicit Shader(ShaderFeatures features);
   GLuint loadFromFile(std::string vertexFilePath, std::string fragmentFilePath);
 
   bool loaded_;
@@ -34,8 +34,8 @@ private:
 
   std::string applyFeatures(std::string code);
   std::string readShaderContent(std::string file);
-  bool compileShader(std::string shaderCode, GLuint& shaderId);
-  GLuint linkShader(GLuint& vertexShaderId, GLuint fragmentShaderId);
+  bool compileShader(std::string shaderCode, GLuint &shaderId);
+  GLuint linkShader(GLuint &vertexShaderId, GLuint fragmentShaderId);
 
   static std::shared_ptr<spdlog::logger> logger_;
 }; // Shader

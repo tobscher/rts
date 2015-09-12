@@ -9,7 +9,7 @@ namespace opengl {
 
 class Debug : public dioptre::graphics::Debug {
 public:
-  Debug(Camera* camera);
+  explicit Debug(Camera *camera);
   int initialize();
 }; // Debug
 

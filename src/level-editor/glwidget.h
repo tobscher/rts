@@ -6,20 +6,19 @@
 
 #include <QOpenGLWidget>
 
-class GLWidget : public QOpenGLWidget
-{
-    Q_OBJECT
+class GLWidget : public QOpenGLWidget {
+  Q_OBJECT
 public:
-    GLWidget(QWidget *parent = 0);
-    ~GLWidget();
+  explicit GLWidget(QWidget *parent = 0);
+  ~GLWidget();
 
 protected:
-    void initializeGL();
-    void paintGL();
-    void resizeGL(int width, int height);
+  void initializeGL();
+  void paintGL();
+  void resizeGL(int width, int height);
 
 private:
-  dioptre::graphics::GraphicsInterface* renderer_;
+  dioptre::graphics::GraphicsInterface *renderer_;
 };
 
 #endif // GLWIDGET_H

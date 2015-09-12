@@ -14,7 +14,7 @@ const std::string imageLoadError = "Unable to load image from path: ";
 
 class Texture {
 public:
-  Texture(std::string imagePath);
+  explicit Texture(std::string imagePath);
   virtual ~Texture() {}
 
   virtual int initialize() = 0;
@@ -26,7 +26,7 @@ public:
 protected:
   std::shared_ptr<spdlog::logger> logger_;
 
-  unsigned char* image_;
+  unsigned char *image_;
 
   std::string imagePath_;
 
@@ -36,8 +36,7 @@ protected:
 
   glm::vec2 repeat_;
 };
-
-}
-}
+} // graphics
+} // dioptre
 
 #endif // DIOPTRE_GRAPHICS_TEXTURE_H_

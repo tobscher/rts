@@ -24,14 +24,13 @@ class Application {
 public:
   Application(int argc, char *argv[]);
   Application(int argc, char *argv[],
-      dioptre::window::WindowInterface* windowService,
-      dioptre::graphics::GraphicsInterface* graphicsService,
-      dioptre::keyboard::KeyboardInterface* keyboardService,
-      dioptre::filesystem::FilesystemInterface* filesystemService,
-      dioptre::mouse::MouseInterface* mouseService,
-      dioptre::time::TimeInterface* timeService,
-      dioptre::physics::PhysicsInterface* physicsService
-  );
+              dioptre::window::WindowInterface *windowService,
+              dioptre::graphics::GraphicsInterface *graphicsService,
+              dioptre::keyboard::KeyboardInterface *keyboardService,
+              dioptre::filesystem::FilesystemInterface *filesystemService,
+              dioptre::mouse::MouseInterface *mouseService,
+              dioptre::time::TimeInterface *timeService,
+              dioptre::physics::PhysicsInterface *physicsService);
 
   ~Application();
 
@@ -58,20 +57,19 @@ public:
   /**
    * Adds an object to the application.
    */
-  void addObject(dioptre::Object* object);
+  void addObject(dioptre::Object *object);
 
-  template <typename T>
-  T* getObject() {
+  template <typename T> T *getObject() {
     for (auto object : objects_) {
-      if (dynamic_cast<T*>(object) != nullptr) {
-        return (T*)object;
+      if (dynamic_cast<T *>(object) != nullptr) {
+        return (T *)object;
       }
     }
 
     return nullptr;
   }
 
-  Object* getObjectByName(std::string name) {
+  Object *getObjectByName(std::string name) {
     for (auto object : objects_) {
       if (object->getName() == name) {
         return object;
@@ -81,7 +79,7 @@ public:
     return nullptr;
   }
 
-  static Application* getInstance();
+  static Application *getInstance();
 
 private:
   bool isRunning_;
@@ -95,9 +93,9 @@ private:
   std::unique_ptr<dioptre::time::TimeInterface> timeService_;
   std::unique_ptr<dioptre::physics::PhysicsInterface> physicsService_;
 
-  std::vector<dioptre::Object*> objects_;
+  std::vector<dioptre::Object *> objects_;
 
-  static Application* instance_;
+  static Application *instance_;
   static std::shared_ptr<spdlog::logger> logger_;
 }; // Application
 

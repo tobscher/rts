@@ -12,14 +12,16 @@ namespace graphics {
 class Camera {
 public:
   Camera();
-  glm::mat4 getProjectionMatrix();
-  CameraTransform* getTransform() { return state_->getCurrent(); }
+  virtual ~Camera() {}
 
-  State<CameraTransform>* getState() { return state_; }
+  glm::mat4 getProjectionMatrix();
+  CameraTransform *getTransform() { return state_->getCurrent(); }
+
+  State<CameraTransform> *getState() { return state_; }
   void makeCurrent() { state_->makeCurrent(); }
 
 protected:
-  State<CameraTransform>* state_;
+  State<CameraTransform> *state_;
 
   glm::mat4 projectionMatrix_;
   virtual void updateProjectionMatrix() = 0;

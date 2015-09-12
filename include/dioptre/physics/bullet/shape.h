@@ -10,10 +10,10 @@ namespace bullet {
 class Shape {
 public:
   ~Shape() { delete collisionShape_; }
-  virtual btCollisionShape* getCollisionShape() { return collisionShape_; };
+  btCollisionShape *getCollisionShape() { return collisionShape_; };
 
 protected:
-  btCollisionShape* collisionShape_;
+  btCollisionShape *collisionShape_;
 }; // Shape
 
 } // bullet

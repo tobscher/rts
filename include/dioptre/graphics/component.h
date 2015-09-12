@@ -11,19 +11,19 @@ namespace graphics {
 
 class Component : public dioptre::ComponentInterface {
 public:
-  Component(Mesh* mesh, int layerIndex = 0);
+  explicit Component(Mesh *mesh, int layerIndex = 0);
   ~Component();
 
   void update();
 
-  Mesh* getMesh();
+  Mesh *getMesh();
 
-  void setProjector(Projector* projector);
-  Projector* getProjector();
+  void setProjector(Projector *projector);
+  Projector *getProjector();
 
 private:
-  Mesh* mesh_;
-  Projector* projector_;
+  Mesh *mesh_;
+  Projector *projector_;
 };
 
 } // graphics

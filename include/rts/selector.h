@@ -8,13 +8,13 @@ namespace rts {
 
 class Selector {
 public:
-  Selector(dioptre::Object* object);
+  explicit Selector(dioptre::Object *object);
 
   void select();
-  void setTarget(dioptre::Object* target, float size);
+  void setTarget(dioptre::Object *target, float size);
 
 private:
-  dioptre::Object* object_;
+  dioptre::Object *object_;
 }; // Selector
 
 } // rts

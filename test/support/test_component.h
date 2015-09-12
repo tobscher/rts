@@ -1,3 +1,6 @@
+#ifndef TEST_COMPONENT_H_
+#define TEST_COMPONENT_H_
+
 #include "dioptre/component_interface.h"
 
 class TestComponent : public dioptre::ComponentInterface {
@@ -6,3 +9,5 @@ public:
 
   void update() {}
 };
+
+#endif // TEST_COMPONENT_H_

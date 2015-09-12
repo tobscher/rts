@@ -10,38 +10,27 @@
 
 namespace dioptre {
 
-Application::Application(int argc, char *argv[]) :
-  Application(argc, argv,
-      new dioptre::window::null::Window(),
-      new dioptre::graphics::null::Graphics(),
-      new dioptre::keyboard::null::Keyboard(),
-      new dioptre::filesystem::null::Filesystem(),
-      new dioptre::mouse::null::Mouse(),
-      new dioptre::time::null::Time(),
-      new dioptre::physics::null::Physics()
-  )
-{
-}
+Application::Application(int argc, char *argv[])
+    : Application(argc, argv, new dioptre::window::null::Window(),
+                  new dioptre::graphics::null::Graphics(),
+                  new dioptre::keyboard::null::Keyboard(),
+                  new dioptre::filesystem::null::Filesystem(),
+                  new dioptre::mouse::null::Mouse(),
+                  new dioptre::time::null::Time(),
+                  new dioptre::physics::null::Physics()) {}
 
-Application::Application(int argc, char *argv[],
-    dioptre::window::WindowInterface* windowService,
-    dioptre::graphics::GraphicsInterface* graphicsService,
-    dioptre::keyboard::KeyboardInterface* keyboardService,
-    dioptre::filesystem::FilesystemInterface* filesystemService,
-    dioptre::mouse::MouseInterface* mouseService,
-    dioptre::time::TimeInterface* timeService,
-    dioptre::physics::PhysicsInterface* physicsService
-  ) :
-  isRunning_(false),
-  isInitialized_(false),
-  windowService_(windowService),
-  graphicsService_(graphicsService),
-  keyboardService_(keyboardService),
-  filesystemService_(filesystemService),
-  mouseService_(mouseService),
-  timeService_(timeService),
-  physicsService_(physicsService)
-{
+Application::Application(
+    int argc, char *argv[], dioptre::window::WindowInterface *windowService,
+    dioptre::graphics::GraphicsInterface *graphicsService,
+    dioptre::keyboard::KeyboardInterface *keyboardService,
+    dioptre::filesystem::FilesystemInterface *filesystemService,
+    dioptre::mouse::MouseInterface *mouseService,
+    dioptre::time::TimeInterface *timeService,
+    dioptre::physics::PhysicsInterface *physicsService)
+    : isRunning_(false), isInitialized_(false), windowService_(windowService),
+      graphicsService_(graphicsService), keyboardService_(keyboardService),
+      filesystemService_(filesystemService), mouseService_(mouseService),
+      timeService_(timeService), physicsService_(physicsService) {
   // Enforce singleton property
   if (instance_) {
     throw std::runtime_error("Only one instance of Application allowed.");
@@ -62,12 +51,11 @@ Application::~Application() {
   instance_ = nullptr;
 }
 
-bool Application::isRunning() {
-  return isRunning_;
-}
+bool Application::isRunning() { return isRunning_; }
 
 int Application::initialize() {
-  if (isInitialized_) return 0;
+  if (isInitialized_)
+    return 0;
 
   logger_->set_level(spdlog::level::debug);
 
@@ -93,14 +81,14 @@ int Application::initialize() {
 
   // Add main layer
   auto camera = new dioptre::graphics::PerspectiveCamera(
-      28.0, // field of view
+      28.0,                                 // field of view
       windowSize.width / windowSize.height, // aspect ratio
-      1.0, // near
-      1000.0 // far
-  );
+      1.0,                                  // near
+      1000.0                                // far
+      );
   auto transform = camera->getTransform();
 
-  transform->setPosition(0,38,5);
+  transform->setPosition(0, 38, 5);
   transform->lookAt(0.0f, 0.0f, 0.0f);
 
   auto scene = new dioptre::graphics::Scene();
@@ -108,7 +96,9 @@ int Application::initialize() {
   graphicsService_->addLayer(mainLayer);
 
   // Add HUD layer
-  auto hudCamera = new dioptre::graphics::OrthographicCamera(0.0f, (float)windowSize.width, (float)windowSize.height, 0.0f, -1000.0, 1000.0);
+  auto hudCamera = new dioptre::graphics::OrthographicCamera(
+      0.0f, (float)windowSize.width, (float)windowSize.height, 0.0f, -1000.0,
+      1000.0);
   auto hudScene = new dioptre::graphics::Scene();
   auto hudLayer = new dioptre::graphics::Layer(hudScene, hudCamera);
   graphicsService_->addLayer(hudLayer);
@@ -122,15 +112,14 @@ int Application::initialize() {
   return 0;
 }
 
-bool Application::getIsInitialized() {
-  return isInitialized_;
-}
+bool Application::getIsInitialized() { return isInitialized_; }
 
 void Application::run() {
   isRunning_ = true;
 
   // free this handler
-  dioptre::keyboard::handlers::ExitGame* exitGameHandler = new dioptre::keyboard::handlers::ExitGame();
+  dioptre::keyboard::handlers::ExitGame *exitGameHandler =
+      new dioptre::keyboard::handlers::ExitGame();
   keyboardService_->registerKeyHandler(exitGameHandler);
 
   graphicsService_->initializeScene();
@@ -148,8 +137,8 @@ void Application::run() {
     nbFrames++;
 
     // Frame counter
-    if (currentTime - lastTime >= 1.0 ) {
-      logger_->debug("{} ms/frame", 1000.0/double(nbFrames));
+    if (currentTime - lastTime >= 1.0) {
+      logger_->debug("{} ms/frame", 1000.0 / double(nbFrames));
       nbFrames = 0;
       lastTime += 1.0;
     }
@@ -187,16 +176,15 @@ void Application::run() {
   isRunning_ = false;
 }
 
-void Application::addObject(dioptre::Object* object) {
+void Application::addObject(dioptre::Object *object) {
   objects_.push_back(object);
 }
 
-Application* Application::getInstance() {
-  return instance_;
-}
+Application *Application::getInstance() { return instance_; }
 
-Application* Application::instance_ = nullptr;
+Application *Application::instance_ = nullptr;
 
-std::shared_ptr<spdlog::logger> Application::logger_ = spdlog::stdout_logger_mt("dioptre");
+std::shared_ptr<spdlog::logger> Application::logger_ =
+    spdlog::stdout_logger_mt("dioptre");
 
 } // dioptre

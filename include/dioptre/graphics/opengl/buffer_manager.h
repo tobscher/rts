@@ -13,7 +13,7 @@ namespace opengl {
 
 class BufferManager {
 public:
-  BufferManager(dioptre::graphics::Geometry* geometry);
+  explicit BufferManager(dioptre::graphics::Geometry *geometry);
 
   void initializeCombinedBuffer();
   void initializeVertexBuffer();
@@ -38,7 +38,7 @@ public:
 private:
   std::shared_ptr<spdlog::logger> logger_;
 
-  dioptre::graphics::Geometry* geometry_;
+  dioptre::graphics::Geometry *geometry_;
 
   bool combinedBufferInitialized_;
   bool vertexBufferInitialized_;

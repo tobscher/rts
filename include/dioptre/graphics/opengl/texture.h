@@ -12,13 +12,12 @@ namespace opengl {
 
 class TextureFactory;
 class Texture : public dioptre::graphics::Texture {
-friend class TextureFactory;
+  friend class TextureFactory;
 
 public:
-
   int initialize();
   void update();
-  void updateGL(GLuint programId, const char* sampler, bool setRepeat);
+  void updateGL(GLuint programId, const char *sampler, bool setRepeat);
   void destroy();
 
   GLuint getTexture();
@@ -31,8 +30,9 @@ public:
   static int getNextIndex() { return nextIndex_++; }
 
 private:
+  explicit Texture(std::string imagePath);
+
   bool isInitialized_;
-  Texture(std::string imagePath);
   static int nextIndex_;
 
   GLint textureLocation_;

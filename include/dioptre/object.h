@@ -14,17 +14,16 @@ namespace dioptre {
 
 class Object {
 public:
-  Object(std::string name);
-  ~Object();
+  explicit Object(std::string name);
+  virtual ~Object();
 
   // Components
-  void addComponent(ComponentInterface* component);
+  void addComponent(ComponentInterface *component);
 
-  template <typename T>
-  T* getComponent() {
+  template <typename T> T *getComponent() {
     for (auto component : components_) {
-      if (dynamic_cast<T*>(component) != nullptr) {
-        return (T*)component;
+      if (dynamic_cast<T *>(component) != nullptr) {
+        return (T *)component;
       }
     }
 
@@ -34,8 +33,8 @@ public:
   virtual int initialize();
 
   // State
-  State<Transform>* getState();
-  Transform* getTransform();
+  State<Transform> *getState();
+  Transform *getTransform();
   virtual void makeCurrent();
 
   std::string getName();
@@ -45,17 +44,17 @@ public:
 
   // Events
   virtual void handleClick(glm::vec3 hitPoint);
+
 protected:
-  State<Transform>* state_;
+  State<Transform> *state_;
   std::string name_;
   bool isInitialized_;
 
   std::shared_ptr<spdlog::logger> logger_;
 
 private:
-  std::vector<ComponentInterface*> components_;
+  std::vector<ComponentInterface *> components_;
 };
-
 }
 
 #endif // DIOPTRE_OBJECT_H_

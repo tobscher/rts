@@ -13,7 +13,7 @@ namespace graphics {
 
 class Debug : public Layer {
 public:
-  Debug(Camera* camera);
+  explicit Debug(Camera *camera);
   virtual ~Debug() {}
 
   virtual int initialize() = 0;
@@ -24,9 +24,9 @@ public:
   void addCross(glm::vec3 point);
 
 protected:
-  DebugMaterial* material_;
-  Geometry* lines_;
-  Geometry* crosses_;
+  DebugMaterial *material_;
+  Geometry *lines_;
+  Geometry *crosses_;
 }; // Debug
 
 } // graphics

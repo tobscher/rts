@@ -13,7 +13,7 @@ namespace opengl {
 
 class TextMaterial : public dioptre::graphics::TextMaterial {
 public:
-  TextMaterial(dioptre::graphics::opengl::Atlas* atlas);
+  explicit TextMaterial(dioptre::graphics::opengl::Atlas *atlas);
 
   void initialize();
   void update();
@@ -22,7 +22,7 @@ public:
   void setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp);
 
 protected:
-  dioptre::graphics::opengl::Atlas* atlas_;
+  dioptre::graphics::opengl::Atlas *atlas_;
   GLuint programId_;
 
   GLint diffuseLocation_;
