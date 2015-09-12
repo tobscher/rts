@@ -8,17 +8,9 @@ namespace dioptre {
 namespace graphics {
 
 Atlas::Atlas(std::string file, std::string descriptionFile)
-    : file_(file),
-      descriptionFile_(descriptionFile),
-      image_(nullptr),
-      description_(nullptr),
-      width_(-1),
-      height_(-1),
-      components_(-1),
-      family_(""),
-      fontHeight_(-1),
-      style_(""),
-      size_(-1) {}
+    : file_(file), descriptionFile_(descriptionFile), image_(nullptr),
+      description_(nullptr), width_(-1), height_(-1), components_(-1),
+      family_(""), fontHeight_(-1), style_(""), size_(-1) {}
 
 int Atlas::initialize() {
   loadImage();
@@ -46,8 +38,7 @@ void Atlas::loadImage() {
     throw std::runtime_error(exception.str());
   }
 
-  /* logger_->info("Atlas loaded: ") << file_ << "; Size: " << width_ << "x" <<
-   * height_; */
+  delete buffer;
 }
 
 void Atlas::loadDescription() {
@@ -115,5 +106,5 @@ Atlas::Char Atlas::getChar(char c) {
   return empty;
 }
 
-}  // graphics
-}  // dioptre
+} // graphics
+} // dioptre
