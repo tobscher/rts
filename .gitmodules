@@ -19,3 +19,6 @@
 [submodule "thirdparty/pugixml"]
 	path = thirdparty/pugixml
 	url = git@github.com:zeux/pugixml.git
+[submodule "thirdparty/recastnavigation"]
+	path = thirdparty/recastnavigation
+	url = git@github.com:tobscher/recastnavigation.git

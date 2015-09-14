@@ -10,6 +10,7 @@ SET (
   LinearMath
   physfs-static
   pugixml
+  Recast
 )
 
 ADD_LIBRARY(

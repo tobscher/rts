@@ -123,6 +123,10 @@ INCLUDE_DIRECTORIES(thirdparty/physfs)
 ADD_SUBDIRECTORY(thirdparty/pugixml/scripts)
 INCLUDE_DIRECTORIES(thirdparty/pugixml/src)
 
+# Recast
+ADD_SUBDIRECTORY(thirdparty/recastnavigation/Recast)
+INCLUDE_DIRECTORIES(thirdparty/recastnavigation/Recast/Include)
+
 #
 # Configure Files
 #
