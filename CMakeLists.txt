@@ -131,6 +131,11 @@ INCLUDE_DIRECTORIES(thirdparty/recastnavigation/Recast/Include)
 ADD_SUBDIRECTORY(thirdparty/recastnavigation/Detour)
 INCLUDE_DIRECTORIES(thirdparty/recastnavigation/Detour/Include)
 
+# Assimp
+OPTION(ASSIMP_BUILD_TESTS FALSE)
+ADD_SUBDIRECTORY(thirdparty/assimp)
+INCLUDE_DIRECTORIES(thirdparty/assimp/include)
+
 #
 # Configure Files
 #

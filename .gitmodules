@@ -22,3 +22,6 @@
 [submodule "thirdparty/recastnavigation"]
 	path = thirdparty/recastnavigation
 	url = git@github.com:tobscher/recastnavigation.git
+[submodule "thirdparty/assimp"]
+	path = thirdparty/assimp
+	url = git@github.com:assimp/assimp.git

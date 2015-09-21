@@ -12,6 +12,7 @@ SET (
   pugixml
   Recast
   Detour
+  assimp
 )
 
 ADD_LIBRARY(
