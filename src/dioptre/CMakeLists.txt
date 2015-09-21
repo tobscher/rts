@@ -11,6 +11,7 @@ SET (
   physfs-static
   pugixml
   Recast
+  Detour
 )
 
 ADD_LIBRARY(

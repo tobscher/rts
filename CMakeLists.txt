@@ -127,6 +127,10 @@ INCLUDE_DIRECTORIES(thirdparty/pugixml/src)
 ADD_SUBDIRECTORY(thirdparty/recastnavigation/Recast)
 INCLUDE_DIRECTORIES(thirdparty/recastnavigation/Recast/Include)
 
+# Detour
+ADD_SUBDIRECTORY(thirdparty/recastnavigation/Detour)
+INCLUDE_DIRECTORIES(thirdparty/recastnavigation/Detour/Include)
+
 #
 # Configure Files
 #
