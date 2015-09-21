@@ -17,15 +17,11 @@ CommandCentre::CommandCentre() : Object("objects.command_centre") {
   selector_ = std::unique_ptr<rts::Selector>(new rts::Selector(this));
 }
 
-void CommandCentre::handleClick(glm::vec3 hitPoint) {
-  selector_->select();
-}
+void CommandCentre::handleClick(glm::vec3 hitPoint) { selector_->select(); }
 
-Selector* CommandCentre::getSelector() {
-  return selector_.get();
-}
+Selector *CommandCentre::getSelector() { return selector_.get(); }
 
-CommandCentre* CommandCentre::spawn(Map* map) {
+CommandCentre *CommandCentre::spawn(Map *map) {
   auto commandCentre = new CommandCentre();
   commandCentre->getTransform()->translateY(0.5);
 
@@ -34,7 +30,8 @@ CommandCentre* CommandCentre::spawn(Map* map) {
   material->setColor(dioptre::graphics::color(0.3f, 0.3f, 0.3f));
 
   // Geometry
-  auto geometry = new dioptre::graphics::opengl::BoxGeometry(5.0f * cellSize, 1.0f, 5.0f * cellSize);
+  auto geometry = new dioptre::graphics::opengl::BoxGeometry(
+      5.0f * cellSize, 1.0f, 5.0f * cellSize);
 
   // Mesh
   auto mesh = new dioptre::graphics::Mesh(geometry, material);
@@ -46,7 +43,8 @@ CommandCentre* CommandCentre::spawn(Map* map) {
   // Selector
   commandCentre->getSelector()->setTarget(map, 12.0);
 
-  auto shape = new dioptre::physics::bullet::BoxShape(2.5f * cellSize, 0.5f, 2.5f * cellSize);
+  auto shape = new dioptre::physics::bullet::BoxShape(2.5f * cellSize, 0.5f,
+                                                      2.5f * cellSize);
   auto rigidBody = new dioptre::physics::RigidBody(shape);
   auto physics = new dioptre::physics::Component(rigidBody);
   commandCentre->addComponent(physics);

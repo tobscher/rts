@@ -13,16 +13,10 @@ namespace dioptre {
 namespace graphics {
 namespace opengl {
 
-MapMaterial::MapMaterial() :
-  dioptre::graphics::MapMaterial(),
-  diffuseLocation_(-1),
-  lightPositionLocation_(-1),
-  matrixLocation_(-1),
-  viewLocation_(-1),
-  matrixViewProjectionLocation_(-1),
-  projectorMatrixLocation_(-1) {
-
-}
+MapMaterial::MapMaterial()
+    : dioptre::graphics::MapMaterial(), diffuseLocation_(-1),
+      lightPositionLocation_(-1), matrixLocation_(-1), viewLocation_(-1),
+      matrixViewProjectionLocation_(-1), projectorMatrixLocation_(-1) {}
 
 void MapMaterial::initialize() {
   ShaderFeatures features(FeatureNone);
@@ -34,16 +28,19 @@ void MapMaterial::initialize() {
   }
 
   // Use material
-  dioptre::graphics::opengl::Shader* shader = dioptre::graphics::opengl::ShaderFactory::getShader(features, "map.vert", "map.frag");
-	programId_ = shader->getProgram();
+  dioptre::graphics::opengl::Shader *shader =
+      dioptre::graphics::opengl::ShaderFactory::getShader(features, "map.vert",
+                                                          "map.frag");
+  programId_ = shader->getProgram();
 
   if (texture_ != nullptr) {
     logger_->info("Initializing texture...");
-    glTexture_ = (Texture*)texture_;
+    glTexture_ = (Texture *)texture_;
     glTexture_->initialize();
   }
 
-  projectedTexture_ = dioptre::graphics::opengl::TextureFactory::getTexture("selection-round.png");
+  projectedTexture_ =
+      dioptre::graphics::opengl::TextureFactory::getTexture("selection.png");
   projectedTexture_->setWrapS(GL_CLAMP_TO_BORDER);
   projectedTexture_->setWrapT(GL_CLAMP_TO_BORDER);
   projectedTexture_->initialize();
@@ -55,21 +52,19 @@ void MapMaterial::initialize() {
 void MapMaterial::update() {
   glUseProgram(programId_);
 
-  if (texture_ == nullptr) {
-    if (diffuseLocation_ == -1) {
-      diffuseLocation_ = glGetUniformLocation(programId_, "diffuse");
-    }
-    glUniform3fv(diffuseLocation_, 1, glm::value_ptr(color_));
-  } else {
-    glTexture_->updateGL(programId_, "textureSampler", true);
+  if (diffuseLocation_ == -1) {
+    diffuseLocation_ = glGetUniformLocation(programId_, "diffuse");
   }
+  glUniform3fv(diffuseLocation_, 1, glm::value_ptr(color_));
+  glTexture_->updateGL(programId_, "textureSampler", true);
 
   projectedTexture_->updateGL(programId_, "ProjectorTex", false);
 
   glm::vec3 lightPosition(0.0, 100.0, 0.0);
 
   if (lightPositionLocation_ == -1) {
-    lightPositionLocation_ = glGetUniformLocation(programId_, "LightPosition_worldspace");
+    lightPositionLocation_ =
+        glGetUniformLocation(programId_, "LightPosition_worldspace");
   }
   glUniform3fv(lightPositionLocation_, 1, glm::value_ptr(lightPosition));
 
@@ -96,7 +91,8 @@ void MapMaterial::setMVP(glm::mat4 m, glm::mat4 v, glm::mat4 mvp) {
 
 void MapMaterial::setProjection(glm::mat4 p) {
   if (projectorMatrixLocation_ == -1) {
-    projectorMatrixLocation_ = glGetUniformLocation(programId_, "ProjectorMatrix");
+    projectorMatrixLocation_ =
+        glGetUniformLocation(programId_, "ProjectorMatrix");
   }
   glUniformMatrix4fv(projectorMatrixLocation_, 1, GL_FALSE, &p[0][0]);
 }
