@@ -3,27 +3,19 @@
 namespace dioptre {
 namespace graphics {
 
-Geometry::Geometry() :
-  isInitialized_(false),
-  isDirty_(false) {
+Geometry::Geometry() : isDirty_(false), isInitialized_(false) {
   logger_ = spdlog::get("dioptre");
 }
 
-std::vector<glm::vec4> Geometry::getCombinedData() {
-  return combined_;
-}
+std::vector<glm::vec4> Geometry::getCombinedData() { return combined_; }
 
-std::vector<glm::vec3> Geometry::getData() {
-  return vertices_;
-}
+std::vector<glm::vec3> Geometry::getData() { return vertices_; }
 
-std::vector<glm::vec2> Geometry::getUVData() {
-  return uvs_;
-}
+std::vector<glm::vec2> Geometry::getUVData() { return uvs_; }
 
-std::vector<glm::vec3> Geometry::getNormalData() {
-  return normals_;
-}
+std::vector<glm::vec3> Geometry::getNormalData() { return normals_; }
+
+std::vector<glm::uvec3> Geometry::getFaceData() { return faces_; }
 
 void Geometry::addCombined(glm::vec4 combined) {
   combined_.push_back(combined);
@@ -42,6 +34,11 @@ void Geometry::addUV(glm::vec2 uv) {
 
 void Geometry::addNormal(glm::vec3 normal) {
   normals_.push_back(normal);
+  isDirty_ = true;
+}
+
+void Geometry::addFace(glm::uvec3 face) {
+  faces_.push_back(face);
   isDirty_ = true;
 }
 
@@ -65,13 +62,13 @@ void Geometry::clearNormals() {
   isDirty_ = true;
 }
 
-bool Geometry::isInitialized() {
-  return isInitialized_;
+void Geometry::clearFaces() {
+  faces_.clear();
+  isDirty_ = true;
 }
 
-void Geometry::setIsInitialized(bool value) {
-  isInitialized_ = value;
-}
+bool Geometry::isInitialized() { return isInitialized_; }
 
+void Geometry::setIsInitialized(bool value) { isInitialized_ = value; }
 }
 }

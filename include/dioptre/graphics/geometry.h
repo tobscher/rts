@@ -18,6 +18,7 @@ public:
   std::vector<glm::vec3> getData();
   std::vector<glm::vec2> getUVData();
   std::vector<glm::vec3> getNormalData();
+  std::vector<glm::uvec3> getFaceData();
 
   bool isInitialized();
   void setIsInitialized(bool value);
@@ -26,11 +27,13 @@ public:
   void addVertex(glm::vec3 vertex);
   void addUV(glm::vec2 uv);
   void addNormal(glm::vec3 normal);
+  void addFace(glm::uvec3 face);
 
   void clearCombined();
   void clearVertices();
   void clearUVs();
   void clearNormals();
+  void clearFaces();
 
   bool getIsDirty() { return isDirty_; }
   bool setIsDirty(bool isDirty) { return isDirty_ = isDirty; }
@@ -48,6 +51,7 @@ protected:
   std::vector<glm::vec3> vertices_;
   std::vector<glm::vec2> uvs_;
   std::vector<glm::vec3> normals_;
+  std::vector<glm::uvec3> faces_;
 
 private:
   bool isInitialized_;

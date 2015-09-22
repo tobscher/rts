@@ -19,11 +19,13 @@ public:
   void initializeVertexBuffer();
   void initializeUVBuffer();
   void initializeNormalBuffer();
+  void initializeIndexBuffer();
 
   void setCombinedBuffer();
   void setVertexBuffer();
   void setUVBuffer();
   void setNormalBuffer();
+  void setIndexBuffer();
 
   void disableCombinedBuffer();
   void disableVertexBuffer();
@@ -34,6 +36,7 @@ public:
   void destroyVertexBuffer();
   void destroyUVBuffer();
   void destroyNormalBuffer();
+  void destroyIndexBuffer();
 
 private:
   std::shared_ptr<spdlog::logger> logger_;
@@ -44,11 +47,13 @@ private:
   bool vertexBufferInitialized_;
   bool uVBufferInitialized_;
   bool normalBufferInitialized_;
+  bool indexBufferInitialized_;
 
   GLuint combinedBuffer_;
   GLuint vertexBuffer_;
   GLuint uvBuffer_;
   GLuint normalBuffer_;
+  GLuint indexBuffer_;
 };
 
 } // opengl
