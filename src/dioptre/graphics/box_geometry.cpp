@@ -7,7 +7,7 @@ namespace graphics {
 
 BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height,
                          glm::float32 depth)
-    : width_(width), height_(height), depth_(depth) {
+    : width_(width), height_(height), depth_(depth), boundingBox_(nullptr) {
   auto halfWidth = width / 2.0f;
   auto halfHeight = height / 2.0f;
   auto halfDepth = depth / 2.0f;
@@ -109,7 +109,20 @@ BoxGeometry::BoxGeometry(glm::float32 width, glm::float32 height,
     uvs_.push_back(glm::vec2(0, 1));
     uvs_.push_back(glm::vec2(0, 0));
   }
+
+  boundingBox_ = new BoundingBox(glm::vec3(-halfWidth, -halfHeight, -halfDepth),
+                                 glm::vec3(halfWidth, halfHeight, halfDepth));
 }
+
+BoxGeometry::~BoxGeometry() { delete boundingBox_; }
+
+glm::float32 BoxGeometry::getWidth() { return width_; }
+
+glm::float32 BoxGeometry::getHeight() { return height_; }
+
+glm::float32 BoxGeometry::getDepth() { return height_; }
+
+BoundingBox *BoxGeometry::getBoundingBox() { return boundingBox_; }
 
 } // graphics
 } // dioptre

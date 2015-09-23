@@ -6,7 +6,7 @@ namespace dioptre {
 namespace ai {
 namespace recast {
 
-NavigationMesh::NavigationMesh(dioptre::graphics::Geometry *geometry)
+NavigationMesh::NavigationMesh(dioptre::graphics::BoxGeometry *geometry)
     : geometry_(geometry), cellSize_(1.0), cellHeight_(0.2), agentHeight_(2.0),
       agentMaxClimb_(0.9), agentRadius_(0.6), maxSlope_(45.0), edgeMaxLen_(12),
       edgeMaxError_(1.3), regionMinSize_(8), regionMergeSize_(20),
@@ -33,9 +33,11 @@ void NavigationMesh::configure() {
       detailSampleDistance_ < 0.9f ? 0 : detailSampleDistance_ * cellSize_;
   config_.detailSampleMaxError = cellHeight_ * detailSampleMaxError_;
 
-  // TODO(tobscher) Get bounding box from geometry
-  float bmin[3] = {-64.0f, -0.5f, -64.0f};
-  float bmax[3] = {64.0f, 0.5f, 64.0f};
+  auto bb = geometry_->getBoundingBox();
+  auto min = bb->getMin();
+  auto max = bb->getMax();
+  float bmin[3] = {min.x, min.y, min.z};
+  float bmax[3] = {max.x, max.y, max.z};
 
   rcVcopy(config_.bmin, bmin);
   rcVcopy(config_.bmax, bmax);
@@ -43,8 +45,8 @@ void NavigationMesh::configure() {
   rcCalcGridSize(config_.bmin, config_.bmax, config_.cs, &config_.width,
                  &config_.height);
 
-  auto nverts = 36;
-  auto ntris = 36;
+  auto nverts = geometry_->getData().size();
+  auto ntris = geometry_->getFaceData().size();
 
   context_->log(RC_LOG_PROGRESS, "Building navigation:");
   context_->log(RC_LOG_PROGRESS, " - %d x %d cells", config_.width,

@@ -2,7 +2,7 @@
 #define DIOPTRE_AI_RECAST_NAVIGATION_MESH_H_
 
 #include "dioptre/ai/navigation_mesh.h"
-#include "dioptre/graphics/geometry.h"
+#include "dioptre/graphics/box_geometry.h"
 #include "Recast.h"
 
 namespace dioptre {
@@ -11,7 +11,7 @@ namespace recast {
 
 class NavigationMesh : public dioptre::ai::NavigationMesh {
 public:
-  explicit NavigationMesh(dioptre::graphics::Geometry *geometry);
+  explicit NavigationMesh(dioptre::graphics::BoxGeometry *geometry);
   void build();
   rcPolyMesh *getPolyMesh() { return polyMesh_; }
   rcPolyMeshDetail *getPolyMeshDetail() { return polyMeshDetail_; }
@@ -22,7 +22,7 @@ public:
   rcContext *getContext() { return context_; }
 
 private:
-  dioptre::graphics::Geometry *geometry_;
+  dioptre::graphics::BoxGeometry *geometry_;
 
   float cellSize_;
   float cellHeight_;
