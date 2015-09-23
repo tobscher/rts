@@ -70,20 +70,23 @@ bool NavigationMesh::rasterize() {
     return false;
   }
 
-  auto ntris = 12;
-  auto nverts = 36;
   auto bufferData = geometry_->getData();
+  auto bufferFaceData = geometry_->getFaceData();
+  auto ntris = bufferFaceData.size();
+  auto nverts = bufferData.size();
   std::vector<float> verts;
-  // TODO(tobscher) Implement faces
-  int triangles[36] = {1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12,
-                       13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-                       25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36};
-  int *tris = triangles;
+  std::vector<int> tris;
 
   for (auto it = bufferData.begin(); it != bufferData.end(); it++) {
     verts.push_back(it->x);
     verts.push_back(it->y);
     verts.push_back(it->z);
+  }
+
+  for (auto it = bufferFaceData.begin(); it != bufferFaceData.end(); it++) {
+    tris.push_back(it->x);
+    tris.push_back(it->y);
+    tris.push_back(it->z);
   }
 
   // Allocate array that can hold triangle area types.
@@ -103,8 +106,8 @@ bool NavigationMesh::rasterize() {
   memset(triAreas_, 0, ntris * sizeof(unsigned char));
 
   rcMarkWalkableTriangles(context_, config_.walkableSlopeAngle, &verts[0],
-                          nverts, tris, ntris, triAreas_);
-  rcRasterizeTriangles(context_, &verts[0], nverts, tris, triAreas_, ntris,
+                          nverts, &tris[0], ntris, triAreas_);
+  rcRasterizeTriangles(context_, &verts[0], nverts, &tris[0], triAreas_, ntris,
                        *solid_, config_.walkableClimb);
 
   /* if (!m_keepInterResults) { */
