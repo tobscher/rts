@@ -1,7 +1,7 @@
 #ifndef RTS_UNIT_H_
 #define RTS_UNIT_H_
 
-#include "dioptre/object.h"
+#include "rts/game_object.h"
 #include "rts/map.h"
 #include "rts/selector.h"
 
@@ -9,14 +9,14 @@
 
 namespace rts {
 
-class Unit : public dioptre::Object {
+class Unit : public rts::GameObject {
 public:
   Unit();
   void handleClick(glm::vec3 hitPoint);
 
-  Selector* getSelector();
+  Selector *getSelector();
 
-  static Unit* spawn(Map* map);
+  static Unit *spawn(Map *map);
 
 private:
   std::unique_ptr<Selector> selector_;

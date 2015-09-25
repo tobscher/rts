@@ -8,27 +8,27 @@
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/box_shape.h"
 
+#include "rts/abilities/move.h"
+
 namespace rts {
 
-Unit::Unit() : Object("objects.unit") {
+Unit::Unit() : rts::GameObject("objects.unit") {
   selector_ = std::unique_ptr<rts::Selector>(new rts::Selector(this));
+  addAbility(A_MOVE, new rts::abilities::Move(this));
 }
 
-void Unit::handleClick(glm::vec3 hitPoint) {
-  selector_->select();
-}
+void Unit::handleClick(glm::vec3 hitPoint) { selector_->select(); }
 
-Selector* Unit::getSelector() {
-  return selector_.get();
-}
+Selector *Unit::getSelector() { return selector_.get(); }
 
-Unit* Unit::spawn(Map* map) {
+Unit *Unit::spawn(Map *map) {
   auto unit = new Unit();
   unit->getTransform()->translateY(1.0);
 
   auto building = new dioptre::graphics::opengl::BasicMaterial();
   building->setColor(dioptre::graphics::color(0.7f, 0.7f, 0.7f));
-  auto geometry = new dioptre::graphics::opengl::BoxGeometry(1.0f * cellSize, 2.0f, 1.0f * cellSize);
+  auto geometry = new dioptre::graphics::opengl::BoxGeometry(
+      1.0f * cellSize, 2.0f, 1.0f * cellSize);
 
   // Mesh
   auto mesh = new dioptre::graphics::Mesh(geometry, building);
@@ -40,7 +40,8 @@ Unit* Unit::spawn(Map* map) {
   // Selector
   unit->getSelector()->setTarget(map, 3.0);
 
-  auto shape = new dioptre::physics::bullet::BoxShape(0.5f * cellSize, 1.0f, 0.5f * cellSize);
+  auto shape = new dioptre::physics::bullet::BoxShape(0.5f * cellSize, 1.0f,
+                                                      0.5f * cellSize);
   auto rigidBody = new dioptre::physics::RigidBody(shape);
   auto physics = new dioptre::physics::Component(rigidBody);
   unit->addComponent(physics);

@@ -1,5 +1,7 @@
 #include "rts/map.h"
+#include "rts/human_player.h"
 
+#include "dioptre/application.h"
 #include "dioptre/graphics/component.h"
 #include "dioptre/graphics/opengl/texture_factory.h"
 #include "dioptre/graphics/opengl/map_material.h"
@@ -14,6 +16,19 @@
 #include <iostream>
 
 namespace rts {
+
+void Map::handleClick(glm::vec3 hitPoint) {
+  auto application = dioptre::Application::getInstance();
+  auto humanPlayer = application->getObject<rts::HumanPlayer>();
+  auto selected = humanPlayer->getSelectedObjects();
+
+  for (auto it = selected.begin(); it != selected.end(); it++) {
+    /* if ((*it)->haAbility(A_MOVE)) { */
+    /*   auto moveAbility = (*it)->getAbility<rts::Abilities::Move>(); */
+    /*   moveAbility->Move(from, hitPoint); */
+    /* } */
+  }
+}
 
 Map *Map::spawn() {
   auto width = 128.0 * cellSize;
