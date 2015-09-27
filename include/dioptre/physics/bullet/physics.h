@@ -7,6 +7,7 @@
 #include "dioptre/physics/physics_interface.h"
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/debug_drawer.h"
+#include "dioptre/physics/bullet/rigid_body.h"
 
 namespace dioptre {
 namespace physics {
@@ -19,7 +20,7 @@ public:
   void simulate();
 
   void initializeWorld();
-  void initializeRigidBody(dioptre::physics::RigidBody* rigidBody);
+  void initializeRigidBody(dioptre::physics::bullet::RigidBody *rigidBody);
   void castRay(dioptre::mouse::Position position);
   void debug();
 
@@ -32,7 +33,7 @@ private:
 
   std::unique_ptr<DebugDrawer> debugDrawer_;
 
-  std::vector<btRigidBody*> rigidBodies_;
+  std::vector<dioptre::physics::bullet::RigidBody *> rigidBodies_;
 }; // Physics
 
 } // bullet

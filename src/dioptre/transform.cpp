@@ -8,25 +8,20 @@
 
 namespace dioptre {
 
-Transform::Transform() :
-  matrixNeedsUpdating_(false),
-  position_(0.0f),
-  // quaternion_ == identity
-  scale_(1.0f),
-  up_(0.0f, 1.0f, 0.0f),
-  right_(1.0f, 0.0f, 0.0f),
-  forward_(0.0f, 0.0f, -1.0f)
-  // matrix_ == identity
-{
-}
+Transform::Transform()
+    : matrixNeedsUpdating_(false), position_(0.0f),
+      // quaternion_ == identity
+      scale_(1.0f), up_(0.0f, 1.0f, 0.0f), right_(1.0f, 0.0f, 0.0f),
+      forward_(0.0f, 0.0f, -1.0f)
+// matrix_ == identity
+{}
 
-glm::vec3 Transform::getPosition() {
-  return position_;
-}
+glm::vec3 Transform::getPosition() { return position_; }
 
 void Transform::setPosition(glm::float32 x, glm::float32 y, glm::float32 z) {
   position_ = glm::vec3(x, y, z);
   matrixNeedsUpdating_ = true;
+  notify();
 }
 
 void Transform::translateX(glm::float32 x) {
@@ -54,9 +49,7 @@ void Transform::setScale(glm::float32 x, glm::float32 y, glm::float32 z) {
   matrixNeedsUpdating_ = true;
 }
 
-glm::quat Transform::getOrientation() {
-  return quaternion_;
-}
+glm::quat Transform::getOrientation() { return quaternion_; }
 
 void Transform::rotateX(glm::float32 angle) {
   glm::vec3 axis(1.0f, 0.0f, 0.0f);
@@ -73,13 +66,9 @@ void Transform::rotateZ(glm::float32 angle) {
   rotateOnAxis(angle, axis);
 }
 
-void Transform::setUp(glm::vec3 up) {
-  up_ = up;
-}
+void Transform::setUp(glm::vec3 up) { up_ = up; }
 
-void Transform::setMatrix(glm::mat4 matrix) {
-  matrix_ = matrix;
-}
+void Transform::setMatrix(glm::mat4 matrix) { matrix_ = matrix; }
 
 glm::mat4 Transform::getMatrix() {
   if (matrixNeedsUpdating_) {

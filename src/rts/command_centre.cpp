@@ -10,6 +10,7 @@
 
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/box_shape.h"
+#include "dioptre/physics/bullet/rigid_body.h"
 
 namespace rts {
 
@@ -45,7 +46,8 @@ CommandCentre *CommandCentre::spawn(Map *map) {
 
   auto shape = new dioptre::physics::bullet::BoxShape(2.5f * cellSize, 0.5f,
                                                       2.5f * cellSize);
-  auto rigidBody = new dioptre::physics::RigidBody(shape);
+  auto rigidBody = new dioptre::physics::bullet::RigidBody(
+      shape, commandCentre->getTransform());
   auto physics = new dioptre::physics::Component(rigidBody);
   commandCentre->addComponent(physics);
 

@@ -2,10 +2,8 @@
 
 namespace dioptre {
 
-Object::Object(std::string name) :
-  state_(new State<Transform>()),
-  name_(name),
-  isInitialized_(false) {
+Object::Object(std::string name)
+    : state_(new State<Transform>()), name_(name), isInitialized_(false) {
   logger_ = spdlog::get("dioptre");
 }
 
@@ -15,13 +13,14 @@ Object::~Object() {
   }
 }
 
-void Object::addComponent(ComponentInterface* component) {
+void Object::addComponent(ComponentInterface *component) {
   component->setObject(this);
   components_.push_back(component);
 }
 
 int Object::initialize() {
-  if (isInitialized_) return 0;
+  if (isInitialized_)
+    return 0;
 
   for (auto component : components_) {
     component->initialize();
@@ -38,24 +37,16 @@ void Object::update() {
   }
 }
 
-Transform* Object::getTransform() {
-  return state_->getCurrent();
-}
+Transform *Object::getTransform() { return state_->getCurrent(); }
 
-void Object::makeCurrent() {
-  return state_->makeCurrent();
-}
+void Object::makeCurrent() { return state_->makeCurrent(); }
 
-std::string Object::getName() {
-  return name_;
-}
+std::string Object::getName() { return name_; }
 
-bool Object::getIsInitialized() {
-  return isInitialized_;
-}
+bool Object::getIsInitialized() { return isInitialized_; }
 
 void Object::handleClick(glm::vec3 hitPoint) {
-  logger_->debug(getName()) << "; X:" << hitPoint.x << ", Y:" << hitPoint.y << "; Z:" << hitPoint.z;
+  logger_->debug(getName()) << "; X:" << hitPoint.x << ", Y:" << hitPoint.y
+                            << "; Z:" << hitPoint.z;
 }
-
 }

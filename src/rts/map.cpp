@@ -10,6 +10,7 @@
 
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/box_shape.h"
+#include "dioptre/physics/bullet/rigid_body.h"
 
 #include "dioptre/ai/recast/navigation_mesh.h"
 #include "dioptre/ai/detour/navigation_mesh.h"
@@ -60,7 +61,8 @@ Map *Map::spawn() {
 
   auto shape =
       new dioptre::physics::bullet::BoxShape(width / 2.0, 0.5f, height / 2.0);
-  auto rigidBody = new dioptre::physics::RigidBody(shape);
+  auto rigidBody =
+      new dioptre::physics::bullet::RigidBody(shape, map->getTransform());
   auto physics = new dioptre::physics::Component(rigidBody);
   map->addComponent(physics);
 

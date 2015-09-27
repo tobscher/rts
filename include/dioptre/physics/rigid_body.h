@@ -12,7 +12,8 @@ namespace physics {
 
 class RigidBody {
 public:
-  explicit RigidBody(Shape *shape);
+  explicit RigidBody(Shape *shape, Transform *transform);
+  virtual ~RigidBody() {}
 
   glm::vec3 getInertia() { return inertia_; }
   float getMass() { return mass_; }
@@ -21,16 +22,22 @@ public:
 
   int getId() { return id_; }
 
+  virtual int initialize() { return 0; }
+  virtual void setTransform(dioptre::Transform *transform) {
+    transform_ = transform;
+  }
+
   dioptre::ComponentInterface *getComponent() { return component_; }
   void setComponent(dioptre::ComponentInterface *component) {
     component_ = component;
   }
 
-private:
+protected:
   int id_;
   bool isInitialized_;
 
   Shape *shape_;
+  dioptre::Transform *transform_;
   float mass_;
   glm::vec3 inertia_;
 

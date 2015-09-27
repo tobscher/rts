@@ -13,5 +13,5 @@ TEST(DetourNavigationMesh, Build) {
   navMesh->build();
   auto navMeshQuery = new dioptre::ai::detour::NavigationMesh(navMesh);
   navMeshQuery->build();
-  navMeshQuery->find();
+  /* navMeshQuery->find(glm::vec3(1, 0, 0), glm::vec3(10, 0, 0)); */
 }

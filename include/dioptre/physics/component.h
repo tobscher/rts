@@ -3,6 +3,7 @@
 
 #include "dioptre/component_interface.h"
 #include "dioptre/physics/rigid_body.h"
+#include "dioptre/physics/transform_observer.h"
 
 namespace dioptre {
 namespace physics {
@@ -12,10 +13,14 @@ public:
   explicit Component(RigidBody *rigidBody);
   ~Component();
 
+  int initialize();
   void update();
+
+  RigidBody *getRigidBody() { return rigidBody_; }
 
 private:
   RigidBody *rigidBody_;
+  dioptre::physics::TransformObserver *transformObserver_;
 };
 
 } // physics

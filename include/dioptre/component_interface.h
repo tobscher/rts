@@ -6,6 +6,8 @@
 
 #include "spdlog/spdlog.h"
 
+#include "dioptre/transform.h"
+
 namespace dioptre {
 
 class Object;
@@ -26,8 +28,6 @@ protected:
   bool isInitialized_;
 
   std::shared_ptr<spdlog::logger> logger_;
-
-private:
   Object *object_;
 }; // ComponentInterface
 

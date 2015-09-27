@@ -5,9 +5,11 @@
 #include "glm/gtc/quaternion.hpp"
 #include "glm/gtx/quaternion.hpp"
 
+#include "dioptre/subject.h"
+
 namespace dioptre {
 
-class Transform {
+class Transform : public Subject<Transform> {
 public:
   Transform();
   virtual ~Transform() {}
@@ -39,6 +41,9 @@ public:
   // Matrix
   virtual void setMatrix(glm::mat4 matrix);
   glm::mat4 getMatrix();
+
+  // Observer
+  dioptre::Subject<dioptre::Transform> *getSubject();
 
 protected:
   bool matrixNeedsUpdating_;

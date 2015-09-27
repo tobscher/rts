@@ -156,6 +156,7 @@ void Application::run() {
         o->update();
       }
       physicsService_->debug();
+      physicsService_->simulate();
       accumulator -= dt;
     }
 

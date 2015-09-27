@@ -37,43 +37,16 @@ int Physics::initialize() {
 void Physics::initializeWorld() {
   logger_->info("Initializing physics world.");
   for (auto it = world_->begin(); it != world_->end(); it++) {
-    initializeRigidBody(*it);
+    initializeRigidBody((dioptre::physics::bullet::RigidBody *)*it);
   }
 }
 
-void Physics::initializeRigidBody(dioptre::physics::RigidBody *body) {
-  auto shape =
-      dynamic_cast<dioptre::physics::bullet::Shape *>(body->getShape());
-  btCollisionShape *boxCollisionShape = shape->getCollisionShape();
-
-  auto component = body->getComponent();
-  auto object = component->getObject();
-  auto transform = object->getTransform();
-  auto position = transform->getPosition();
-  auto orientation =
-      body->getComponent()->getObject()->getTransform()->getOrientation();
-  auto inertia = body->getInertia();
-  auto mass = body->getMass();
-
-  logger_->info("Initializing rigid body.") << object->getName();
-
-  btDefaultMotionState *motionstate = new btDefaultMotionState(btTransform(
-      btQuaternion(orientation.x, orientation.y, orientation.z, orientation.w),
-      btVector3(position.x, position.y, position.z)));
-
-  btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
-      mass, // mass, in kg. 0 -> Static object, will never move.
-      motionstate,
-      boxCollisionShape,                         // collision shape of body
-      btVector3(inertia.x, inertia.y, inertia.z) // local inertia
-      );
-
-  btRigidBody *rigidBody = new btRigidBody(rigidBodyCI);
+void Physics::initializeRigidBody(
+    dioptre::physics::bullet::RigidBody *rigidBody) {
+  rigidBody->initialize();
 
   rigidBodies_.push_back(rigidBody);
-  dynamicsWorld_->addRigidBody(rigidBody);
-
-  rigidBody->setUserPointer(object);
+  dynamicsWorld_->addRigidBody(rigidBody->getBulletRigidBody());
 }
 
 void ScreenPosToWorldRay(
@@ -121,7 +94,6 @@ void Physics::castRay(dioptre::mouse::Position position) {
   auto graphics =
       dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(
           dioptre::Module::M_GRAPHICS);
-  auto debug = (dioptre::graphics::Debug *)graphics->getLayer(2);
   auto layer = graphics->getLayer(0);
   auto camera = layer->getCamera();
   auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(
@@ -165,7 +137,7 @@ void Physics::castRay(dioptre::mouse::Position position) {
 
 void Physics::debug() { dynamicsWorld_->debugDrawWorld(); }
 
-void Physics::simulate() {}
+void Physics::simulate() { dynamicsWorld_->stepSimulation(1 / 60.f, 10); }
 
 void Physics::destroy() {}
 

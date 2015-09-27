@@ -7,6 +7,7 @@
 
 #include "dioptre/physics/component.h"
 #include "dioptre/physics/bullet/box_shape.h"
+#include "dioptre/physics/bullet/rigid_body.h"
 
 #include "rts/abilities/move.h"
 
@@ -42,7 +43,8 @@ Unit *Unit::spawn(Map *map) {
 
   auto shape = new dioptre::physics::bullet::BoxShape(0.5f * cellSize, 1.0f,
                                                       0.5f * cellSize);
-  auto rigidBody = new dioptre::physics::RigidBody(shape);
+  auto rigidBody =
+      new dioptre::physics::bullet::RigidBody(shape, unit->getTransform());
   auto physics = new dioptre::physics::Component(rigidBody);
   unit->addComponent(physics);
 
