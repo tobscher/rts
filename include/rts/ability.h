@@ -17,7 +17,7 @@ public:
   virtual void update() = 0;
   virtual void destroy() = 0;
 
-private:
+protected:
   std::string name_;
   rts::GameObject *gameObject_;
 }; // Ability

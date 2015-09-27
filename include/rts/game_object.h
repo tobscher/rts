@@ -12,6 +12,9 @@ public:
   virtual ~GameObject();
 
   bool hasAbility(rts::AbilityType type);
+  rts::Ability *getAbility(rts::AbilityType type);
+
+  void update();
 
 protected:
   std::map<rts::AbilityType, rts::Ability *> abilities_;

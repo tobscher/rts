@@ -1,5 +1,6 @@
 #include "rts/map.h"
 #include "rts/human_player.h"
+#include "rts/abilities/move.h"
 
 #include "dioptre/application.h"
 #include "dioptre/graphics/component.h"
@@ -23,10 +24,10 @@ void Map::handleClick(glm::vec3 hitPoint) {
   auto selected = humanPlayer->getSelectedObjects();
 
   for (auto it = selected.begin(); it != selected.end(); it++) {
-    /* if ((*it)->haAbility(A_MOVE)) { */
-    /*   auto moveAbility = (*it)->getAbility<rts::Abilities::Move>(); */
-    /*   moveAbility->Move(from, hitPoint); */
-    /* } */
+    if ((*it)->hasAbility(rts::A_MOVE)) {
+      auto moveAbility = (rts::abilities::Move *)(*it)->getAbility(rts::A_MOVE);
+      moveAbility->move(hitPoint);
+    }
   }
 }
 
@@ -48,10 +49,9 @@ Map *Map::spawn() {
   navMesh->build();
   auto navMeshQuery = new dioptre::ai::detour::NavigationMesh(navMesh);
   navMeshQuery->build();
-  navMeshQuery->find();
 
   // Extract this into level loading once levels are available
-  Map *map = new Map();
+  Map *map = new Map(navMeshQuery);
 
   // Graphics Component
   auto mesh = new dioptre::graphics::Mesh(geometry, material);
@@ -65,6 +65,10 @@ Map *Map::spawn() {
   map->addComponent(physics);
 
   return map;
+}
+
+glm::vec3 Map::findPath(glm::vec3 from, glm::vec3 to) {
+  return navigationMesh_->find(from, to);
 }
 
 } // rts

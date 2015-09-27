@@ -1,7 +1,7 @@
 #ifndef RTS_COMMAND_CENTRE_H_
 #define RTS_COMMAND_CENTRE_H_
 
-#include "dioptre/object.h"
+#include "rts/game_object.h"
 #include "rts/map.h"
 #include "rts/selector.h"
 
@@ -9,14 +9,14 @@
 
 namespace rts {
 
-class CommandCentre : public dioptre::Object {
+class CommandCentre : public rts::GameObject {
 public:
   CommandCentre();
   void handleClick(glm::vec3 hitPoint);
 
-  Selector* getSelector();
+  Selector *getSelector();
 
-  static CommandCentre* spawn(Map* map);
+  static CommandCentre *spawn(Map *map);
 
 private:
   std::unique_ptr<Selector> selector_;

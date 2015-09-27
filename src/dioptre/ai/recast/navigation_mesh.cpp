@@ -8,7 +8,7 @@ namespace recast {
 
 NavigationMesh::NavigationMesh(dioptre::graphics::BoxGeometry *geometry)
     : geometry_(geometry), cellSize_(1.0), cellHeight_(0.2), agentHeight_(2.0),
-      agentMaxClimb_(0.9), agentRadius_(0.6), maxSlope_(45.0), edgeMaxLen_(12),
+      agentMaxClimb_(0.9), agentRadius_(0.5), maxSlope_(45.0), edgeMaxLen_(12),
       edgeMaxError_(1.3), regionMinSize_(8), regionMergeSize_(20),
       vertsPerPoly_(6), detailSampleDistance_(6), detailSampleMaxError_(1) {
 
@@ -170,6 +170,10 @@ bool NavigationMesh::partition() {
    * vols[i].hmin, */
   /*                        vols[i].hmax, (unsigned char)vols[i].area,
    * *compact_); */
+
+  float bmin[3] = {-2.5, 0.5, -2.5};
+  float bmax[3] = {2.5, 1.5, 2.5};
+  rcMarkBoxArea(context_, bmin, bmax, RC_NULL_AREA, *compact_);
 
   // Partition the heightfield so that we can use simple algorithm later to
   // triangulate the walkable areas.

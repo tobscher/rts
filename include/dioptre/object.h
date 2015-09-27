@@ -40,7 +40,7 @@ public:
   std::string getName();
   bool getIsInitialized();
 
-  void update();
+  virtual void update();
 
   // Events
   virtual void handleClick(glm::vec3 hitPoint);

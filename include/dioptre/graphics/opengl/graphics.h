@@ -4,6 +4,7 @@
 #include <map>
 
 #include "dioptre/graphics/opengl.h"
+#include "dioptre/graphics/opengl/debug.h"
 #include "dioptre/graphics/opengl/geometry.h"
 #include "dioptre/graphics/graphics_interface.h"
 #include "dioptre/window/window_interface.h"
@@ -40,7 +41,7 @@ public:
   /**
    * Renders the given scene graph with the current camera.
    */
-  void renderScene(Scene* scene, Camera* camera, float alpha);
+  void renderScene(Scene *scene, Camera *camera, float alpha);
 
   /**
    * Destroys the current 3D context.
@@ -50,14 +51,14 @@ public:
   /**
    * Destroys the given scene.
    */
-  void destroyScene(Scene* scene);
+  void destroyScene(Scene *scene);
 
 private:
-  void initializeMesh(Mesh* mesh);
-  void renderMesh(Mesh* mesh);
-  void destroyMesh(Mesh* mesh);
+  void initializeMesh(Mesh *mesh);
+  void renderMesh(Mesh *mesh);
+  void destroyMesh(Mesh *mesh);
 
-  /* dioptre::graphics::Projector* projector_; */
+  dioptre::graphics::opengl::Debug *debug_;
 
   GLuint vertexArrayId_;
 }; // Graphics

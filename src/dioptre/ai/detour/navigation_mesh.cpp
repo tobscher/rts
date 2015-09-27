@@ -1,4 +1,6 @@
 #include "dioptre/ai/detour/navigation_mesh.h"
+#include "dioptre/graphics/debug.h"
+#include "dioptre/locator.h"
 
 #include "DetourNavMeshBuilder.h"
 #include "DetourStatus.h"
@@ -26,7 +28,7 @@ NavigationMesh::NavigationMesh(dioptre::ai::recast::NavigationMesh *mesh)
   filter_.setIncludeFlags(SAMPLE_POLYFLAGS_ALL ^ SAMPLE_POLYFLAGS_DISABLED);
   filter_.setExcludeFlags(0);
 
-  srand(static_cast<unsigned>(time(0)));
+  srand(static_cast<unsigned>(::time(0)));
 }
 
 bool NavigationMesh::build() {
@@ -129,39 +131,35 @@ static float frand() {
   return (float)rand() / (float)RAND_MAX;
 }
 
-void NavigationMesh::find() {
-  if (!navMesh_)
-    return;
-
+glm::vec3 NavigationMesh::find(glm::vec3 from, glm::vec3 to) {
   /* if (sposSet_) { */
   /*   std::cout << "Start set:" << std::endl; */
-  /*   navQuery_->findNearestPoly(spos_, polyPickExt_, &filter_, &startRef_, 0);
-   */
+  spos_[0] = from.x;
+  spos_[1] = from.y;
+  spos_[2] = from.z;
+  navQuery_->findNearestPoly(spos_, polyPickExt_, &filter_, &startRef_, 0);
   /* } else { */
   /*   startRef_ = 0; */
   /* } */
 
-  navQuery_->findRandomPoint(&filter_, frand, &startRef_, spos_);
+  /* navQuery_->findRandomPoint(&filter_, frand, &startRef_, spos_); */
 
   /* if (eposSet_) { */
   /*   std::cout << "End set:" << std::endl; */
-  /*   navQuery_->findNearestPoly(epos_, polyPickExt_, &filter_, &endRef_, 0);
-   */
+  epos_[0] = to.x;
+  epos_[1] = to.y;
+  epos_[2] = to.z;
+  navQuery_->findNearestPoly(epos_, polyPickExt_, &filter_, &endRef_, 0);
   /* } else { */
   /*   endRef_ = 0; */
   /* } */
 
-  navQuery_->findRandomPoint(&filter_, frand, &endRef_, epos_);
+  /* navQuery_->findRandomPoint(&filter_, frand, &endRef_, epos_); */
 
-  std::cout << "spos:" << spos_[0] << "x" << spos_[1] << "x" << spos_[2]
-            << std::endl;
-  std::cout << "epos:" << epos_[0] << "x" << epos_[1] << "x" << epos_[2]
-            << std::endl;
-  std::cout << "polyExt:" << polyPickExt_[0] << "x" << polyPickExt_[1] << "x"
-            << polyPickExt_[2] << std::endl;
-
-  std::cout << "StartRef: " << startRef_ << " - "
-            << "EndRef: " << endRef_ << std::endl;
+  /* std::cout << "spos:" << spos_[0] << "x" << spos_[1] << "x" << spos_[2] */
+  /*           << std::endl; */
+  /* std::cout << "epos:" << epos_[0] << "x" << epos_[1] << "x" << epos_[2] */
+  /*           << std::endl; */
 
   pathFindStatus_ = DT_FAILURE;
 
@@ -337,14 +335,28 @@ void NavigationMesh::find() {
           straightPathPolys_, &nstraightPath_, MAX_POLYS, straightPathOptions_);
 
       for (int i = 0; i < nstraightPath_ - 1; ++i) {
-        std::cout << "From:" << straightPath_[i * 3] << "x"
-                  << straightPath_[i * 3 + 1] << "x" << straightPath_[i * 3 + 2]
-                  << std::endl;
+        /* std::cout << "From:" << straightPath_[i * 3] << "x" */
+        /*           << straightPath_[i * 3 + 1] << "x" << straightPath_[i * 3 +
+         * 2] */
+        /*           << std::endl; */
 
         std::cout << "To:" << straightPath_[(i + 1) * 3] << "x"
                   << straightPath_[(i + 1) * 3 + 1] << "x"
                   << straightPath_[(i + 1) * 3 + 2] << std::endl;
+
+        auto graphics =
+            dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(
+                dioptre::Module::M_GRAPHICS);
+        auto debug = (dioptre::graphics::Debug *)graphics->getLayer(2);
+        debug->addLine(glm::vec3(straightPath_[i * 3], straightPath_[i * 3 + 1],
+                                 straightPath_[i * 3 + 2]),
+                       glm::vec3(straightPath_[(i + 1) * 3],
+                                 straightPath_[(i + 1) * 3 + 1],
+                                 straightPath_[(i + 1) * 3 + 2]));
       }
+
+      return glm::vec3(straightPath_[1 * 3], straightPath_[1 * 3 + 1],
+                       straightPath_[1 * 3 + 2]);
     }
   } else {
     npolys_ = 0;
@@ -484,7 +496,7 @@ void NavigationMesh::find() {
   /*   } */
   /* } */
 
-  std::cout << "Finding" << std::endl;
+  return glm::vec3(0, 1, 0);
 }
 
 } // recast

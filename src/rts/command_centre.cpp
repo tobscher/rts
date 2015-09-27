@@ -13,7 +13,7 @@
 
 namespace rts {
 
-CommandCentre::CommandCentre() : Object("objects.command_centre") {
+CommandCentre::CommandCentre() : rts::GameObject("objects.command_centre") {
   selector_ = std::unique_ptr<rts::Selector>(new rts::Selector(this));
 }
 

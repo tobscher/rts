@@ -12,8 +12,8 @@
 
 namespace rts {
 
-HumanPlayer* HumanPlayer::spawn() {
-  HumanPlayer* humanPlayer = new HumanPlayer();
+HumanPlayer *HumanPlayer::spawn() {
+  HumanPlayer *humanPlayer = new HumanPlayer();
 
   auto edgeScrollComponent = new components::EdgeScrollComponent();
   humanPlayer->addComponent(edgeScrollComponent);
@@ -24,23 +24,28 @@ HumanPlayer* HumanPlayer::spawn() {
 void HumanPlayer::makeCurrent() {
   dioptre::Object::makeCurrent();
 
-  auto graphicsService = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
+  auto graphicsService =
+      dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(
+          dioptre::Module::M_GRAPHICS);
   auto layer = graphicsService->getLayer(0);
   auto camera = layer->getCamera();
 
   camera->makeCurrent();
 }
 
-std::vector<dioptre::Object*> HumanPlayer::getSelectedObjects() {
+std::vector<rts::GameObject *> HumanPlayer::getSelectedObjects() {
   return selectedObjects_;
 }
 
-void HumanPlayer::select(dioptre::Object* object) {
-  if (std::find(selectedObjects_.begin(), selectedObjects_.end(), object) != selectedObjects_.end()) {
+void HumanPlayer::select(rts::GameObject *object) {
+  if (std::find(selectedObjects_.begin(), selectedObjects_.end(), object) !=
+      selectedObjects_.end()) {
     return;
   }
 
-  auto graphicsService = dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(dioptre::Module::M_GRAPHICS);
+  auto graphicsService =
+      dioptre::Locator::getInstance<dioptre::graphics::GraphicsInterface>(
+          dioptre::Module::M_GRAPHICS);
   auto component = object->getComponent<dioptre::graphics::Component>();
 
   if (component) {
@@ -52,16 +57,17 @@ void HumanPlayer::select(dioptre::Object* object) {
 
   // TODO(Tobscher) Extract this
   auto application = dioptre::Application::getInstance();
-  if (application == nullptr) return;
+  if (application == nullptr)
+    return;
 
   auto text = application->getObject<rts::Text>();
   auto textComponent = text->getComponent<dioptre::graphics::Component>();
   auto mesh = textComponent->getMesh();
-  auto geometry = (dioptre::graphics::TextGeometry*)mesh->getGeometry();
+  auto geometry = (dioptre::graphics::TextGeometry *)mesh->getGeometry();
   geometry->setText(object->getName());
 }
 
-void HumanPlayer::unselect(dioptre::Object* object) {
+void HumanPlayer::unselect(rts::GameObject *object) {
   auto it = std::find(selectedObjects_.begin(), selectedObjects_.end(), object);
   if (it == selectedObjects_.end()) {
     return;
@@ -70,8 +76,6 @@ void HumanPlayer::unselect(dioptre::Object* object) {
   selectedObjects_.erase(it);
 }
 
-void HumanPlayer::clearSelection() {
-  selectedObjects_.clear();
-}
+void HumanPlayer::clearSelection() { selectedObjects_.clear(); }
 
 } // rts

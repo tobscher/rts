@@ -33,7 +33,7 @@ public:
 
   NavigationMesh(dioptre::ai::recast::NavigationMesh *mesh);
   bool build();
-  void find();
+  glm::vec3 find(glm::vec3 from, glm::vec3 to);
 
 private:
   dioptre::ai::recast::NavigationMesh *mesh_;

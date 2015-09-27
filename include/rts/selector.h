@@ -1,20 +1,20 @@
 #ifndef RTS_SELECTOR_H_
 #define RTS_SELECTOR_H_
 
-#include "dioptre/object.h"
+#include "rts/game_object.h"
 #include "dioptre/graphics/component.h"
 
 namespace rts {
 
 class Selector {
 public:
-  explicit Selector(dioptre::Object *object);
+  explicit Selector(rts::GameObject *object);
 
   void select();
-  void setTarget(dioptre::Object *target, float size);
+  void setTarget(rts::GameObject *target, float size);
 
 private:
-  dioptre::Object *object_;
+  rts::GameObject *object_;
 }; // Selector
 
 } // rts
