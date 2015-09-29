@@ -6,7 +6,7 @@ in vec3 EyeDirection_cameraspace;
 in vec3 LightDirection_cameraspace;
 
 uniform vec3 diffuse;
-out vec3 color;
+out vec4 color;
 
 // grid
 in vec2 UV;
@@ -35,11 +35,14 @@ void main() {
   vec3 R = reflect(-l,n);
   float cosAlpha = clamp( dot( E,R ), 0,1 );
 
-  color = MaterialAmbientColor +
+  vec3 c = MaterialAmbientColor +
     MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
     MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
 
-  vec4 projected = textureProj(ProjectorTex, ProjTexCoord);
+  vec4 projected = vec4(0.0);
+  if (ProjTexCoord.z > 0.0) {
+    projected = textureProj(ProjectorTex, ProjTexCoord);
+  }
 
-  color = mix(color, projected.rgb, projected.a);
+  color = vec4(c, 1.0) + projected * 0.5;
 }
