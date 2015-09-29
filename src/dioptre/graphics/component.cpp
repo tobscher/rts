@@ -4,37 +4,46 @@
 namespace dioptre {
 namespace graphics {
 
-Component::Component(Mesh* mesh, int layerIndex) :
-  ComponentInterface("dioptre.graphics.component"),
-  mesh_(mesh),
-  projector_(nullptr)
-{
+Component::Component(Mesh *mesh, int layerIndex)
+    : ComponentInterface("dioptre.graphics.component"), mesh_(mesh),
+      projector_(nullptr) {
   mesh->setComponent(this);
 
   // TODO(tobscher) on initialize
-  auto graphicsService = dioptre::Locator::getInstance<GraphicsInterface>(dioptre::Module::M_GRAPHICS);
+  auto graphicsService = dioptre::Locator::getInstance<GraphicsInterface>(
+      dioptre::Module::M_GRAPHICS);
   auto layer = graphicsService->getLayer(layerIndex);
   auto scene = layer->getScene();
   scene->add(mesh);
+
+  transformObserver_ = new dioptre::graphics::TransformObserver(this);
 }
 
-Component::~Component() {
-  delete mesh_;
+int Component::initialize() {
+  dioptre::ComponentInterface::initialize();
+
+  auto transform = object_->getTransform();
+  transform->attach(transformObserver_);
+
+  return 0;
 }
 
-Mesh* Component::getMesh() {
-  return mesh_;
-}
+Component::~Component() { delete mesh_; }
 
-void Component::update() {
-}
+Mesh *Component::getMesh() { return mesh_; }
 
-Projector* Component::getProjector() {
-  return projector_;
-}
+void Component::update() {}
 
-void Component::setProjector(Projector* projector) {
-  projector_ = projector;
+Projector *Component::getProjector() { return projector_; }
+
+void Component::setProjector(Projector *projector) { projector_ = projector; }
+
+void Component::makeCurrent() {
+  if (!projector_) {
+    return;
+  }
+
+  projector_->makeCurrent();
 }
 
 } // graphics

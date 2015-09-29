@@ -39,7 +39,13 @@ void Object::update() {
 
 Transform *Object::getTransform() { return state_->getCurrent(); }
 
-void Object::makeCurrent() { return state_->makeCurrent(); }
+void Object::makeCurrent() {
+  for (auto c : components_) {
+    c->makeCurrent();
+  }
+
+  state_->makeCurrent();
+}
 
 std::string Object::getName() { return name_; }
 

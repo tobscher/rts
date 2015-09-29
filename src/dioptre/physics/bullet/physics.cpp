@@ -43,8 +43,6 @@ void Physics::initializeWorld() {
 
 void Physics::initializeRigidBody(
     dioptre::physics::bullet::RigidBody *rigidBody) {
-  rigidBody->initialize();
-
   rigidBodies_.push_back(rigidBody);
   dynamicsWorld_->addRigidBody(rigidBody->getBulletRigidBody());
 }

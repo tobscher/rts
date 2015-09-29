@@ -25,21 +25,14 @@ int main(int argc, char *argv[]) {
   auto time = new dioptre::time::glfw::Time();
   auto physics = new dioptre::physics::bullet::Physics();
 
-  dioptre::Application application(argc, argv,
-      window,
-      graphics,
-      keyboard,
-      filesystem,
-      mouse,
-      time,
-      physics
-  );
+  dioptre::Application application(argc, argv, window, graphics, keyboard,
+                                   filesystem, mouse, time, physics);
   application.initialize();
 
-  rts::Map* map(rts::Map::spawn());
-  rts::CommandCentre* commandCentre(rts::CommandCentre::spawn(map));
-  rts::HumanPlayer* humanPlayer(rts::HumanPlayer::spawn());
-  rts::Text* text(rts::Text::spawn());
+  rts::Map *map(rts::Map::spawn());
+  rts::CommandCentre *commandCentre(rts::CommandCentre::spawn(map));
+  rts::HumanPlayer *humanPlayer(rts::HumanPlayer::spawn());
+  rts::Text *text(rts::Text::spawn());
 
   application.addObject(map);
   application.addObject(commandCentre);
@@ -48,15 +41,9 @@ int main(int argc, char *argv[]) {
 
   // Add some units
   for (int i = 0; i < 5; i++) {
-    rts::Unit* unit(rts::Unit::spawn(map));
+    rts::Unit *unit(rts::Unit::spawn(map));
     auto transform = unit->getTransform();
-    auto graphicsComponent = unit->getComponent<dioptre::graphics::Component>();
-
-    transform->translateX(-10 + (i * 5));
-    transform->translateZ(5);
-
-    graphicsComponent->getProjector()->getTransform()->translateX(-10 + (i * 5));
-    graphicsComponent->getProjector()->getTransform()->translateZ(5);
+    transform->translate(glm::vec3(-10 + (i * 5), 0, 5));
 
     application.addObject(unit);
   }

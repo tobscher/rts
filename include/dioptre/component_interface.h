@@ -20,6 +20,7 @@ public:
   virtual void update() = 0;
   void setObject(Object *object);
   Object *getObject();
+  virtual void makeCurrent() {}
 
   bool getIsInitialized();
 

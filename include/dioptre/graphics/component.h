@@ -4,6 +4,8 @@
 #include "dioptre/component_interface.h"
 #include "dioptre/graphics/projector.h"
 #include "dioptre/graphics/mesh.h"
+#include "dioptre/graphics/transform_observer.h"
+
 #include "glm/glm.hpp"
 
 namespace dioptre {
@@ -14,7 +16,9 @@ public:
   explicit Component(Mesh *mesh, int layerIndex = 0);
   ~Component();
 
+  int initialize();
   void update();
+  void makeCurrent();
 
   Mesh *getMesh();
 
@@ -24,6 +28,7 @@ public:
 private:
   Mesh *mesh_;
   Projector *projector_;
+  dioptre::graphics::TransformObserver *transformObserver_;
 };
 
 } // graphics

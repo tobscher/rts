@@ -65,6 +65,7 @@ Map *Map::spawn() {
       new dioptre::physics::bullet::RigidBody(shape, map->getTransform());
   auto physics = new dioptre::physics::Component(rigidBody);
   map->addComponent(physics);
+  map->initialize();
 
   return map;
 }

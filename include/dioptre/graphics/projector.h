@@ -10,16 +10,20 @@ namespace graphics {
 class Component;
 class Projector {
 public:
-  Projector(glm::float32 fov, glm::float32 aspect, glm::float32 near, glm::float32 far);
+  Projector(glm::float32 fov, glm::float32 aspect, glm::float32 near,
+            glm::float32 far);
 
   glm::mat4 getProjectionMatrix();
-  CameraTransform* getTransform();
 
-  Mesh* getTarget();
-  void setTarget(Mesh* mesh);
+  State<CameraTransform> *getState() { return state_; }
+  CameraTransform *getTransform();
+  void makeCurrent();
+
+  Mesh *getTarget();
+  void setTarget(Mesh *mesh);
 
 private:
-  Mesh* target_;
+  Mesh *target_;
 
   glm::float32 fov_;
   glm::float32 aspect_;
@@ -29,7 +33,7 @@ private:
   void updateProjectionMatrix();
   glm::mat4 projectionMatrix_;
 
-  CameraTransform* transform_;
+  State<CameraTransform> *state_;
 }; // Projector
 
 } // graphics

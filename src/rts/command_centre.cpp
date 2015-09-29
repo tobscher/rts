@@ -50,6 +50,7 @@ CommandCentre *CommandCentre::spawn(Map *map) {
       shape, commandCentre->getTransform());
   auto physics = new dioptre::physics::Component(rigidBody);
   commandCentre->addComponent(physics);
+  commandCentre->initialize();
 
   return commandCentre;
 }

@@ -119,7 +119,8 @@ void Graphics::renderScene(Scene *scene, Camera *camera, float alpha) {
       initializeMesh(mesh);
     }
 
-    glm::mat4 matrix;
+    glm::mat4 previousModel;
+    glm::mat4 currentModel;
     auto component =
         dynamic_cast<dioptre::graphics::Component *>(mesh->getComponent());
 
@@ -128,8 +129,8 @@ void Graphics::renderScene(Scene *scene, Camera *camera, float alpha) {
     // so just use identity matrix.
     if (component != nullptr) {
       auto object = component->getObject();
-      auto transform = object->getTransform();
-      matrix = transform->getMatrix();
+      previousModel = object->getState()->getPrevious()->getMatrix();
+      currentModel = object->getState()->getCurrent()->getMatrix();
     }
 
     // Camera
@@ -142,7 +143,7 @@ void Graphics::renderScene(Scene *scene, Camera *camera, float alpha) {
         camera->getState()->getCurrent()->getMatrixWorldInverse();
     glm::mat4 view = glm::interpolate(previousView, currentView, alpha);
 
-    glm::mat4 model = matrix;
+    glm::mat4 model = glm::interpolate(previousModel, currentModel, alpha);
     glm::mat4 mvp = projection * view * model;
 
     auto material = mesh->getMaterial();
@@ -151,8 +152,14 @@ void Graphics::renderScene(Scene *scene, Camera *camera, float alpha) {
 
     if (projector_ != nullptr) {
       if (projector_->getTarget() == mesh) {
+        glm::mat4 projPreviousView =
+            projector_->getState()->getPrevious()->getMatrixWorldInverse();
+        glm::mat4 projCurrentView =
+            projector_->getState()->getCurrent()->getMatrixWorldInverse();
+
         glm::mat4 projView =
-            projector_->getTransform()->getMatrixWorldInverse();
+            glm::interpolate(projPreviousView, projCurrentView, alpha);
+
         glm::mat4 projProj = projector_->getProjectionMatrix();
         glm::mat4 projScaleTrans =
             glm::translate(glm::vec3(0.5f)) * glm::scale(glm::vec3(0.5f));

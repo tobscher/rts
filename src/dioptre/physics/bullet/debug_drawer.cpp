@@ -19,8 +19,8 @@ void DebugDrawer::drawLine(const btVector3 &from, const btVector3 &to,
   auto debug = (dioptre::graphics::Debug *)graphics_->getLayer(2);
 
   if (debug) {
-    debug->addLine(glm::vec3(from.x(), from.y(), from.z()),
-                   glm::vec3(to.x(), to.y(), to.z()));
+    /* debug->addLine(glm::vec3(from.x(), from.y(), from.z()), */
+    /*                glm::vec3(to.x(), to.y(), to.z())); */
   } else {
     std::cout << "DebugDrawer -  Error: "
               << "No debug drawer attached." << std::endl;

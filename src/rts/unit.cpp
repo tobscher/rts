@@ -48,6 +48,8 @@ Unit *Unit::spawn(Map *map) {
   auto physics = new dioptre::physics::Component(rigidBody);
   unit->addComponent(physics);
 
+  unit->initialize();
+
   return unit;
 }
 

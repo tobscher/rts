@@ -27,21 +27,25 @@ void Transform::setPosition(glm::float32 x, glm::float32 y, glm::float32 z) {
 void Transform::translateX(glm::float32 x) {
   position_.x += x;
   matrixNeedsUpdating_ = true;
+  notify();
 }
 
 void Transform::translateY(glm::float32 y) {
   position_.y += y;
   matrixNeedsUpdating_ = true;
+  notify();
 }
 
 void Transform::translateZ(glm::float32 z) {
   position_.z += z;
   matrixNeedsUpdating_ = true;
+  notify();
 }
 
 void Transform::translate(glm::vec3 v) {
   position_ += v;
   matrixNeedsUpdating_ = true;
+  notify();
 }
 
 void Transform::setScale(glm::float32 x, glm::float32 y, glm::float32 z) {

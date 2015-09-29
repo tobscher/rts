@@ -33,7 +33,7 @@ public:
   virtual int initialize();
 
   // State
-  State<Transform> *getState();
+  State<Transform> *getState() { return state_; }
   Transform *getTransform();
   virtual void makeCurrent();
 

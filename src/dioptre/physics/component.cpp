@@ -20,17 +20,15 @@ Component::Component(RigidBody *rigidBody)
 int Component::initialize() {
   dioptre::ComponentInterface::initialize();
 
+  rigidBody_->initialize();
+
   auto transform = object_->getTransform();
   transform->attach(transformObserver_);
 
   return 0;
 }
 
-void Component::update() {
-  if (!isInitialized_) {
-    initialize();
-  }
-}
+void Component::update() {}
 
 Component::~Component() { delete rigidBody_; }
 
