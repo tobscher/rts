@@ -21,6 +21,7 @@ public:
   virtual void initializeWorld() = 0;
   virtual void castRay(dioptre::mouse::Position position) = 0;
   virtual void debug() = 0;
+  virtual void toggleDebug() {}
 
 protected:
   std::unique_ptr<World> world_;

@@ -1,4 +1,4 @@
-#include "exit_game.h"
+#include "dioptre/keyboard/handlers/exit_game.h"
 #include "dioptre/locator.h"
 #include "dioptre/keyboard/keys.h"
 
@@ -11,7 +11,8 @@ dioptre::keyboard::Key ExitGame::handles() {
 }
 
 void ExitGame::update() {
-  auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(dioptre::Module::M_WINDOW);
+  auto window = dioptre::Locator::getInstance<dioptre::window::WindowInterface>(
+      dioptre::Module::M_WINDOW);
   window->setShouldClose(true);
 }
 

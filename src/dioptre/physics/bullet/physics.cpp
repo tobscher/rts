@@ -26,7 +26,7 @@ int Physics::initialize() {
   dynamicsWorld_->setGravity(btVector3(gravity.x, gravity.y, gravity.z));
 
   debugDrawer_ = std::unique_ptr<DebugDrawer>(new DebugDrawer());
-  debugDrawer_->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
+  debugDrawer_->setDebugMode(btIDebugDraw::DBG_NoDebug);
   dynamicsWorld_->setDebugDrawer(debugDrawer_.get());
 
   logger_->info("Bullet engine initialized.");
@@ -134,6 +134,14 @@ void Physics::castRay(dioptre::mouse::Position position) {
 }
 
 void Physics::debug() { dynamicsWorld_->debugDrawWorld(); }
+
+void Physics::toggleDebug() {
+  if (debugDrawer_->getDebugMode() == btIDebugDraw::DBG_NoDebug) {
+    debugDrawer_->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
+  } else {
+    debugDrawer_->setDebugMode(btIDebugDraw::DBG_NoDebug);
+  }
+}
 
 void Physics::simulate() { dynamicsWorld_->stepSimulation(1 / 60.f, 10); }
 

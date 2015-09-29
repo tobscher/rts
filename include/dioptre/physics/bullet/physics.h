@@ -23,6 +23,7 @@ public:
   void initializeRigidBody(dioptre::physics::bullet::RigidBody *rigidBody);
   void castRay(dioptre::mouse::Position position);
   void debug();
+  void toggleDebug();
 
 private:
   std::unique_ptr<btBroadphaseInterface> broadphase_;

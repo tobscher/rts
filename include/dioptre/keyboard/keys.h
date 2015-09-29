@@ -10,6 +10,7 @@ namespace keyboard {
 enum Key {
   KEY_UNKNOWN,
 
+  KEY_D,
   KEY_ESCAPE,
 
   KEY_MAX_ENUM

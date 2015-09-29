@@ -6,7 +6,8 @@
 #include "dioptre/graphics/perspective_camera.h"
 #include "dioptre/graphics/orthographic_camera.h"
 
-#include "keyboard/handlers/exit_game.h"
+#include "dioptre/keyboard/handlers/exit_game.h"
+#include "dioptre/keyboard/handlers/toggle_debug.h"
 
 namespace dioptre {
 
@@ -120,7 +121,10 @@ void Application::run() {
   // free this handler
   dioptre::keyboard::handlers::ExitGame *exitGameHandler =
       new dioptre::keyboard::handlers::ExitGame();
+  dioptre::keyboard::handlers::ToggleDebug *toggleDebugHandler =
+      new dioptre::keyboard::handlers::ToggleDebug();
   keyboardService_->registerKeyHandler(exitGameHandler);
+  keyboardService_->registerKeyHandler(toggleDebugHandler);
 
   graphicsService_->initializeScene();
   physicsService_->initializeWorld();
