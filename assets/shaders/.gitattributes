@@ -1,1 +1,2 @@
-U2FsdGVkX19/7CCdLAlwzIhLnauwombRuKU6HAOGUh8CNheiD1nkK///qwjZzSHF
+* filter=encrypt diff=encrypt
+.gitattributes !filter !diff
