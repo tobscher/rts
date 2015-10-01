@@ -1,45 +1,27 @@
-#version 330 core
-
-in vec3 Position_worldspace;
-in vec3 Normal_cameraspace;
-in vec3 EyeDirection_cameraspace;
-in vec3 LightDirection_cameraspace;
-
-#ifdef USE_COLOR
-  uniform vec3 diffuse;
-#endif
-out vec3 color;
-
-#ifdef USE_TEXTURE
-  in vec2 UV;
-  uniform sampler2D textureSampler;
-#endif
-
-uniform mat4 MV;
-uniform vec3 LightPosition_worldspace;
-
-void main() {
-#ifdef USE_COLOR
-  vec3 MaterialDiffuseColor = vec3(diffuse);
-#endif
-
-#ifdef USE_TEXTURE
-  vec3 MaterialDiffuseColor = vec3(texture(textureSampler, UV).rgb);
-#endif
-
-  vec3 LightColor = vec3(1,1,1);
-  float LightPower = 8000.0f;
-  vec3 MaterialAmbientColor = vec3(0.1,0.1,0.1) * MaterialDiffuseColor;
-  vec3 MaterialSpecularColor = vec3(0.3,0.3,0.3);
-  float distance = length( LightPosition_worldspace - Position_worldspace );
-  vec3 n = normalize( Normal_cameraspace );
-  vec3 l = normalize( LightDirection_cameraspace );
-  float cosTheta = clamp( dot( n,l ), 0,1 );
-  vec3 E = normalize(EyeDirection_cameraspace);
-  vec3 R = reflect(-l,n);
-  float cosAlpha = clamp( dot( E,R ), 0,1 );
-
-  color = MaterialAmbientColor +
-    MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
-    MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
-}
+U2FsdGVkX19/7CCdLAlwzNKc8EV/SrTAKaSQ+s54A2+qJcPE2+61Jyki0fHxGaWG
+paB3DHwXZwvJN41gCdtoJ47zvANeMPxzOK4OLogxDc36oTvgaFQkzorq+NgZlpoq
+2uXkkXweT/UFEupbMbSMs2a9Jcue0X6CiEWCnszio5pbpAdc24dgeCrhpBtfk2V2
+lLlSspW0eBW9ci8k7myO/481wIlbodUCtwWvxVWdvZQFDYMBBBuUc0SZiM2Bn03k
+A+xXU9TlPQRiR+EtP5gt42DULpuH8uH1xJkhUidpPBIaN6twYV7zdC/ZlyoopNlT
+Pys/oTw4vwAu8fmfB0SdEo3OKe/SH/NJOHeQNY3sP1GjBE3nl0prVV1g/Pv7nstx
+jueFVL3yvDAspizYGorkNJwtXRpflqeLsjDMWok+A1f6Z5oyWanV3++LNTwpbmH3
+ljbJy94nsiZFb7jfYiJVbmT8geHjm+GQAH1cVC2Mhew72XPZhfBEq/hdpjRr/QrG
+3c/TEK8e7a7oGTIpI29Yt+3vfPViju/Lz0IS01MOwsb8ID2uI+RPQNLsEqazuIsq
+gDC4VyBGY7VMKa5KVogyfQ1PGEwPVT5oYUAaqEYroTFpjbHSIDrMC1cy913v5pPU
+VU7Q66iVmXNy0RVOcVl9+42M0Jo6e/7TVZvbtdBlN2IyjcKk5OHSvK1F6574iY/Y
+0fHJO8G4OaaCN29re7Dz9f3+Jy5Q5ZSBxP18ktADX1r/ZB+AlhDWxTY5W36i5Bgu
+jhgem8IvBcJviXnCu1HEEnKSF1PFLu/R3SFXQz/ayjBP8vINXxikTOhKcv6RLtP8
+J7teKiVRLR80xHaC3QwcRsMVliS3Jdgg/nlBUc3G0thvXK33de/Eb9zxYOIVqqdH
+366VL85gGUw2yrJJl0BJRd/geqKxv2O9H7Zi3SGeffsTAUtZiObUqzRXyVheuAVy
+W1toGah6iOawlE4nVdborqM+IyPqlIAtO2aLXm24ur8Qqt+V5nDT9KIXWdqR+jJu
+C0iFkvh7rwM9m59G1CVGj1oOXGgC8sj5zRgbaW62cKCZs25DDsNSH3KNG1NBJPPC
+kCwzaleaGUYuirjWJWBLKYHEwg7/f3OsNHCNcZKnkgaA+9g0n30hnDyZUifCa4p/
+0A0KgLxpfnx+FaDNIVgvs5S5UrKVtHgVvXIvJO5sjv9Lc+p7IIv2fDcsWf0UxidD
+DJuHJcA4yBnRY7x/SVTATSxIgvXY6Mse7y0/WD6mqvCig78MCU5NMq+nE93Emzqz
+fe+p+hKy/sJxC6A6cp2/EUwXSIBYVja4SOZRkYPcPBX9xvsPp+bk70brvmQSTwdD
+z3SWiuBZIiTPg/YQ/DnAJ89PXTTW4Ke5b6MD4uO0g0QhawNFVnz0mv4a/6Ev8U8E
+40Uw606KNgz6G4EUIWh8543YR3BDZ0EJv690ke5vN62n/HRoGNTGXjGFVQFagsjE
+Zz8vpmDCaz96oEdDQ3ARSBme5UAt0xqUeD12K6Pku18QjwxhpgbkUL3iaA0qpU7H
+eO0T7hzg8PuZBHZsfErcl1GcvHYsSUWtmuEDOPRiB2T6jty7KC9r3Z4ds0u/i4jd
+WAo3e+CM28pa+Z0MJCg64nJAsDsyAb47nDnN8gyN90Pb1D7tddiOE40EO+efP80q
+A8RbolzupVfhCYkMEx9rqi9vDuRaJTZ8tB+GIkigPm4=
