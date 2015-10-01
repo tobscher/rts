@@ -158,13 +158,13 @@ FOREACH (CONFIGINPUT ${CONFIGINPUTS})
 ENDFOREACH (CONFIGINPUT ${CONFIGINPUTS})
 
 # shaders
-FILE (GLOB_RECURSE shader_SRCS shaders/*.frag shaders/*.vert)
+FILE (GLOB_RECURSE shader_SRCS assets/shaders/*.frag assets/shaders/*.vert)
 
 # textures
-FILE (GLOB_RECURSE texture_SRCS textures/*.jpg textures/*.png textures/*.dds)
+FILE (GLOB_RECURSE texture_SRCS assets/textures/*.jpg assets/textures/*.png assets/textures/*.dds)
 
 # fonts
-FILE (GLOB_RECURSE font_SRCS fonts/*.PNG fonts/*.xml)
+FILE (GLOB_RECURSE font_SRCS assets/fonts/*.PNG assets/fonts/*.xml)
 
 #
 # Add Build Targets

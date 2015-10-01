@@ -58,17 +58,17 @@ IF (APPLE)
 ELSE ()
   ADD_CUSTOM_COMMAND(TARGET launcher POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-      ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:launcher>
+      ${CMAKE_SOURCE_DIR}/assets/shaders $<TARGET_FILE_DIR:launcher>
   )
 
   ADD_CUSTOM_COMMAND(TARGET launcher POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-      ${CMAKE_SOURCE_DIR}/textures $<TARGET_FILE_DIR:launcher>
+      ${CMAKE_SOURCE_DIR}/assets/textures $<TARGET_FILE_DIR:launcher>
   )
 
   ADD_CUSTOM_COMMAND(TARGET launcher POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-      ${CMAKE_SOURCE_DIR}/fonts $<TARGET_FILE_DIR:launcher>
+      ${CMAKE_SOURCE_DIR}/assets/fonts $<TARGET_FILE_DIR:launcher>
   )
 ENDIF ()
 
