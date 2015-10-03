@@ -157,14 +157,16 @@ FOREACH (CONFIGINPUT ${CONFIGINPUTS})
     CONFIGURE_FILE ("${CONFIGINPUT}" "${CONFIGOUTPUT2}")
 ENDFOREACH (CONFIGINPUT ${CONFIGINPUTS})
 
+SET (ASSET_PATH "${MAINFOLDER}/assets")
+
 # shaders
-FILE (GLOB_RECURSE shader_SRCS shaders/*.frag shaders/*.vert)
+FILE (GLOB_RECURSE shader_SRCS ${ASSET_PATH}/shaders/*.frag ${ASSET_PATH}/shaders/*.vert)
 
 # textures
-FILE (GLOB_RECURSE texture_SRCS textures/*.jpg textures/*.png textures/*.dds)
+FILE (GLOB_RECURSE texture_SRCS ${ASSET_PATH}/textures/*.jpg ${ASSET_PATH}/textures/*.png ${ASSET_PATH}/textures/*.dds)
 
 # fonts
-FILE (GLOB_RECURSE font_SRCS fonts/*.PNG fonts/*.xml)
+FILE (GLOB_RECURSE font_SRCS ${ASSET_PATH}/fonts/*.PNG ${ASSET_PATH}/fonts/*.xml)
 
 #
 # Add Build Targets

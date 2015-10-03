@@ -50,7 +50,7 @@ IF(RTS_EDITOR_POST_BUILD)
   # Copy shaders
   ADD_CUSTOM_COMMAND(TARGET rts-editor POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-      ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:rts-editor>
+      ${ASSET_PATH}/shaders $<TARGET_FILE_DIR:rts-editor>
   )
 
   # Copy Qt files
